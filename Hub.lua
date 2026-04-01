@@ -12,7 +12,7 @@ end
 ------Load----------------------------------------load------------------
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TwiRwal/TwiWare/main/uilib.lua"))() -- open source
 
-local Window = Library.CreateLib("Script Gaming Hub V1 (Script Expired)", "BloodTheme")
+local Window = Library.CreateLib("Script Gaming Hub V2", "BloodTheme")
 local Tab = Window:NewTab("Custom Entities")
 local Section = Tab:NewSection("Custom Entities Regular Vynixus")
 Section:NewButton("Rebound Remake", "Have Fun", function()
