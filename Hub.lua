@@ -191,10 +191,26 @@ end)
 
 Section:NewButton("B-60 PHOTON", "ButtonInfo", function()
     print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/B-60%20PHOTON.lua"))()
+end)
+
+Section:NewButton("TERROR", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/Terror1.lua"))()
+end)
+
+Section:NewButton("BaldKreek", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/BaldKreek.lua"))()
+end)
+
+Section:NewButton("Husher", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/Husher"))()
 end)
 
 local Tab = Window:NewTab("Custom Item")
-local Section = Tab:NewSection("Coming Soon in 2024")
+local Section = Tab:NewSection("Custom Item")
 
 Section:NewButton("Crucifix All", "ButtonInfo", function()
     print("Clicked")
@@ -213,12 +229,6 @@ end)
 Section:NewButton("A-60 Plushie", "ButtonInfo", function()
     print("Clicked")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/A-60%20Plushie"))()
-end)
-
-Section:NewButton("Guiding Candle", "ButtonInfo", function()
-    local tool = LoadCustomInstance("rbxassetid://12093585726")
-tool.GripPos = Vector3.new(0, -0.5, 0)
-tool.Parent = game.Players.LocalPlayer.Backpack
 end)
 
 Section:NewButton("Crucifix", "ButtonInfo", function()
