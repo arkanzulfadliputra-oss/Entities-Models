@@ -209,6 +209,16 @@ Section:NewButton("Husher", "ButtonInfo", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/Husher"))()
 end)
 
+Section:NewButton("Carnation(Grace Mode)", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Carnation.lua'))()
+end)
+
+Section:NewButton("FrostDire", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/FrostDire.lua")(()
+end)
+
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom Item")
 
@@ -234,6 +244,12 @@ end)
 Section:NewButton("Crucifix", "ButtonInfo", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Crucifix.lua"))()
 end)
+
+local Tab = Window:NewTab("Credit")
+local Section = Tab:NewSection("Credit")
+
+Section:NewLabel("Scripter By @ScripterGaming_Short")
+Section:NewLabel("Entities Models By C87FM")
 
 local Tab = Window:NewTab("Toggle Gui")
 local Section = Tab:NewSection("Toggle Gui")
