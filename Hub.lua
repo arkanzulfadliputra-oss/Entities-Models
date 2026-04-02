@@ -219,6 +219,26 @@ Section:NewButton("FrostDire", "ButtonInfo", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/FrostDire.lua")(()
 end)
 
+Section:NewButton("A-2", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/A-2.lua"))()
+end)
+
+Section:NewButton("A-35", "ButtonInfo", function()
+    print("Clicked")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Rooms%20Internamble/A-35.lua"))()
+end)
+
+Section:NewButton("A-10", "ButtonInfo", function()
+    print("Clicked")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Rooms%20Internamble/A-10.lua"))()
+end)
+
+Section:NewButton("B-95", "ButtonInfo", function()
+    print("Clicked")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Rooms%20Internamble/B-95.lua"))()
+end)				
+				
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom Item")
 
