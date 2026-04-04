@@ -247,7 +247,27 @@ end)
 Section:NewButton("A-60 By Me", "ButtonInfo", function()
     print("Clicked")
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/A-60%20FANMADE%20BY%20ME.lua"))()
-end)				
+end)
+
+Section:NewButton("Depth Remake", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth.lua"))()
+end)
+
+Section:NewButton("Anxiety", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Anxiety.lua"))()
+end)
+
+Section:NewButton("Conjoinment", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Conjoinment.lua"))()
+end)
+
+Section:NewButton("Breeze", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Breeze.lua"))()
+end)
 				
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom Item")
