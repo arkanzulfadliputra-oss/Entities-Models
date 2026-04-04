@@ -237,6 +237,16 @@ end)
 Section:NewButton("B-95", "ButtonInfo", function()
     print("Clicked")
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Rooms%20Internamble/B-95.lua"))()
+end)
+
+Section:NewButton("Depth Retake", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Retake.lua"))()
+end)
+
+Section:NewButton("A-60 By Me", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/A-60%20FANMADE%20BY%20ME.lua"))()
 end)				
 				
 local Tab = Window:NewTab("Custom Item")
