@@ -211,12 +211,12 @@ end)
 
 Section:NewButton("Carnation(Grace Mode)", "ButtonInfo", function()
     print("Clicked")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Carnation.lua'))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Carnation.lua"))()
 end)
 
 Section:NewButton("FrostDire", "ButtonInfo", function()
     print("Clicked")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/FrostDire.lua")(()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/FrostDire.lua"))()
 end)
 
 Section:NewButton("A-2", "ButtonInfo", function()
