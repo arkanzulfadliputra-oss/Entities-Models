@@ -268,6 +268,16 @@ Section:NewButton("Breeze", "ButtonInfo", function()
     print("Clicked")
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Breeze.lua"))()
 end)
+
+Section:NewButton("Rebound Old", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rebound%20Old.lua"))()
+end)
+
+Section:NewButton("Rebound HC", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rebound%20HC.lua"))()
+end)
 				
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom Item")
@@ -291,8 +301,23 @@ Section:NewButton("A-60 Plushie", "ButtonInfo", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/A-60%20Plushie"))()
 end)
 
-Section:NewButton("Crucifix", "ButtonInfo", function()
+Section:NewButton("Crucifix Guiding", "ButtonInfo", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Crucifix.lua"))()
+end)
+
+Section:NewButton("Crucifix White", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20White.lua"))()
+end)
+
+Section:NewButton("Crucifix Lotus", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Lotus.lua"))()
+end)
+
+Section:NewButton("Guiding Light", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Guiding%20Light.lua"))()
 end)
 
 local Tab = Window:NewTab("Credit")
