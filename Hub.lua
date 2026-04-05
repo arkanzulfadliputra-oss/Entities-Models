@@ -251,7 +251,7 @@ end)
 
 Section:NewButton("Depth Remake", "ButtonInfo", function()
     print("Clicked")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth.lua"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Remake.lua"))()
 end)
 
 Section:NewButton("Anxiety", "ButtonInfo", function()
@@ -277,6 +277,11 @@ end)
 Section:NewButton("Rebound HC", "ButtonInfo", function()
     print("Clicked")
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rebound%20HC.lua"))()
+end)
+
+Section:NewButton("Rage", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HtttGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rage.lua"))()
 end)
 				
 local Tab = Window:NewTab("Custom Item")
@@ -320,6 +325,16 @@ Section:NewButton("Guiding Light", "ButtonInfo", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Guiding%20Light.lua"))()
 end)
 
+Section:NewButton("Crucifix Old", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua
+end)
+
+Section:NewButton("Crucifix Plushie", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Plushie.lua"))()
+end)		
+		
 local Tab = Window:NewTab("Credit")
 local Section = Tab:NewSection("Credit")
 
