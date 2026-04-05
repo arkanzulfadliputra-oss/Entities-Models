@@ -1,5 +1,5 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
-local tool = LoadCustomInstance("rbxassetid://")
+local tool = LoadCustomInstance("rbxassetid://12583556840")
 tool.Parent = game:GetService("Players").LocalPlayer.Backpack
 
 local anim1 = Instance.new("Animation")
