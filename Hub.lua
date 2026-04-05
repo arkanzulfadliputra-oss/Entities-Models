@@ -281,7 +281,7 @@ end)
 
 Section:NewButton("Rage", "ButtonInfo", function()
     print("Clicked")
-		loadstring(game:HtttGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rage.lua"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rage.lua"))()
 end)
 				
 local Tab = Window:NewTab("Custom Item")
