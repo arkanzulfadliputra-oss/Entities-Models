@@ -8,6 +8,10 @@ tween:Create(ColorCorrection, TweenInfo.new(5), {Saturation = 0}):Play()
 local TweenService = game:GetService("TweenService")
 local TW = TweenService:Create(ColorCorrection, TweenInfo.new(5),{TintColor = Color3.fromRGB(61, 98, 171)})
 TW:Play()
+
+TW.Completed:Connect(function()
+    ColorCorrection:Destroy()
+end)
 wait(2.8)
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
