@@ -230,3 +230,68 @@ function ambiance()
 		wait(120)
 	end
 end
+
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local animator = humanoid:WaitForChild("Animator")
+
+local tool = LoadCustomInstance("rbxassetid://12093585726")
+tool.Parent = player.Backpack
+
+local anim1 = Instance.new("Animation")
+anim1.Name = "Equip"
+anim1.AnimationId = "rbxassetid://6516424098"
+anim1.Parent = tool
+
+local anim2 = Instance.new("Animation")
+anim2.Name = "Idle"
+anim2.AnimationId = "rbxassetid://97939285526557"
+anim2.Parent = tool
+
+local anim3 = Instance.new("Animation")
+anim3.Name = "Use"
+anim3.AnimationId = "rbxassetid://73237356814157"
+anim3.Parent = tool
+
+local equipTrack, idleTrack, useTrack
+local equipped = false
+
+tool.Equipped:Connect(function()
+    if equipped then return end
+    equipped = true
+
+    equipTrack = animator:LoadAnimation(anim1)
+    idleTrack = animator:LoadAnimation(anim2)
+    useTrack = animator:LoadAnimation(anim3)
+
+    equipTrack:Play()
+
+    equipTrack.Stopped:Wait()
+    
+    if equipped then
+        idleTrack.Looped = true
+        idleTrack:Play()
+    end
+end)
+
+tool.Unequipped:Connect(function()
+    equipped = false
+    
+    if equipTrack then equipTrack:Stop() end
+    if idleTrack then idleTrack:Stop() end
+    if useTrack then useTrack:Stop() end
+end)
+
+tool.Activated:Connect(function()
+    if not equipped then return end
+    
+    if idleTrack then idleTrack:Stop() end
+    
+    useTrack:Play()
+    useTrack.Stopped:Wait()
+    
+    if equipped then
+        idleTrack:Play()
+    end
+end)
