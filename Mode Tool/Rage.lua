@@ -7,6 +7,10 @@ tween:Create(ColorCorrection, TweenInfo.new(5), {Contrast = 0}):Play()
 tween:Create(ColorCorrection, TweenInfo.new(5), {Saturation = 0}):Play()
 local TW = tween:Create(ColorCorrection, TweenInfo.new(5), {TintColor = Color3.fromRGB(255, 255, 255)}) -- Balik ke putih
 TW:Play()
+
+TW.Completed:Connect(function()
+    ColorCorrection:Destroy()
+end)
 wait(2.8)
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
