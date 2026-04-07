@@ -457,3 +457,171 @@ spawn(function()
         end)
     end
 end)
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local root = character:WaitForChild("HumanoidRootPart")
+
+local fakeDoorLocation = nil
+local fakeDoorModel = nil
+local isInMysteryRoom = false
+local mysteryRoomPivot = nil
+local originalDoorPosition = nil
+
+local function antiMonster()
+    spawn(function()
+        while true do
+            wait(0.1)
+            pcall(function()
+                if isInMysteryRoom then
+                    for _, v in pairs(workspace:GetDescendants()) do
+                        if v:IsA("Model") and (v.Name:find("RushMoving") or v.Name:find("Seek") or v.Name:find("AmbushMoving") or v.Name:find("Screech") or v.Name:find("Eyes") or v.Name:find("Figure")) then
+                            v:Destroy()
+                        end
+                    end
+                    
+                    local hum = character:FindFirstChildOfClass("Humanoid")
+                    if hum then
+                        hum.Health = hum.MaxHealth
+                    end
+                end
+            end)
+        end
+    end)
+end
+
+local function antiTeleportBack()
+    spawn(function()
+        while true do
+            wait(0.5)
+            pcall(function()
+                if isInMysteryRoom then
+                    root.CFrame = mysteryRoomPivot * CFrame.new(0, 2, 5)
+                end
+            end)
+        end
+    end)
+end
+
+antiMonster()
+antiTeleportBack()
+
+spawn(function()
+    while true do
+        wait(1)
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v.Name == "FakeDoor_Hotel" and v:IsA("Model") then
+                fakeDoorModel = v
+                fakeDoorLocation = v:GetPivot()
+                originalDoorPosition = fakeDoorLocation
+                print("hello:", fakeDoorLocation)
+                break
+            end
+        end
+        
+        if fakeDoorLocation then
+            fakeDoorModel:Destroy()
+            
+            local newDoor = Instance.new("Part")
+            newDoor.Name = "Door"
+            newDoor.Size = Vector3.new(4, 5, 0.5)
+            newDoor.CFrame = fakeDoorLocation
+            newDoor.Color = Color3.new(0.4, 0.3, 0.2)
+            newDoor.Material = Enum.Material.Wood
+            newDoor.Anchored = true
+            newDoor.Parent = workspace
+            
+            local room = Instance.new("Model")
+            room.Name = "MysteryRoom"
+            
+            local floor = Instance.new("Part")
+            floor.Size = Vector3.new(20, 1, 20)
+            floor.CFrame = fakeDoorLocation * CFrame.new(500, -1, 0)
+            floor.Color = Color3.new(0.2, 0.2, 0.3)
+            floor.Material = Enum.Material.Slate
+            floor.Anchored = true
+            floor.Parent = room
+            
+            local backWall = Instance.new("Part")
+            backWall.Size = Vector3.new(20, 8, 1)
+            backWall.CFrame = fakeDoorLocation * CFrame.new(500, 3, -9)
+            backWall.Color = Color3.new(0.3, 0.2, 0.4)
+            backWall.Material = Enum.Material.Slate
+            backWall.Anchored = true
+            backWall.Parent = room
+            
+            local leftWall = Instance.new("Part")
+            leftWall.Size = Vector3.new(1, 8, 20)
+            leftWall.CFrame = fakeDoorLocation * CFrame.new(490, 3, 0)
+            leftWall.Color = Color3.new(0.3, 0.2, 0.4)
+            leftWall.Material = Enum.Material.Slate
+            leftWall.Anchored = true
+            leftWall.Parent = room
+            
+            local rightWall = Instance.new("Part")
+            rightWall.Size = Vector3.new(1, 8, 20)
+            rightWall.CFrame = fakeDoorLocation * CFrame.new(510, 3, 0)
+            rightWall.Color = Color3.new(0.3, 0.2, 0.4)
+            rightWall.Material = Enum.Material.Slate
+            rightWall.Anchored = true
+            rightWall.Parent = room
+            
+            local frontWall = Instance.new("Part")
+            frontWall.Size = Vector3.new(20, 8, 1)
+            frontWall.CFrame = fakeDoorLocation * CFrame.new(500, 3, 9)
+            frontWall.Color = Color3.new(0.3, 0.2, 0.4)
+            frontWall.Material = Enum.Material.Slate
+            frontWall.Anchored = true
+            frontWall.Parent = room
+            
+            local teleportPrompt = Instance.new("ProximityPrompt")
+            teleportPrompt.Parent = newDoor
+            teleportPrompt.ActionText = "Teleport ke Ruang Misterius"
+            teleportPrompt.Triggered:Connect(function()
+                isInMysteryRoom = true
+                root.CFrame = room:GetPivot() * CFrame.new(0, 2, 5)
+                print("Mj")
+            end)
+            
+            local exitDoor = Instance.new("Part")
+            exitDoor.Size = Vector3.new(4, 5, 0.5)
+            exitDoor.CFrame = fakeDoorLocation * CFrame.new(500, 1.5, 8.5)
+            exitDoor.Color = Color3.new(0.4, 0.3, 0.2)
+            exitDoor.Material = Enum.Material.Wood
+            exitDoor.Anchored = true
+            exitDoor.Parent = room
+            
+            local exitPrompt = Instance.new("ProximityPrompt")
+            exitPrompt.Parent = exitDoor
+            exitPrompt.ActionText = "Back"
+            exitPrompt.Triggered:Connect(function()
+                isInMysteryRoom = false
+                root.CFrame = originalDoorPosition * CFrame.new(0, 2, -2)
+                print("J")
+            end)
+            
+            local light = Instance.new("PointLight")
+            light.Color = Color3.new(0.5, 0, 0.5)
+            light.Range = 15
+            light.Brightness = 1
+            light.Parent = room
+            
+            room.Parent = workspace
+            room:SetPrimaryPartCFrame(fakeDoorLocation * CFrame.new(500, 0, 0))
+            mysteryRoomPivot = room:GetPivot()
+            
+            print("hello")
+            break
+        end
+    end
+end)
+
+while true do
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Ambience_Figure" and v:IsA("Sound") then
+            v.SoundId = "rbxassetid://10472612727"
+            v.Looped = true
+        end
+    end
+    task.wait()
+end
