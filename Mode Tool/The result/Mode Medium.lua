@@ -144,28 +144,95 @@ UserInputService.InputEnded:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.LeftShift then stopSprint() end
 end)
 
+local lighting = game:GetService("Lighting")
+
+local color = Instance.new("ColorCorrectionEffect", lighting)
+color.TintColor = Color3.fromRGB(100,255,100)
+
+local nvOn = false
+
+local nvBtn = Instance.new("TextButton")
+nvBtn.Size = UDim2.new(0,80,0,80)
+nvBtn.Position = UDim2.new(0,20,0.5,-40)
+nvBtn.Text = "NV"
+nvBtn.Parent = screenGui
+
+Instance.new("UICorner", nvBtn).CornerRadius = UDim.new(1,0)
+
+nvBtn.MouseButton1Click:Connect(function()
+    nvOn = not nvOn
+    color.Brightness = nvOn and 0.2 or 0
+end)
+
+local StarterGui = game:GetService("StarterGui")
+local debounce = false
+local entities = {"RushMoving","Seek","Figure","Screech"}
+
+spawn(function()
+    while true do
+        wait(0.5)
+        if nvOn and not debounce then
+            for _,v in pairs(workspace:GetDescendants()) do
+                for _,n in pairs(entities) do
+                    if v.Name == n then
+                        debounce = true
+                        StarterGui:SetCore("SendNotification",{
+                            Title="⚠️ WARNING",
+                            Text=n.." DETECTED",
+                            Duration=2
+                        })
+                        wait(3)
+                        debounce = false
+                    end
+                end
+            end
+        end
+    end
+end)
+
 spawn(function()
     while true do
         wait(0.5)
         pcall(function()
             for _, v in pairs(workspace:GetDescendants()) do
-                if v:IsA("BasePart")
-                and not v:IsDescendantOf(player.Character)
-                and not v:FindFirstAncestorOfClass("Tool")
-                and not v:FindFirstAncestorOfClass("Accessory") then
-                    v.Material = Enum.Material.Slate
-                    v.BrickColor = BrickColor.new("Dark stone grey")
-                    for _, c in pairs(v:GetChildren()) do
-                        if c:IsA("Texture") or c:IsA("Decal") then c:Destroy() end
+                local skip = false
+                local ignoreList = {
+                    "Wardrobe",
+                    "Drawer",
+                    "Tool"
+                }
+
+                for _, name in pairs(ignoreList) do
+                    if v:FindFirstAncestor(name) then
+                        skip = true
+                        break
                     end
                 end
+
+                if v:IsA("BasePart")
+                and not skip
+                and not v:IsDescendantOf(player.Character)
+                and not v:FindFirstAncestorOfClass("Accessory") then
+                    
+                    v.Material = Enum.Material.Slate
+                    v.BrickColor = BrickColor.new("Dark stone grey")
+
+                    for _, c in pairs(v:GetChildren()) do
+                        if c:IsA("Texture") or c:IsA("Decal") then
+                            c:Destroy()
+                        end
+                    end
+                end
+
                 if v.Name:lower():find("door") then
                     for _, child in pairs(v:GetDescendants()) do
-                        if child:IsA("BillboardGui") or string.lower(child.Name):find("sign") then
+                        if child:IsA("BillboardGui") 
+                        or string.lower(child.Name):find("sign") then
                             child:Destroy()
                         end
                     end
                 end
+
             end
         end)
     end
@@ -293,5 +360,100 @@ tool.Activated:Connect(function()
     
     if equipped then
         idleTrack:Play()
+    end
+end)
+
+local disableTime = 10
+local active = false
+
+local function turnAllRed()
+    for _, wardrobe in pairs(workspace:GetDescendants()) do
+        if wardrobe.Name == "Wardrobe" then
+            
+            for _, part in pairs(wardrobe:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.BrickColor = BrickColor.new("Really red")
+                end
+            end
+
+            for _, prompt in pairs(wardrobe:GetDescendants()) do
+                if prompt:IsA("ProximityPrompt") then
+                    prompt.Enabled = false
+                end
+            end
+
+        end
+    end
+end
+
+local function resetWardrobes()
+    for _, wardrobe in pairs(workspace:GetDescendants()) do
+        if wardrobe.Name == "Wardrobe" then
+            
+            for _, part in pairs(wardrobe:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.BrickColor = BrickColor.new("Medium stone grey")
+                end
+            end
+
+            for _, prompt in pairs(wardrobe:GetDescendants()) do
+                if prompt:IsA("ProximityPrompt") then
+                    prompt.Enabled = true
+                end
+            end
+
+        end
+    end
+end
+
+local function setupTrap(wardrobe)
+    if wardrobe:FindFirstChild("TrapSet") then return end
+
+    local tag = Instance.new("BoolValue")
+    tag.Name = "TrapSet"
+    tag.Parent = wardrobe
+
+    for _, part in pairs(wardrobe:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.BrickColor = BrickColor.new("Really red")
+        end
+    end
+
+    for _, prompt in pairs(wardrobe:GetDescendants()) do
+        if prompt:IsA("ProximityPrompt") then
+            
+            prompt.Triggered:Connect(function()
+                if active then return end
+                active = true
+
+                turnAllRed()
+
+                task.wait(disableTime)
+
+                resetWardrobes()
+
+                active = false
+            end)
+
+        end
+    end
+end
+
+spawn(function()
+    while true do
+        wait(2)
+        pcall(function()
+            for _, wardrobe in pairs(workspace:GetDescendants()) do
+                if wardrobe.Name == "Wardrobe" then
+                    
+                    if not wardrobe:FindFirstChild("TrapSet") then
+                        if math.random(1,3) == 1 then
+                            setupTrap(wardrobe)
+                        end
+                    end
+
+                end
+            end
+        end)
     end
 end)
