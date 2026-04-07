@@ -161,7 +161,7 @@ Instance.new("UICorner", nvBtn).CornerRadius = UDim.new(1,0)
 
 nvBtn.MouseButton1Click:Connect(function()
     nvOn = not nvOn
-    color.Brightness = nvOn and 0.2 or 0
+    color.Brightness = nvOn and 1 or 2
 end)
 
 local StarterGui = game:GetService("StarterGui")
