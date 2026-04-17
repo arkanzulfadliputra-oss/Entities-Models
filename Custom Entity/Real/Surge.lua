@@ -1,7 +1,7 @@
 local Reboundcolor = Instance.new("ColorCorrectionEffect",game.Lighting) 
 game.Debris:AddItem(Reboundcolor,24)
 Reboundcolor.Name = "Warn"
-Reboundcolor.TintColor = Color3.fromRGB(120, 255, 120) -- Hijau muda terang tapi gak terlalu
+Reboundcolor.TintColor = Color3.fromRGB(120, 255, 120)
 Reboundcolor.Saturation = -0.7 
 Reboundcolor.Contrast = 0.2
 game.TweenService:Create(Reboundcolor,TweenInfo.new(15),{TintColor = Color3.fromRGB(255, 255, 255),Saturation = 0, Contrast = 0}):Play()
