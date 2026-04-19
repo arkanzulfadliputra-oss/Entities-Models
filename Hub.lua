@@ -298,6 +298,284 @@ Section:NewButton("Rebound Remnant", "ButtonInfo", function()
     print("Clicked")
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entity-Models/refs/heads/main/DoorsMod/Rebound%20Remnant.lua"))()
 end)
+
+local Tab = Window:NewTab("Jumpscares")
+local Section = Tab:NewSection("Jumpscares")
+
+Section:NewButton("A-90", "ButtonInfo", function()
+    print("Clicked")
+		local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "A90Gui"
+ScreenGui.Parent = PlayerGui
+
+local RedFrame = Instance.new("Frame")
+RedFrame.Parent = ScreenGui
+RedFrame.Size = UDim2.new(1, 0, 1, 0)
+RedFrame.Position = UDim2.new(0, 0, 0, 0)
+RedFrame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+RedFrame.BackgroundTransparency = 0
+RedFrame.ZIndex = 1
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = ScreenGui
+ImageLabel.Size = UDim2.new(0, 300, 0, 300)
+ImageLabel.Position = UDim2.new(0.5, -150, 0.5, -150)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.ImageTransparency = 0
+ImageLabel.ZIndex = 2
+
+local NormalFace = "rbxassetid://135301003932167"
+local AngryFace = "rbxassetid://79076579351847"
+
+local NormalSoundId = "rbxassetid://88526000225516"
+local AngrySoundId = "rbxassetid://84909470598244"
+
+ImageLabel.Image = NormalFace
+
+local Sound = Instance.new("Sound")
+Sound.Parent = ScreenGui
+Sound.Volume = 5
+
+local HasTriggered = false
+local LastMoveTime = tick()
+
+Sound.SoundId = NormalSoundId
+Sound:Play()
+
+task.spawn(function()
+	while ScreenGui.Parent do
+		if not HasTriggered then
+			if tick() - LastMoveTime >= 5 then
+				HasTriggered = true
+
+				local FadeTween = TweenService:Create(
+					ImageLabel,
+					TweenInfo.new(1),
+					{ImageTransparency = 1}
+				)
+				FadeTween:Play()
+
+				local RedFade = TweenService:Create(
+					RedFrame,
+					TweenInfo.new(1),
+					{BackgroundTransparency = 1}
+				)
+				RedFade:Play()
+
+				FadeTween.Completed:Connect(function()
+					Sound:Destroy()
+					ScreenGui:Destroy()
+				end)
+			end
+		end
+		task.wait(0.2)
+	end
+end)
+
+RunService.RenderStepped:Connect(function()
+	if HasTriggered then return end
+
+	if Humanoid.MoveDirection.Magnitude > 0 then
+		LastMoveTime = tick()
+
+		HasTriggered = true
+
+		ImageLabel.Image = AngryFace
+
+		Sound:Stop()
+		Sound.SoundId = AngrySoundId
+		Sound:Play()
+
+
+		local Flash = TweenService:Create(
+			RedFrame,
+			TweenInfo.new(0.15),
+			{BackgroundTransparency = 0.2}
+		)
+		Flash:Play()
+
+		task.wait(1)
+
+		local FadeTween = TweenService:Create(
+			ImageLabel,
+			TweenInfo.new(1),
+			{ImageTransparency = 1}
+		)
+		FadeTween:Play()
+
+		local RedFade = TweenService:Create(
+			RedFrame,
+			TweenInfo.new(1),
+			{BackgroundTransparency = 1}
+		)
+		RedFade:Play()
+
+		FadeTween.Completed:Connect(function()
+			Sound:Destroy()
+			ScreenGui:Destroy()
+		end)
+	 end
+  end)
+end)
+
+Section:NewButton("A-60", "ButtonInfo", function()
+    print("Clicked")
+		local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "A-60 Jumpscare"
+screenGui.IgnoreGuiInset = true
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 999
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1,0,1,0)
+frame.Position = UDim2.new(0,0,0,0)
+frame.BackgroundColor3 = Color3.fromRGB(255,0,0)
+frame.BackgroundTransparency = 0
+frame.ZIndex = 998
+frame.Parent = screenGui
+
+local A60Jumpscare = Instance.new("ImageLabel")
+A60Jumpscare.Name = "A-60Jumpscare"
+A60Jumpscare.Size = UDim2.new(0.4, 0, 0.4, 0)
+A60Jumpscare.Position = UDim2.new(0.5, 0, 0.5, 0)
+A60Jumpscare.AnchorPoint = Vector2.new(0.5, 0.5)
+A60Jumpscare.BackgroundTransparency = 1
+A60Jumpscare.Image = "rbxassetid://99226763923744"
+A60Jumpscare.ImageTransparency = 0
+A60Jumpscare.ZIndex = 999
+A60Jumpscare.Parent = screenGui
+
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://5263560566"
+Sound.Volume = 5
+Sound.Parent = workspace
+local Distortion = Instance.new("DistortionSoundEffect")
+Distortion.Level = 0.96
+Distortion.Parent = Sound
+local Echo = Instance.new("EchoSoundEffect")
+Echo.Delay = 0.1
+Echo.Feedback = 0.59
+Echo.WetLevel = -2.6
+Echo.Priority = 1
+Echo.Parent = Sound
+local EQ = Instance.new("EqualizerSoundEffect")
+EQ.HighGain = -48.5
+EQ.MidGain = -6.2
+EQ.LowGain = -0.8
+EQ.Parent = Sound
+local Tremolo = Instance.new("TremoloSoundEffect")
+Tremolo.Depth = 1
+Tremolo.Duty = 0.94
+Tremolo.Frequency = 20
+Tremolo.Parent = Sound
+Sound:Play()
+
+task.spawn(function()
+	local basePos = UDim2.new(0.5, 0, 0.5, 0)
+	for i = 1, 60 do
+		local x = math.random(-20, 20)
+		local y = math.random(-20, 20)
+		A60Jumpscare.Position = UDim2.new(0.5, x, 0.5, y)
+		task.wait(0.015)
+	end
+	A60Jumpscare.Position = basePos
+end)
+
+A60Jumpscare.Size = UDim2.new(0.2,0,0.2,0)
+task.wait(0.1)
+A60Jumpscare:TweenSize(
+	UDim2.new(0.4,0,0.4,0),
+	Enum.EasingDirection.Out,
+	Enum.EasingStyle.Quad,
+	0.15
+)
+
+task.delay(5, function()
+	screenGui:Destroy()
+  end)
+end)
+
+Section:NewButton("Depth", "ButtonInfo", function()
+    print("Clicked")
+	local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = PlayerGui
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(1,0,1,0)
+Background.Position = UDim2.new(0,0,0,0)
+Background.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Background.BackgroundTransparency = 0
+Background.ZIndex = 1
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = ScreenGui
+ImageLabel.Size = UDim2.new(1,0,1,0)
+ImageLabel.Position = UDim2.new(0,0,0,0)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.Image = "rbxassetid://134191074657922"
+ImageLabel.ZIndex = 2
+ImageLabel.ImageTransparency = 0
+
+local Sound = Instance.new("Sound", ScreenGui)
+Sound.SoundId = "rbxassetid://116282238939992"
+Sound.Volume = 10
+
+local function Shake(duration, intensity)
+	local start = tick()
+	local con
+	con = RunService.RenderStepped:Connect(function()
+		if tick() - start > duration then
+			con:Disconnect()
+			ImageLabel.Position = UDim2.new(0,0,0,0)
+			return
+		end
+		
+		ImageLabel.Position = UDim2.new(0, math.random(-intensity,intensity), 0, math.random(-intensity,intensity))
+	end)
+end
+
+task.wait(1)
+
+Sound:Play()
+
+Background.BackgroundColor3 = Color3.fromRGB(0,170,255)
+
+Shake(1.5,30)
+
+task.wait(1.5)
+
+local FadeImage = TweenService:Create(ImageLabel, TweenInfo.new(1), {ImageTransparency = 1})
+local FadeBg = TweenService:Create(Background, TweenInfo.new(1), {BackgroundTransparency = 1})
+
+FadeImage:Play()
+FadeBg:Play()
+
+FadeImage.Completed:Connect(function()
+	Sound:Destroy()
+	ScreenGui:Destroy()
+  end)
+end)
 				
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom item")
@@ -355,9 +633,3 @@ local Section = Tab:NewSection("Credit")
 
 Section:NewLabel("Scripter By @ScripterGaming_Short")
 Section:NewLabel("Entities Models By C87FM")
-
-local Tab = Window:NewTab("Toggle Gui")
-local Section = Tab:NewSection("Toggle Gui")
-Section:NewKeybind("Toggle Gui", "KeybindInfo", Enum.KeyCode.F, function()
-	Library:ToggleUI()
-end)
