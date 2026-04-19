@@ -620,7 +620,7 @@ end)
 
 Section:NewButton("Crucifix Old", "ButtonInfo", function()
     print("Clicked")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua"))()
 end)
 
 Section:NewButton("Crucifix Plushie", "ButtonInfo", function()
