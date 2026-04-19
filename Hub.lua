@@ -283,9 +283,24 @@ Section:NewButton("Rage", "ButtonInfo", function()
     print("Clicked")
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Rage.lua"))()
 end)
+
+Section:NewButton("Struggle", "ButtonInfo", function()
+    print("Clicked")
+	   loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entity-Models/refs/heads/main/DoorsMod/Strunggle.lua"))()
+end)
+
+Section:NewButton("Depth Remnant", "ButtonInfo", function()
+    print("Clicked")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entity-Models/refs/heads/main/DoorsMod/Depth%20Remnant.lua"))()
+end)
+
+Section:NewButton("Rebound Remnant", "ButtonInfo", function()
+    print("Clicked")
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entity-Models/refs/heads/main/DoorsMod/Rebound%20Remnant.lua"))()
+end)
 				
 local Tab = Window:NewTab("Custom Item")
-local Section = Tab:NewSection("Custom Item")
+local Section = Tab:NewSection("Custom item")
 
 Section:NewButton("Crucifix All", "ButtonInfo", function()
     print("Clicked")
