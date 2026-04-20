@@ -833,7 +833,8 @@ FadeImage.Completed:Connect(function()
 end)
 
 local Tab = Window:NewTab("Modes")
-local Section = Tab:CreateSection("Mode")
+
+local Section = Tab:NewSection("Modes")
 
 Section:NewButton("Forgotten Mode", "Working Perfectly", function()
 loadstring(game:HttpGet("https://pastebin.com/raw/Wy7PSxjz"))()
