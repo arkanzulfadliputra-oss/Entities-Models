@@ -12,7 +12,7 @@ end
 ------Load----------------------------------------load------------------
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TwiRwal/TwiWare/main/uilib.lua"))() -- open source
 
-local Window = Library.CreateLib("Script Gaming Hub V2", "BloodTheme")
+local Window = Library.CreateLib("Script Gaming Hub V10 (Official)", "BloodTheme")
 local Tab = Window:NewTab("Custom Entities")
 local Section = Tab:NewSection("Custom Entities Regular Vynixus")
 Section:NewButton("Rebound Remake", "Have Fun", function()
@@ -299,6 +299,112 @@ Section:NewButton("Rebound Remnant", "ButtonInfo", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entity-Models/refs/heads/main/DoorsMod/Rebound%20Remnant.lua"))()
 end)
 
+Section:NewButton("Hardcore A-60 Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Idk-lol2/a-60aa/refs/heads/main/---%3D%3D%3D%3D%3D%3D%20a-60%20agresiv%20spawner%20%3D%3D%3D%3D%3D%3D---.txt"))()
+end)
+ 
+Section:NewButton("Him Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/trungdepth-dot/Him-entity-doors/refs/heads/main/Him"))()
+end)
+ 
+Section:NewButton("Hungered Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Hungerd/refs/heads/main/Entity"))()
+end)
+ 
+Section:NewButton("Munci Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Munci-entity/refs/heads/main/Munci-20"))()
+end)
+ 
+Section:NewButton("Torment Spawner (READ THE DESCRIPTION)", "Execute Torment Spawner at door 0 and open the next door", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/ohh/refs/heads/main/Torment12"))()
+end)
+ 
+Section:NewButton("Trauma Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Trauma-entity/refs/heads/main/Trauma"))()
+end)
+ 
+Section:NewButton("Disturbance Spawner (READ THE DESCRIPTION)", "Execute Disturbance Spawner at door 0 and open the next door", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/talales/Nhankg.-/refs/heads/main/intro%20fragmented"))()
+end)
+ 
+Section:NewButton("Cease Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://pastefy.app/ofutwkjb/raw"))()
+end)
+ 
+Section:NewButton("Giggle Spawner", "Only spawn 1 Giggle each room", function()
+getgenv().GIGGLE_SPAWN_CONFIG = {
+Damage = 6,
+AttackingTime = math.random(7, 10), -- The time giggle will be attacking for.
+FallSpeed = 3, -- Speed for when giggle spawns, can be mininum 2 and how high you want
+ 
+Stunnable = true, -- If set to true, Giggle will be stunnable with glowstick
+StunTime = 5, -- The time giggle will be stun for
+ 
+RagdollThrowForce = 50, -- The Ragdoll's Force when its thrown
+RagdollDissapears = true, -- If set to true the ragdoll will dissapear once giggle finishes attacking.
+ 
+RoomSpawning = {
+Enabled = true -- If set to false, giggle will spawn around the player.
+},
+ 
+PlayerSpawning = { -- This table will be used if Room Spawning is Disabled
+MinRadius = -20, -- The minimum distance giggle can spawn from the player.
+MaxRadius = 20. -- The maximum distance giggle can spawn from the player.
+},
+ 
+SpawningKey = { -- Key for Spawning
+Enabled = false, -- If enabled once the key is pressed, giggle will spawn.
+Key = "G" -- Key that is used for spawning giggle
+}
+}
+ 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DripCapybara/Test/refs/heads/main/Doors/GiggleSpawn.lua"))()
+end)
+ 
+Section:NewButton("Daze Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/ohh/refs/heads/main/Daze11"))()
+end)
+ 
+Section:NewButton("Draft Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/ohh/refs/heads/main/Draft1"))()
+end)
+ 
+Section:NewButton("Fluster Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/talales/Nhankg./refs/heads/main/Fluster"))()
+end)
+
+Section:NewButton("Blink Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://github.com/PABMAXICHAC/doors-monsters-scripts/raw/main/blinkcrux"))()
+end)
+ 
+Section:NewButton("350 Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/350-entity/refs/heads/main/350"))()
+end)
+ 
+Section:NewButton("Black Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Black-smile/refs/heads/main/Black"))()
+end)
+ 
+Section:NewButton("Chaotic Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/J63633S/Laver-mode/refs/heads/main/Chaotic"))()
+end)
+ 
+Section:NewButton("Dread Spawner (READ THE DESCRIPTION)", "Execute Dread Spawner at door 0 and open the next door", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/talales/Nhankg_/refs/heads/main/intro%20fragmented"))()
+end)
+ 
+Section:NewButton("Bluyer Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Bluyer-entity/refs/heads/main/Bluyer"))()
+end)
+ 
+Section:NewButton("Shocker Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Shocker-entity/refs/heads/main/Shocker"))()
+end)
+
+Section:NewButton("Surge Spawner", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Surge-entity/refs/heads/main/Surge"))()
+end)
+
 local Tab = Window:NewTab("Jumpscares")
 local Section = Tab:NewSection("Jumpscares")
 
@@ -576,6 +682,336 @@ FadeImage.Completed:Connect(function()
 	ScreenGui:Destroy()
   end)
 end)
+
+Section:NewButton("FaceWardrobe (Remnant)", "ButtonInfo", function()
+    print("Clicked")
+		local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = PlayerGui
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.DisplayOrder = 999999
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(1,0,1,0)
+Background.Position = UDim2.new(0,0,0,0)
+Background.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Background.BackgroundTransparency = 0
+Background.ZIndex = 1
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = ScreenGui
+ImageLabel.Size = UDim2.new(1,0,1,0)
+ImageLabel.Position = UDim2.new(0,0,0,0)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.Image = "rbxassetid://84248535214067"
+ImageLabel.ZIndex = 2
+ImageLabel.ImageTransparency = 0
+
+local Sound = Instance.new("Sound", ScreenGui)
+Sound.SoundId = "rbxassetid://116282238939992"
+Sound.Volume = 5
+
+local function Shake(duration, intensity)
+	local start = tick()
+	local con
+	con = RunService.RenderStepped:Connect(function()
+		if tick() - start > duration then
+			con:Disconnect()
+			ImageLabel.Position = UDim2.new(0,0,0,0)
+			return
+		end
+		
+		ImageLabel.Position = UDim2.new(0, math.random(-intensity,intensity), 0, math.random(-intensity,intensity))
+	end)
+end
+
+task.wait(0.5)
+
+Sound:Play()
+
+Shake(1.2, 25)
+
+task.wait(1.2)
+
+local FadeImage = TweenService:Create(ImageLabel, TweenInfo.new(0.8), {
+	ImageTransparency = 1
+})
+
+local FadeBg = TweenService:Create(Background, TweenInfo.new(0.8), {
+	BackgroundTransparency = 1
+})
+
+FadeImage:Play()
+FadeBg:Play()
+
+FadeImage.Completed:Connect(function()
+	Sound:Destroy()
+	ScreenGui:Destroy()
+  end)
+end)
+
+Section:NewButton("Surge Nightmare", "ButtonInfo", function()
+    print("Clicked")
+		local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = PlayerGui
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.DisplayOrder = 999999
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(1,0,1,0)
+Background.Position = UDim2.new(0,0,0,0)
+Background.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Background.BackgroundTransparency = 0
+Background.ZIndex = 1
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = ScreenGui
+ImageLabel.Size = UDim2.new(1,0,1,0)
+ImageLabel.Position = UDim2.new(0,0,0,0)
+ImageLabel.BackgroundTransparency = 1
+ImageLabel.Image = "rbxassetid://114526256465935"
+ImageLabel.ZIndex = 2
+ImageLabel.ImageTransparency = 1
+
+local Sound = Instance.new("Sound", ScreenGui)
+Sound.SoundId = "rbxassetid://90666792270444"
+Sound.Volume = 6
+Sound.PlaybackSpeed = 1.25
+
+local Distortion = Instance.new("DistortionSoundEffect", Sound)
+Distortion.Level = 1
+Distortion.Priority = 1
+
+local function Shake(duration, intensity)
+	local start = tick()
+	local con
+	con = RunService.RenderStepped:Connect(function()
+		if tick() - start > duration then
+			con:Disconnect()
+			ImageLabel.Position = UDim2.new(0,0,0,0)
+			return
+		end
+		ImageLabel.Position = UDim2.new(0, math.random(-intensity,intensity), 0, math.random(-intensity,intensity))
+	end)
+end
+
+task.wait(0.3)
+
+TweenService:Create(ImageLabel, TweenInfo.new(0.1), {ImageTransparency = 0}):Play()
+
+Sound:Play()
+
+Shake(1.5, 40)
+
+task.wait(1.5)
+
+local FadeImage = TweenService:Create(ImageLabel, TweenInfo.new(0.8), {ImageTransparency = 1})
+local FadeBg = TweenService:Create(Background, TweenInfo.new(0.8), {BackgroundTransparency = 1})
+
+FadeImage:Play()
+FadeBg:Play()
+
+FadeImage.Completed:Connect(function()
+	Sound:Destroy()
+	ScreenGui:Destroy()
+  end)
+end)
+
+local Tab = Window:NewTab("Modes")
+local Section = Tab:CreateSection("Mode")
+
+Section:NewButton("Forgotten Mode", "Working Perfectly", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/Wy7PSxjz"))()
+end)
+ 
+Section:NewButton("Creepy Mode", "Working Perfectly", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DripCapybara/Doors-Modes/refs/heads/main/CreepyMode/ObfuscatedMain.lua"))()
+end)
+ 
+Section:NewButton("Combined Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/g4nvj2EP"))()
+end)
+ 
+Section:NewButton("Ultra Hard Mode V2", "By Zunxd", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junxd-03/ULTRA-HARD-V2-MODE/refs/heads/main/Main"))()
+end)
+ 
+Section:NewButton("Fear Mode", "Working Perfectly", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/lelele78/Securityproject/refs/heads/main/FEAROBF"))()
+end)
+ 
+Section:NewButton("Hard Mode", "Reworked by Voorpr0 & Nowhywhats", function()
+loadstring(game:HttpGet("https://arch-http.vercel.app/files/ProtectHard"))()
+end)
+ 
+Section:NewButton("Hazy Mode", "Recreated by Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hazy-Mode-Recreated-made-by-Guestly-(Celestian)-on-Discord"))()
+end)
+ 
+Section:NewButton("Impossible Mode", "Fixed by Voorpr0 & Nowhywwhat & Guestly & Vuivuiviu2", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/lelele78/Securityproject/refs/heads/main/Impossible"))()
+end)
+ 
+Section:NewButton("Hallucination Mode (Easy Version)", " Credit to Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hallucination-Mode-(Easy-Version)-Made-by-Celestian-on-Discord"))()
+end)
+ 
+Section:NewButton("Crazy Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/FenzerPlayerPressure/Recreates/refs/heads/main/Crazy%20Mode.Lua"))()
+end)
+ 
+Section:NewButton("Roomy Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/FenzerPlayerPressure/SubVersions/refs/heads/main/Roomy%20Mode.lua"))()
+end)
+ 
+Section:NewButton("Extreme Mode", "Recreated by Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Extreme-Mode-Recreated-made-by-Guestly"))()
+end)
+ 
+Section:NewButton("Voidness Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Voidness-Mode-Made-By-Guestly-Vuivuiviu2-And-Voorpr0"))()
+end)
+ 
+Section:NewButton("Forbidden Mode", "Credit to Noah and Recreated By Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://arch-http.vercel.app/files/Forbidden-Mode-Recreated-by-Guestly"))()
+end)
+ 
+Section:NewButton("Lunacy Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Lunacy-Mode-Made-By-Guestly-Vuivuiviu2-Nowhywhat-And-Voorpr0"))()
+end)
+ 
+Section:NewButton("Fragmented Mode V5", "Credit by Nhankgnew", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/talales/Nhankg/refs/heads/main/fragmented%20v5"))()
+end)
+ 
+Section:NewButton("Degenerate Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/My-brand-new-Degenerate-Mode%20(New%20Obfuscator)"))()
+end)
+ 
+Section:NewButton("Hardcore Mode", "By Noonie", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Hardcore%20v4%20recreate/main%20code"))()
+end)
+ 
+Section:NewButton("Mayhem Mode", "Working Perfectly", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Mayhem%20mode%20recreate/Code"))()
+end)
+ 
+Section:NewButton("Endless Mode", "by DripCapybara", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DripCapybara/Doors-Mode-Remakes/refs/heads/main/EndlessMode.lua"))()
+end)
+ 
+Section:NewButton("Hardcore Mode (Re-Remastered)", "ButtonInfo", function()
+local url = "https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/main/Hardcore-Mode-Re-Remastered-Made-By-Guestly-Vuivuiviu2-Nowhywhat-Voorpr0"
+ 
+local ok, err = pcall(function()
+loadstring(game:HttpGet(url, true))()
+end)
+ 
+if not ok then
+warn("[Loadstring Error]", err)
+else
+print("[Loaded Successfully]")
+end
+end)
+ 
+Section:NewButton("Chaos Mode V1", "Credit to DJ SD (Tunder8401)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tunder8401/Doors-Modes/refs/heads/main/Chaos%20Mode"))()
+end)
+ 
+Section:NewButton("Furry Mode (Remake)", "Remake by RealblueYT", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/Furry-mod-ramake/refs/heads/main/Furry%20mod.lua", true))()
+end)
+ 
+Section:NewButton("Christmas Mode", "Credit to Chill Guy", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Idk-lol2/xmasmode/refs/heads/main/xmasmode.txt"))()
+end)
+ 
+Section:NewButton("Impossible Mode (Remake)", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/Impossible-mod-ramake/refs/heads/main/Impossible%20mod.localplayer", true))()
+end)
+ 
+Section:NewButton("Cizinuness Mode", "Created by Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Cizinuness-Mode-Made-By-Guestly", true))()
+end)
+ 
+Section:NewButton("Hazy Mode + Extreme Mode (Combined)", "Credit to Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hazy%2BExtreme-Mode-made-by-Guestly-on-Discord"))()
+end)
+ 
+Section:NewButton("Terror Mode", "Working Perfectly", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Teilsthebfdifan/Modhub-assets/refs/heads/main/TerrorModeOBF.lua"))()
+end)
+ 
+Section:NewButton("Hardcore Mode (Remake)", "Remake by RealblueYT & Vuivuiviu2", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/Hradcore-ramake-by-RealblueYT.-Localplayer/refs/heads/main/Hradcore%20ramake%20by%20RealblueYT.%20LocalPlayer", true))()
+end)
+
+Section:NewButton("Hallucination Mode (Hard Version)", "Credit to Guestly (Celestian)", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hallucination-Mode-(Hard-Version)-Made-by-Celestian-On-Discord"))()
+end)
+ 
+Section:NewButton("Chaos Mode V1 (Hardcore Version)", "Credit to DJ SD (Tunder8401) & Rip_Survival", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Chaos-Mode-Hardcore-Version/refs/heads/main/Chaos%20Mode%20V1%20(Hardcore%20Version)"))()
+end)
+ 
+Section:NewButton("Nightmare Mode", "Remastered One", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/kodbolx/kodbolhub/refs/heads/main/Nightmare%20Mode/Nightmare%20Mode.lua"))()
+end)
+ 
+Section:NewButton("Hardcore Mode (Remastered)", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/daiayday/HardcoreRemastered/refs/heads/main/obf_L6zO2N0sG5ehDHd56JBc5z70TZ2piVOvIqsgE88741HXGrwv7E4qd6c8axu8z4oh.lua.txt"))()
+end)
+ 
+Section:NewButton("Furry Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/lelele78/Securityproject/refs/heads/main/Furry"))()
+end)
+ 
+Section:NewButton("Broken Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheDarkMan1334/Broken-mode/refs/heads/main/BrokenMode%20Version%201.8%20Fix"))()
+end)
+ 
+Section:NewButton("Grace Mode (Remake)", "ButtonInfo", function()
+loadstring(game:HttpGet("https://github.com/IdkMyNameLoll/PublicScripts/raw/refs/heads/main/DoorsXGrace.lua", true))()
+end)
+ 
+Section:NewButton("Super Crazy Mode", "Credit to Dt_roblx doors:))", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme2/dm123/refs/heads/main/super%20crazy%20mode"))()
+end)
+ 
+Section:NewButton("Hardcore Mode V99999999", "Credit to RealblueYT", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/Hradcore-v999999/refs/heads/main/Hradcore%20v99999999", true))()
+end)
+ 
+Section:NewButton("Mental Mode", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheLastOne5778/Read/refs/heads/main/Mental%20Mode"))()
+end)
+ 
+Section:NewButton("Super Packed Mode", "Credit to Zunxd", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Doors-sieu-don-mode/refs/heads/main/Modeee"))()
+end)
+ 
+Section:NewButton("Hallucination Mode (IMPOSSIBLE VERSION⚠️⚠️⚠️)", "Credit to Guestly (Celestian) and Rip_Survival", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Hallucination-Mode-SUPER-IMPOSSIBLE-/refs/heads/main/Hallucination%20Mode%20(IMPOSSIBLE)"))()
+end)
+ 
+Section:NewButton("Improbable Mode V2.5 (IMPOSSIBLE⚠️⚠️⚠️)", "Credits to Chu be the list and AmadeyHunter", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Improbable-Mode/refs/heads/main/Improbable%20Mode%20(IMPOSSIBLE)"))()
+end)
 				
 local Tab = Window:NewTab("Custom Item")
 local Section = Tab:NewSection("Custom item")
@@ -633,3 +1069,5 @@ local Section = Tab:NewSection("Credit")
 
 Section:NewLabel("Scripter By @ScripterGaming_Short")
 Section:NewLabel("Entities Models By C87FM")
+Section:NewLabel("Owner By ScriptGaming")
+Section:NewLabel("Official")
