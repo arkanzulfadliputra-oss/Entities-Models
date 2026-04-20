@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Doors Hub",
+   Name = "DoorsHub V40",
    LoadingTitle = "Loading Scripts...",
    LoadingSubtitle = "by ScriptGaming",
    ConfigurationSaving = {
@@ -481,193 +481,122 @@ local Button = TabCustomEntity:CreateButton({
    end,
 })
 
-local TabCustomItem = Window:CreateTab("Custom Item", 0)
-local SectionCustomItem = TabCustomItem:CreateSection("Custom Item Collection")
+local TabItemSpawner = Window:CreateTab("✨Item Spawner✨", 0)
+local SectionItemSpawner = TabItemSpawner:CreateSection("Enjoy These Custom Items")
 
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix All",
+local Button = TabItemSpawner:CreateButton({
+   Name = "Crucifix",
    Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Eyes%20Crucifix.lua"))()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/%3F%3F%3F%20Crucifix.lua"))()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Ambush%20Crucifix.lua"))()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/seek%20Crucifix.lua"))()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Crucifix%20Blue.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Rebound Plushie (Still Bug)",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/Rebound%20Plushie"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "A-60 Plushie",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/A-60%20Plushie"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix Guiding",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Crucifix.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix White",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20White.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix Lotus",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Lotus.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Guiding Light",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Guiding%20Light.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix Old",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Crucifix Plushie",
-   Callback = function()
-      print("Clicked")
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Plushie.lua"))()
-   end,
-})
-
-local Button = TabCustomItem:CreateButton({
-   Name = "Size Stick (UPDATED)",
-   Callback = function()
-      loadstring(game:HttpGet("https://pastefy.app/dy85jtB6/raw"))()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/PenguinManiack/Crucifix/main/Crucifix.lua'))()
    end,
 })
 
 local Button = TabItemSpawner:CreateButton({
-   Name = "Golden Gummy Flashlight",
+   Name = "Guiding Candle (UPDATED)",
    Callback = function()
-      loadstring(game:HttpGet(("https://raw.githubusercontent.com/aadyian9000/the-thing/main/GoldenGummyFlashlight.lua"),true))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Guiding-light-candle/refs/heads/main/Candle"))()
    end,
 })
 
 local Button = TabItemSpawner:CreateButton({
-   Name = "Black Hole (OVERPOWERED)",
+   Name = "Foundation Crucifix",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/iimateiYT/Scripts/main/Black%20Hole.lua"))()
+      _G.CR_Uses = 1000000
+      _G.CR_IsCurious = false
+      _G.CR_HoldKeyRequired = "false"
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/IdkMyNameLoll/PublicScripts/refs/heads/main/crucifix_E_A_A"))()
    end,
 })
 
 local Button = TabItemSpawner:CreateButton({
-   Name = "Grenade",
+   Name = "Mischievous Crucifix",
    Callback = function()
-      loadstring(game:HttpGet("https://pastebin.com/raw/zeFBYYy9", true))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Teilsthebfdifan/Modhub-assets/refs/heads/main/MischievousV2Test.lua"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Infinite Vitamins",
+local TabExtra = Window:CreateTab("💎Extra💎", 0)
+local SectionExtra = TabExtra:CreateSection("Very Cool Things")
+
+local Button = TabExtra:CreateButton({
+   Name = "Floor 2 Theme Map",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/MrNeRD0/Doors-Hack/refs/heads/main/Inf_Vitamins.lua"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Junxd-03/Floor-2/refs/heads/main/New"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Spiral Bottle",
+local Button = TabExtra:CreateButton({
+   Name = "Fog Map",
    Callback = function()
-      loadstring(game:HttpGet('https://gist.githubusercontent.com/IdkMyNameLoll/8b05c837bea9effac2554340465b4be1/raw/3f3be0ee72e7f153db39a16a40fa63dce6cde72d/SpiralBottle'))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Fog-doors/refs/heads/main/Fogg"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Jeff's Tip Jar",
+local Button = TabExtra:CreateButton({
+   Name = "Demon Map (Red Map)",
    Callback = function()
-      loadstring(game:HttpGet("https://pastebin.com/raw/Hsuiugnr"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/Monoxide/refs/heads/main/DEMON"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Moonlight Bottle",
+local Button = TabExtra:CreateButton({
+   Name = "Shaders (Working)",
    Callback = function()
-      loadstring(game:HttpGet('https://gist.githubusercontent.com/IdkMyNameLoll/04d7dd5e02688624b958b8c2604b924c/raw/9e86b34249f44ed2dd433176e67daaf3db30cde8/MoonBottle'))()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/randomstring0/pshade-ultimate/refs/heads/main/src/cd.lua'))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Flame Thrower",
+local Button = TabExtra:CreateButton({
+   Name = "Crash Game (READ THE DESCRIPTION)",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/JohnyGamingLUA/FlamethrowerDOORS/main/obfuscated.lua"))()
+      while true do
+         print("crash")
+      end
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Screech Plushie",
+local Button = TabExtra:CreateButton({
+   Name = "Sprint Stamina V5",
    Callback = function()
-      loadstring(game:HttpGet("https://pastebin.com/raw/CRYiKPZX"))()
+      _G.msrhyan_config_sprint = {
+         timetospeedexpire = 25,
+         cooldowntime = 5,
+         sprintspeed = 50,
+         speedapplytime = 0.3,
+         speedremovetime = 0.5,
+         staminarecovertime = 10,
+         effectfadetime = 0.2,
+         showstaminamessages = true,
+         customstaminamessage = "SUA STAMINA ACABOU, AGUARDE %ds!",
+         enableeffects = true,
+         effectcolor = {100, 200, 255},
+         staminabarcolor = {0, 162, 255},
+         sprintfov = 120,
+         normalfov = 70,
+         usewhileloading = false,
+      }
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Sc-Rhyan57/MsProject/refs/heads/main/projects/DOORS-SPRINT.lua"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Magic Book",
+local Button = TabExtra:CreateButton({
+   Name = "Speedrun Timer",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/skkenrgjt/HAHAHAH/refs/heads/main/MagicRunner"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Iliankytb/Iliankytb/main/SpeedrunTimer"))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Admin Slap",
+local Button = TabExtra:CreateButton({
+   Name = "THE OVERDOORS V2.5 (Remake)",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Scripts/refs/heads/main/Admin-Slap-For-DOORS-made-by-Celestian-(Guestly)-on-Discord"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/OVERDOORS-ramake-v4/refs/heads/main/OVERDOORS%20by%20chubeteliet%20ramake%20by%20RealblueYT%20and%20voorPr0%20and%20vuivuiviu2.%20LocaPlayer", true))()
    end,
 })
 
-local Button = TabItemSpawner:CreateButton({
-   Name = "Seek Gun",
+local Button = TabExtra:CreateButton({
+   Name = "c00lkidd Seek Chase (READ THE DESCRIPTION)",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/notpoiu/Scripts/main/seekgun.lua"))()
-   end,
-})
-
-local Button = TabItemSpawner:CreateButton({
-   Name = "Scanner",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/notpoiu/Scripts/main/Scanner.lua"))()
-   end,
-})
-
-local Button = TabItemSpawner:CreateButton({
-   Name = "Tool Giver V3 | Doors",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Darli17/Entities/refs/heads/main/Tools", true))()
-   end,
-})
-
-local Button = TabItemSpawner:CreateButton({
-   Name = "RobHub X Item Giver",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Darli17/DOORS-REBOUNCES/refs/heads/main/main-ig"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/IdkMyNameLoll/PublicScripts/refs/heads/main/c00lkiddSeek"))()
    end,
 })
 
