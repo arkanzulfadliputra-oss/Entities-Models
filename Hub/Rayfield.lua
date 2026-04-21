@@ -481,6 +481,27 @@ local Button = TabCustomEntity:CreateButton({
    end,
 })
 
+local Button = TabCustomEntity:CreateButton({
+   Name = "Capybara",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Capybara.lua"))()
+   end,
+})
+
+local Button = TabCustomEntity:CreateButton({
+   Name = "Sanic",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Sanic.lua"))()
+   end,
+})
+
+local Button = TabCustomEntity:CreateButton({
+   Name = "Depth",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Plamen.lua"))()
+   end,
+})
+
 local TabItemSpawner = Window:CreateTab("✨Item Spawner✨", 0)
 local SectionItemSpawner = TabItemSpawner:CreateSection("Enjoy These Custom Items")
 
