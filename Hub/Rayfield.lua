@@ -502,6 +502,99 @@ local Button = TabCustomEntity:CreateButton({
    end,
 })
 
+local Button = TabCustomEntity:CreateButton({
+   Name = "Freeze",
+   Callback = function()
+      local Players = game:GetService("Players")
+      local RunService = game:GetService("RunService")
+
+      local player = Players.LocalPlayer
+      local camera = workspace.CurrentCamera
+
+      local active = true
+
+      local eyes = Instance.new("Part")
+      eyes.Anchored = true
+      eyes.CanCollide = false
+      eyes.Transparency = 1
+      eyes.Size = Vector3.new(1,1,1)
+      eyes.CFrame = camera.CFrame + camera.CFrame.LookVector * 12
+      eyes.Parent = workspace
+
+      local att = Instance.new("Attachment", eyes)
+
+      local particle = Instance.new("ParticleEmitter")
+      particle.Texture = "rbxassetid://123301548635445"
+      particle.Size = NumberSequence.new(6)
+      particle.Speed = NumberRange.new(0)
+      particle.LockedToPart = true
+      particle.Parent = att
+
+      local light = Instance.new("PointLight")
+      light.Color = Color3.fromRGB(0,170,255)
+      light.Range = 15
+      light.Brightness = 2
+      light.Parent = eyes
+
+      local sound = Instance.new("Sound")
+      sound.SoundId = "rbxassetid://5159141859"
+      sound.Looped = true
+      sound.Volume = 1
+      sound.Parent = eyes
+      sound:Play()
+
+      local canDamage = true
+
+      local connection
+      connection = RunService.RenderStepped:Connect(function()
+         if not active then return end
+
+         local character = player.Character
+         if not character then return end
+         
+         local humanoid = character:FindFirstChild("Humanoid")
+         local root = character:FindFirstChild("HumanoidRootPart")
+         if not humanoid or not root then return end
+
+         if not canDamage then return end
+
+         local distance = (eyes.Position - root.Position).Magnitude
+
+         if distance < 10 then
+            canDamage = false
+            
+            humanoid:TakeDamage(10)
+
+            local cc = Instance.new("ColorCorrectionEffect")
+            cc.TintColor = Color3.fromRGB(0,170,255)
+            cc.Parent = game.Lighting
+            game.Debris:AddItem(cc, 0.2)
+
+            task.wait(0.5)
+            canDamage = true
+         end
+      end)
+
+      task.delay(12, function()
+         active = false
+
+         if connection then
+            connection:Disconnect()
+         end
+
+         sound:Stop()
+         eyes:Destroy()
+      end)
+   end,
+})
+
+local Button = TabCustomEntity:CreateButton({
+   Name = "Matcher",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Matcher.lua"))()
+   end,
+})
+
 local TabItemSpawner = Window:CreateTab("✨Item Spawner✨", 0)
 local SectionItemSpawner = TabItemSpawner:CreateSection("Enjoy These Custom Items")
 
@@ -533,6 +626,46 @@ local Button = TabItemSpawner:CreateButton({
    Name = "Mischievous Crucifix",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/Teilsthebfdifan/Modhub-assets/refs/heads/main/MischievousV2Test.lua"))()
+   end,
+})
+
+local Button = TabCustomItem:CreateButton({
+   Name = "Crucifix Lotus",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Lotus.lua"))()
+   end,
+})
+
+local Button = TabCustomItem:CreateButton({
+   Name = "Crucifix White",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20White.lua"))()
+   end,
+})
+
+local Button = TabCustomItem:CreateButton({
+   Name = "Crucifix Old",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua"))()
+   end,
+})
+
+local Button = TabCustomItem:CreateButton({
+   Name = "Crucifix All",
+   Callback = function()
+      print("Clicked")
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Eyes%20Crucifix.lua"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/%3F%3F%3F%20Crucifix.lua"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Ambush%20Crucifix.lua"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/seek%20Crucifix.lua"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Crucifix%20Blue.lua"))()
+   end,
+})
+
+local Button = TabCustomItem:CreateButton({
+   Name = "Devils Crucifix",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Devils%20Crucifix.lua"))()
    end,
 })
 
@@ -571,6 +704,8 @@ local Button = TabExtra:CreateButton({
    Name = "Crash Game (READ THE DESCRIPTION)",
    Callback = function()
       while true do
+         print("crash")
+         print("crash")
          print("crash")
       end
    end,
