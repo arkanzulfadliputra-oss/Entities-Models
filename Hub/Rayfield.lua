@@ -629,28 +629,28 @@ local Button = TabItemSpawner:CreateButton({
    end,
 })
 
-local Button = TabCustomItem:CreateButton({
+local Button = TabItemSpawner:CreateButton({
    Name = "Crucifix Lotus",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Lotus.lua"))()
    end,
 })
 
-local Button = TabCustomItem:CreateButton({
+local Button = TabItemSpawner:CreateButton({
    Name = "Crucifix White",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20White.lua"))()
    end,
 })
 
-local Button = TabCustomItem:CreateButton({
+local Button = TabItemSpawner:CreateButton({
    Name = "Crucifix Old",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua"))()
    end,
 })
 
-local Button = TabCustomItem:CreateButton({
+local Button = TabItemSpawner:CreateButton({
    Name = "Crucifix All",
    Callback = function()
       print("Clicked")
@@ -662,7 +662,7 @@ local Button = TabCustomItem:CreateButton({
    end,
 })
 
-local Button = TabCustomItem:CreateButton({
+local Button = TabItemSpawner:CreateButton({
    Name = "Devils Crucifix",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Devils%20Crucifix.lua"))()
