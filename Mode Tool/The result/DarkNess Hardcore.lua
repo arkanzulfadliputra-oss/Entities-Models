@@ -36,33 +36,6 @@ local function scanRooms()
     end
 end
 
-local lighting = game:GetService("Lighting")
-
-local colorCorrection = Instance.new("ColorCorrectionEffect")
-colorCorrection.Parent = lighting
-colorCorrection.Brightness = -1
-colorCorrection.Contrast = 0
-colorCorrection.Saturation = -1
-colorCorrection.TintColor = Color3.fromRGB(0, 0, 0)
-
-lighting.Ambient = Color3.fromRGB(0, 0, 0)
-lighting.OutdoorAmbient = Color3.fromRGB(0, 0, 0)
-lighting.Brightness = 0
-lighting.ClockTime = 0
-lighting.GlobalShadows = true
-lighting.ExposureCompensation = -3
-
-lighting.FogEnd = 10
-lighting.FogStart = 0
-lighting.FogColor = Color3.fromRGB(0, 0, 0)
-
-task.spawn(function()
-    while true do
-        scanRooms()
-        task.wait(2)
-    end
-end)
-
 coroutine.wrap(function()
     while true do
         game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
