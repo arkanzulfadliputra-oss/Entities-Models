@@ -11,6 +11,7 @@ for i = 1, 5 do
 end
 ------Load----------------------------------------load------------------
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TwiRwal/TwiWare/main/uilib.lua"))() -- open source
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Window = Library.CreateLib("Script Gaming Hub V10 (Official)", "BloodTheme")
 local Tab = Window:NewTab("Custom Entities")
@@ -2511,6 +2512,102 @@ Section:NewButton("Crucifix Plushie", "ButtonInfo", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Plushie.lua"))()
 end)
 
+Section:NewButton("Devils Crucifix", "ButtonInfo", function()
+    print("Clicked")
+	local tool = game:GetObjects("rbxassetid://11813582804")[1]
+tool.Name = "Devils Crucifix"
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local RightArm = Char:WaitForChild("RightUpperArm")
+local LeftArm = Char:WaitForChild("LeftUpperArm")
+local RightC1 = RightArm.RightShoulder.C1
+local LeftC1 = LeftArm.LeftShoulder.C1
+local Equipped = false
+
+tool.Equipped:Connect(function()
+    if Equipped then return end
+    Equipped = true
+    RightArm.Name = "R_Arm"
+    LeftArm.Name = "L_Arm"
+    RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+    LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+end)
+
+tool.Unequipped:Connect(function()
+    if not Equipped then return end
+    Equipped = false
+    RightArm.RightShoulder.C1 = RightC1
+    LeftArm.LeftShoulder.C1 = LeftC1
+    RightArm.Name = "RightUpperArm"
+    LeftArm.Name = "LeftUpperArm"
+end)
+end)
+
+Section:NewButton("Crucifix Seek Cracked", "ButtonInfo", function()
+    print("Clicked")
+	local tool = game:GetObjects("rbxassetid://11780280932")[1]
+tool.Name = "Crucifix"
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local RightArm = Char:WaitForChild("RightUpperArm")
+local LeftArm = Char:WaitForChild("LeftUpperArm")
+local RightC1 = RightArm.RightShoulder.C1
+local LeftC1 = LeftArm.LeftShoulder.C1
+local Equipped = false
+
+tool.Equipped:Connect(function()
+    if Equipped then return end
+    Equipped = true
+    RightArm.Name = "R_Arm"
+    LeftArm.Name = "L_Arm"
+    RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+    LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+end)
+
+tool.Unequipped:Connect(function()
+    if not Equipped then return end
+    Equipped = false
+    RightArm.RightShoulder.C1 = RightC1
+    LeftArm.LeftShoulder.C1 = LeftC1
+    RightArm.Name = "RightUpperArm"
+    LeftArm.Name = "LeftUpperArm"
+end)
+end)
+
+Section:NewButton("Crucifix Seek", "ButtonInfo", function()
+    print("Clicked")
+	local tool = game:GetObjects("rbxassetid://11780279145")[1]
+tool.Name = "Crucifix"
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local RightArm = Char:WaitForChild("RightUpperArm")
+local LeftArm = Char:WaitForChild("LeftUpperArm")
+local RightC1 = RightArm.RightShoulder.C1
+local LeftC1 = LeftArm.LeftShoulder.C1
+local Equipped = false
+
+tool.Equipped:Connect(function()
+    if Equipped then return end
+    Equipped = true
+    RightArm.Name = "R_Arm"
+    LeftArm.Name = "L_Arm"
+    RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+    LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+end)
+
+tool.Unequipped:Connect(function()
+    if not Equipped then return end
+    Equipped = false
+    RightArm.RightShoulder.C1 = RightC1
+    LeftArm.LeftShoulder.C1 = LeftC1
+    RightArm.Name = "RightUpperArm"
+    LeftArm.Name = "LeftUpperArm"
+end)
+end)
+
 local Tab = Window:NewTab("Plushy")
 local Section = Tab:NewSection("Plushy")
 Section:NewButton("A-60 Fixed", "ButtonInfo", function()
@@ -2531,7 +2628,7 @@ local Equipped = false
 local LoopSound = Instance.new("Sound")
 LoopSound.SoundId = "rbxassetid://78206015664727"
 LoopSound.Looped = true
-LoopSound.Volume = 5
+LoopSound.Volume = 20
 
 tool.Equipped:Connect(function()
     if Equipped then return end
@@ -2564,13 +2661,13 @@ end)
 if tool:IsA("Tool") then
     game.StarterGui:SetCore("SendNotification", {
         Title = "✓ SUCCESS",
-        Text = "Tool siap! Equip buat denger suara loop",
+        Text = "Tool Start! Equip From Backpack",
         Duration = 3
     })
 else
     game.StarterGui:SetCore("SendNotification", {
         Title = "✗ FAILED",
-        Text = "Item BUKAN tool!",
+        Text = "Item Not tool!",
         Duration = 3
     })
 		end
@@ -2594,12 +2691,12 @@ local Equipped = false
 local Sound1 = Instance.new("Sound")
 Sound1.SoundId = "rbxassetid://136836151370178"
 Sound1.Looped = false
-Sound1.Volume = 0.5
+Sound1.Volume = 5
 
 local Sound2 = Instance.new("Sound")
 Sound2.SoundId = "rbxassetid://103078219556352"
 Sound2.Looped = false
-Sound2.Volume = 0.5
+Sound2.Volume = 5
 
 tool.Equipped:Connect(function()
     if Equipped then return end
@@ -2646,16 +2743,112 @@ end)
 if tool:IsA("Tool") then
     game.StarterGui:SetCore("SendNotification", {
         Title = "✓ SUCCESS",
-        Text = "Rebound Plushie siap! Equip dari backpack",
+        Text = "Rebound Plushie Start! Equip from backpack",
         Duration = 3
     })
 else
     game.StarterGui:SetCore("SendNotification", {
         Title = "✗ FAILED",
-        Text = "Item BUKAN tool!",
+        Text = "Item Not tool!",
         Duration = 3
     })
 		end
+end)
+
+local Tab = Window:NewTab("Item (Pre Run Shop)")
+local Section = Tab:NewSection("Item")
+Section:NewButton("Crucifix", "ButtonInfo", function()
+    print("Clicked")
+	--[[
+
+    NOTE: Custom shop items will NOT cost any real knobs
+
+]]--
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+local CustomShop = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Shop%20Items/Source.lua"))()
+
+
+-- Create your tool here
+local exampleTool = LoadCustomInstance("rbxassetid://11766544358")
+
+
+-- Create custom shop item
+CustomShop.CreateItem(exampleTool, {
+    Title = "Crucifix",
+    Desc = "Catch Entiy",
+    Image = "0",
+    Price = 999,
+    Stack = 1,
+})
+end)
+
+Section:NewButton("Devils Crucifix", "ButtonInfo", function()
+    print("Clicked")
+	--[[
+
+    NOTE: Custom shop items will NOT cost any real knobs
+
+]]--
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+local CustomShop = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Shop%20Items/Source.lua"))()
+
+
+-- Create your tool here
+local exampleTool = LoadCustomInstance("rbxassetid://11813582804")
+
+
+-- Create custom shop item
+CustomShop.CreateItem(exampleTool, {
+    Title = "Devils Crucifix",
+    Desc = "Entity Captured by a Cruel Demon",
+    Image = "0",
+    Price = 999,
+    Stack = 1,
+})
+end)
+
+Section:NewButton("Crucifix Seek", "ButtonInfo", function()
+    print("Clicked")
+	--[[
+
+    NOTE: Custom shop items will NOT cost any real knobs
+
+]]--
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+local CustomShop = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Shop%20Items/Source.lua"))()
+
+
+-- Create your tool here
+local exampleTool = LoadCustomInstance("rbxassetid://11780280932")
+
+
+-- Create custom shop item
+CustomShop.CreateItem(exampleTool, {
+    Title = "Crucifix Seek",
+    Desc = "Entity Captured by Seek",
+    Image = "0",
+    Price = 999,
+    Stack = 1,
+})
+end)
+
+local Tab = Window:NewTab("Room")
+local Section = Tab:NewSection("Room")
+Section:NewButton("Flicker Light", "ButtonInfo", function()
+    print("Clicked")
+	firesignal(game.ReplicatedStorage.Bricks.UseEventModule.OnClientEvent, "flickerLights", game.ReplicatedStorage.GameData.LatestRoom.Value, 1)
+end)
+
+Section:NewButton("Break Light", "ButtonInfo", function()
+    print("Clicked")
+	firesignal(game.ReplicatedStorage.Bricks.UseEventModule.OnClientEvent, "breakLights", workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value], 0.416, 60)
+end)
+
+Section:NewButton("Red Room(Jack)", "ButtonInfo", function()
+    print("Clicked")
 end)
 		
 local Tab = Window:NewTab("Credit")
