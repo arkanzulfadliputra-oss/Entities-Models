@@ -1912,6 +1912,406 @@ end)
 entity:Run()
 end)
 
+Section:NewButton("Spawn A-200", "ButtonInfo", function()
+    print("Clicked")
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "A-200",
+		Asset = "rbxassetid://129719159383236",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 1
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 100,
+		Delay = 2,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+	end
+end)
+
+--[[
+
+DEVELOPER NOTE:
+By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
+
+entity:SetCallback("CrucifixionOverwrite", function()
+    print("Custom crucifixion callback")
+end)
+
+]]--
+
+---====== Run entity ======---
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Threat", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Threat",
+        Asset = "rbxassetid://136527396496185",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = false,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = true,
+        Type = "Ambush",
+        Min = 10,
+        Max = 10,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Death", "Hints", "Go", "Here"},
+        Cause = ""
+    }
+})
+
+local function editModel(model)
+    local thumbnailCam = model:FindFirstChild("ThumbnailCamera")
+    if thumbnailCam then thumbnailCam:Destroy() end
+    
+    local rushNew = model:FindFirstChild("RushNew")
+    if rushNew then
+        for _, attachment in pairs(rushNew:GetChildren()) do
+            if attachment:IsA("Attachment") then
+                local hand = attachment:FindFirstChild("Hand")
+                if hand then hand:Destroy() end
+                
+                for _, particle in pairs(attachment:GetChildren()) do
+                    if particle:IsA("ParticleEmitter") then
+                        particle.Texture = "rbxassetid://73305591210934"
+                    end
+                end
+            end
+        end
+    end
+end
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+    task.wait(0.1)
+    editModel(entity.Model)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+    if lineOfSight == true then
+        print("Player is looking at entity")
+    else
+        print("Player view is obstructed by something")
+    end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+    else
+        print("Entity has finished rebounding")
+    end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+    if newHealth == 0 then
+        print("Entity has killed the player")
+    else
+        print("Entity has damaged the player")
+    end
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Surge Nightmare", "ButtonInfo", function()
+    print("Clicked")
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+local entity = spawner.Create({
+    Entity = {
+        Name = "Surge",
+        Asset = "rbxassetid://136527396496185",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = false,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = true,
+        Type = "Ambush",
+        Min = 10,
+        Max = 10,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Death", "Hints", "Go", "Here"},
+        Cause = ""
+    }
+})
+
+local function editModel(model)
+    if model.Name == "AmbushMoving" then
+        model.Name = "SurgeMoving"
+    end
+    
+    local assetControl = model:FindFirstChild("AssetControl")
+    if assetControl then assetControl:Destroy() end
+    
+    local rushNew = model:FindFirstChild("RushNew")
+    if rushNew then
+        for _, attachment in pairs(rushNew:GetChildren()) do
+            if attachment:IsA("Attachment") then
+                for _, particle in pairs(attachment:GetChildren()) do
+                    if particle:IsA("ParticleEmitter") then
+                        particle.Texture = "rbxassetid://114526256465935"
+                    end
+                end
+                
+                local lightCount = 0
+                for _, light in pairs(attachment:GetChildren()) do
+                    if light:IsA("PointLight") and lightCount < 3 then
+                        light.Color = Color3.fromRGB(0, 255, 0)
+                        lightCount = lightCount + 1
+                    end
+                end
+            end
+        end
+        
+        for _, sound in pairs(rushNew:GetChildren()) do
+            if sound:IsA("Sound") and sound.Name == "PlaySound" then
+                sound.PlaybackSpeed = 1.25
+            end
+        end
+    end
+end
+
+entity:SetCallback("OnSpawned", function()
+    print("Surge has spawned")
+    task.wait(0.1)
+    editModel(entity.Model)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Surge has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Surge has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Surge has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+    if lineOfSight == true then
+        print("Player is looking at Surge")
+    else
+        print("Player view is obstructed by something")
+    end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Surge has started rebounding")
+    else
+        print("Surge has finished rebounding")
+    end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Surge is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Surge has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+    if newHealth == 0 then
+        print("Surge has killed the player")
+    else
+        print("Surge has damaged the player")
+    end
+end)
+
+entity:Run()
+end)
+
 local Tab = Window:NewTab("Spawn Normal Entity")
 local Section = Tab:NewSection("Spawn Normal Entity")
 Section:NewButton("Spawn Eyes", "ButtonInfo", function()
