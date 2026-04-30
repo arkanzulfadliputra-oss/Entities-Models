@@ -2174,7 +2174,7 @@ local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 local entity = spawner.Create({
     Entity = {
         Name = "Surge",
-        Asset = "rbxassetid://136527396496185",
+        Asset = "rbxassetid://11884370026",
         HeightOffset = 0
     },
     Lights = {
@@ -2253,7 +2253,9 @@ local function editModel(model)
         
         for _, sound in pairs(rushNew:GetChildren()) do
             if sound:IsA("Sound") and sound.Name == "PlaySound" then
-                sound.PlaybackSpeed = 1.25
+                local pitch = Instance.new("PitchSoundEffect")
+                pitch.Parent = sound
+                pitch.Pitch = 1.25
             end
         end
     end
@@ -2310,6 +2312,217 @@ entity:SetCallback("OnDamagePlayer", function(newHealth)
 end)
 
 entity:Run()
+end)
+
+Section:NewButton("Spawn FlameThower", "ButtonInfo", function()
+    print("Clicked")
+	local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+
+local function createFireEyes()
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local humanoid = char:WaitForChild("Humanoid")
+    local camera = workspace.CurrentCamera
+    
+    local eyes = Instance.new("Part")
+    eyes.Name = "FireEyes"
+    eyes.Size = Vector3.new(3, 3, 1)
+    eyes.Transparency = 1
+    eyes.Anchored = true
+    eyes.CanCollide = false
+    eyes.Parent = workspace
+    eyes.CFrame = char.HumanoidRootPart.CFrame * CFrame.new(0, 3, -15)
+    
+    local originalCFrame = eyes.CFrame
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Parent = eyes
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://90426216578971"
+    faceParticle.Color = ColorSequence.new(Color3.fromRGB(255, 50, 0))
+    faceParticle.Size = NumberSequence.new(2)
+    faceParticle.Transparency = NumberSequence.new(0)
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.SpreadAngle = Vector2.new(0, 0)
+    faceParticle.VelocityInheritance = 0
+    faceParticle.Speed = NumberRange.new(0)
+    faceParticle.Enabled = false
+    
+    local fire = Instance.new("Fire")
+    fire.Parent = eyes
+    fire.Size = 5
+    fire.Heat = 8
+    fire.Color = Color3.fromRGB(255, 100, 0)
+    fire.SecondaryColor = Color3.fromRGB(255, 0, 0)
+    fire.Enabled = true
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = eyes
+    pointLight.Color = Color3.fromRGB(255, 80, 0)
+    pointLight.Range = 20
+    pointLight.Brightness = 3
+    
+    local fireSound = Instance.new("Sound")
+    fireSound.SoundId = "rbxassetid://92854254519700"
+    fireSound.Looped = true
+    fireSound.Volume = 0.5
+    fireSound.Parent = eyes
+    fireSound:Play()
+    
+    local damageActive = false
+    local damageCooldown = false
+    local waveDirection = 1
+    
+    local function startWobble()
+        task.spawn(function()
+            while eyes and eyes.Parent and damageActive do
+                local newX = math.sin(tick() * 5) * 0.3
+                local wobbleCFrame = originalCFrame * CFrame.new(newX, 0, 0)
+                TweenService:Create(eyes, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {CFrame = wobbleCFrame}):Play()
+                task.wait(0.05)
+            end
+        end)
+    end
+
+    task.delay(5, function()
+        damageActive = true
+        faceParticle.Enabled = true
+        faceParticle:Emit(1)
+        pointLight.Brightness = 5
+        startWobble()
+    end)
+    
+    local latestRoom = workspace.CurrentRooms:FindFirstChild(tostring(game.ReplicatedStorage.GameData.LatestRoom.Value))
+    if latestRoom and latestRoom:FindFirstChild("Door") then
+        latestRoom.Door.ClientOpen.OnClientEvent:Wait()
+        eyes:Destroy()
+    end
+    
+    task.spawn(function()
+        while eyes and eyes.Parent do
+            task.wait(0.1)
+            if humanoid.Health <= 0 then break end
+            
+            if damageActive and not damageCooldown then
+                local dist = (char.HumanoidRootPart.Position - eyes.Position).Magnitude
+                if dist <= 40 then
+                    damageCooldown = true
+                    humanoid.Health = math.max(0, humanoid.Health - 10)              
+                    task.wait(0.5)
+                    damageCooldown = false
+                end
+            end
+        end
+    end)
+    
+    return eyes
+end
+
+createFireEyes()
+end)
+
+Section:NewButton("Spawn Frostbite", "ButtonInfo", function()
+    print("Clicked")
+		    local Player = game.Players.LocalPlayer
+	    local Character = Player.Character
+	    local PlayerGui = Player.PlayerGui
+	    local Frostbite = game:GetObjects("rbxassetid://97585092787249")[1]
+	
+	    -- Settings
+	
+	    local Damage = 5
+	    local WaitTime = 4.500
+	
+	    -- Script
+	
+	    Frostbite.Parent = workspace
+	    Frostbite.Part.CFrame = game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].RoomEnd.CFrame
+	    Frostbite.Part.Anchored = true
+	    Frostbite.Part.CanCollide = false
+
+		local ModuleScripts = {
+    			MainGame = require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game),
+		}
+
+		ModuleScripts.MainGame.camShaker:ShakeOnce(5, 4, 2, 5)
+
+	    Frostbite.Part["Static Effect"].Volume = 1.500
+	    Frostbite.Part["Static Effect"]:Play()
+	    wait(WaitTime)
+		Frostbite.Part["Sound"]:Play()
+		wait(0.4)
+        Frostbite.Part["Static Effect"].Volume = 0.9
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.8
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.7
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.6
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.5
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.4
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.3
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.2
+        wait(0.1)
+        Frostbite.Part["Static Effect"].Volume = 0.1
+		wait(1)
+		Frostbite.Part.AmbienceFar:Stop()
+		Frostbite.Part["Static Effect"]:Stop()
+	    wait(0.100)
+	    Frostbite.Part.Ambience.Volume = 2
+	    Frostbite.Part.Ambience:Play()
+
+		local ModuleScripts = {
+    			MainGame = require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game),
+		}
+
+		ModuleScripts.MainGame.camShaker:ShakeOnce(13, 13, 8, 5)
+	
+	    Frostbite.Part.Attachment.Heylois.Enabled = true
+	    Frostbite.Part.Attachment.face.Enabled = true
+	    Frostbite.Part.Attachment.BlackTrail.Enabled = true
+	
+	    Frostbite.Part.Part.ParticleEmitter.Enabled = true
+	
+	    wait(1)
+	    Character.Humanoid:TakeDamage(Damage)
+	    wait(1)
+	    Character.Humanoid:TakeDamage(Damage)
+	    wait(1)
+	    Character.Humanoid:TakeDamage(Damage)
+	    wait(1)
+	    Character.Humanoid:TakeDamage(Damage)
+	    wait(1)
+	     Character.Humanoid:TakeDamage(Damage)
+	    wait(1)
+	    Character.Humanoid:TakeDamage(Damage)
+	
+		local GamePlayers = game.ReplicatedStorage.GameStats
+
+		local plr = game.Players.LocalPlayer.Name
+		GamePlayers["Player_" ..plr].Total.DeathCause.Value = "Frostbite"
+
+	    Frostbite.Part.Ambience:Stop()
+	
+	    Frostbite.Part.Attachment.Heylois.Enabled = false
+	    Frostbite.Part.Attachment.face.Enabled = false
+	    Frostbite.Part.Attachment.BlackTrail.Enabled = false
+	
+	    Frostbite.Part.Part.ParticleEmitter.Enabled = false
+	
+	    wait(3)
+	    Frostbite.Part.Anchored = false 
+	    wait(4)
+	    Frostbite:Destroy()
+	    Character.Humanoid.Health += 15
 end)
 
 local Tab = Window:NewTab("Spawn Normal Entity")
