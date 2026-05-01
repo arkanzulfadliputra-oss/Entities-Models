@@ -3040,7 +3040,581 @@ end)
 entity:Run()
 end)
 
+Section:NewLabel("Spawner Model Me,but without sound")
 
+Section:NewButton("Spawn RickRoll", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local function createRickRollModel()
+    local model = Instance.new("Model")
+    model.Name = "RickRoll"
+    
+    local rushNew = Instance.new("Part")
+    rushNew.Name = "RushNew"
+    rushNew.Size = Vector3.new(5, 5, 5)
+    rushNew.Anchored = true
+    rushNew.CanCollide = true
+    rushNew.Transparency = 1
+    rushNew.Parent = model
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Name = "FaceAttachment"
+    attachment.Position = Vector3.new(0, 0, 2.5)
+    attachment.Parent = rushNew
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Name = "Face"
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://134813115186905"
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.SpreadAngle = Vector2.new(0, 0)
+    faceParticle.VelocityInheritance = 0
+    faceParticle.Speed = NumberRange.new(0)
+    faceParticle.Size = NumberSequence.new(6)
+    faceParticle.Transparency = NumberSequence.new(0)
+    faceParticle.Enabled = true
+    faceParticle:Emit(1)
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = rushNew
+    pointLight.Color = Color3.fromRGB(255, 255, 255)
+    pointLight.Range = 20
+    pointLight.Brightness = 20
+    
+    return model
+end
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "RickRoll",
+        CustomModel = createRickRollModel,
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = true,
+        Type = "Ambush",
+        Min = 3,
+        Max = 5,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Never", "Gonna", "Give", "You Up"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("RickRoll spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("RickRoll started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    print("RickRoll entered room: " .. room.Name)
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+    print("Player looking at RickRoll")
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound then
+        print("RickRoll started rebounding")
+    else
+        print("RickRoll finished rebounding")
+    end
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("RickRoll despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Barrage", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local function createBarrageModel()
+    local model = Instance.new("Model")
+    model.Name = "Barrage"
+    
+    local rushNew = Instance.new("Part")
+    rushNew.Name = "RushNew"
+    rushNew.Size = Vector3.new(5, 5, 5)
+    rushNew.Anchored = true
+    rushNew.CanCollide = false
+    rushNew.Transparency = 1
+    rushNew.Parent = model
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Name = "FaceAttachment"
+    attachment.Position = Vector3.new(0, 0, 2.5)
+    attachment.Parent = rushNew
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Name = "Face"
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://17215562500"
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.Size = NumberSequence.new(6)
+    faceParticle.Enabled = true
+    faceParticle:Emit(1)
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = rushNew
+    pointLight.Color = Color3.fromRGB(255, 200, 0)
+    pointLight.Range = 30
+    pointLight.Brightness = 20
+    
+    return model
+end
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Barrage",
+        CustomModel = createBarrageModel,
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Barrage spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Barrage started moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Barrage despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn MovingEyes", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local function createEyesModel()
+    local model = Instance.new("Model")
+    model.Name = "Eyes"
+    
+    local rushNew = Instance.new("Part")
+    rushNew.Name = "RushNew"
+    rushNew.Size = Vector3.new(5, 5, 5)
+    rushNew.Anchored = true
+    rushNew.CanCollide = false
+    rushNew.Transparency = 1
+    rushNew.Parent = model
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Name = "FaceAttachment"
+    attachment.Position = Vector3.new(0, 0, 2.5)
+    attachment.Parent = rushNew
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Name = "Face"
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://12200558793"
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.Size = NumberSequence.new(6)
+    faceParticle.Enabled = true
+    faceParticle:Emit(1)
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = rushNew
+    pointLight.Color = Color3.fromRGB(128, 0, 255)
+    pointLight.Range = 30
+    pointLight.Brightness = 20
+    
+    return model
+end
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Eyes",
+        CustomModel = createEyesModel,
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Eyes spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Eyes started moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Eyes despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn A-60 Kawaii", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local function createA60KawaiiModel()
+    local model = Instance.new("Model")
+    model.Name = "A-60ButKawaii"
+    
+    local rushNew = Instance.new("Part")
+    rushNew.Name = "RushNew"
+    rushNew.Size = Vector3.new(5, 5, 5)
+    rushNew.Anchored = true
+    rushNew.CanCollide = false
+    rushNew.Transparency = 1
+    rushNew.Parent = model
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Name = "FaceAttachment"
+    attachment.Position = Vector3.new(0, 0, 2.5)
+    attachment.Parent = rushNew
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Name = "Face"
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://12919903444"
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.Size = NumberSequence.new(6)
+    faceParticle.Enabled = true
+    faceParticle:Emit(1)
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = rushNew
+    pointLight.Color = Color3.fromRGB(255, 0, 0)
+    pointLight.Range = 30
+    pointLight.Brightness = 8
+    
+    return model
+end
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "A-60 But Kawaii",
+        CustomModel = createA60KawaiiModel,
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("A-60 But Kawaii spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("A-60 But Kawaii started moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("A-60 But Kawaii despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn A-60 Rooms", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local faceIds = {
+    "11287256498",
+    "11710144220",
+    "12633379437",
+    "11710154026",
+    "12633510500",
+    "11558483235"
+}
+
+local function createA60Model()
+    local model = Instance.new("Model")
+    model.Name = "A-60"
+    
+    local rushNew = Instance.new("Part")
+    rushNew.Name = "RushNew"
+    rushNew.Size = Vector3.new(5, 5, 5)
+    rushNew.Anchored = true
+    rushNew.CanCollide = false
+    rushNew.Transparency = 1
+    rushNew.Parent = model
+    
+    local attachment = Instance.new("Attachment")
+    attachment.Name = "FaceAttachment"
+    attachment.Position = Vector3.new(0, 0, 2.5)
+    attachment.Parent = rushNew
+    
+    local faceParticle = Instance.new("ParticleEmitter")
+    faceParticle.Name = "Face"
+    faceParticle.Parent = attachment
+    faceParticle.Texture = "rbxassetid://" .. faceIds[1]
+    faceParticle.Rate = 0
+    faceParticle.Lifetime = NumberRange.new(999)
+    faceParticle.Size = NumberSequence.new(6)
+    faceParticle.Enabled = true
+    faceParticle:Emit(1)
+    
+    local pointLight = Instance.new("PointLight")
+    pointLight.Parent = rushNew
+    pointLight.Color = Color3.fromRGB(255, 0, 0)
+    pointLight.Range = 20
+    pointLight.Brightness = 20
+    
+    local faceIndex = 1
+    task.spawn(function()
+        while model.Parent do
+            task.wait(0.9)
+            faceIndex = faceIndex % #faceIds + 1
+            faceParticle.Texture = "rbxassetid://" .. faceIds[faceIndex]
+            faceParticle:Emit(1)
+        end
+    end)
+    
+    return model
+end
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "A-60",
+        CustomModel = createA60Model,
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("A-60 spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("A-60 started moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("A-60 despawned")
+end)
+
+entity:Run()
+end)
 
 local Tab = Window:NewTab("Spawn Normal Entity")
 local Section = Tab:NewSection("Spawn Normal Entity")
