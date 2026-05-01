@@ -2525,6 +2525,300 @@ Section:NewButton("Spawn Frostbite", "ButtonInfo", function()
 	    Character.Humanoid.Health += 15
 end)
 
+Section:NewLabel("Morest Entity But Not Mine")
+
+Section:NewButton("Spawn Firebrand", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Firebrand",
+        Asset = "https://github.com/fnaclol/sussy-bois/raw/main/FireBrand3.rbxm",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Firebrand has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Firebrand is moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Firebrand has despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Bacon", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Bacon",
+        Asset = "rbxassetid://11400818478",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Bacon has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Bacon is moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Bacon has despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn A-200", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "A-200",
+        Asset = "rbxassetid://11436355542",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = true,
+        Type = "Ambush",
+        Min = 10,
+        Max = 10,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("A-200 has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("A-200 is moving")
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound then
+        print("A-200 started rebounding")
+    else
+        print("A-200 finished rebounding")
+    end
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("A-200 has despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn H-80", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "H-80",
+        Asset = "rbxassetid://11722932915",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 200,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("H-80 has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("H-80 is moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("H-80 has despawned")
+end)
+
+entity:Run()
+end)
+
 local Tab = Window:NewTab("Spawn Normal Entity")
 local Section = Tab:NewSection("Spawn Normal Entity")
 Section:NewButton("Spawn Eyes", "ButtonInfo", function()
@@ -2837,6 +3131,227 @@ end)
 ]]--
 
 ---====== Run entity ======---
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn ScartchCat", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "ScratchCat",
+        Asset = "https://github.com/plamen6789/CustomDoorsMonsters/raw/main/ScratchCat.rbxm",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = true,
+        Type = "Ambush",
+        Min = 10,
+        Max = 10,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("ScratchCat has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("ScratchCat is moving")
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound then
+        print("ScratchCat started rebounding")
+    else
+        print("ScratchCat finished rebounding")
+    end
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("ScratchCat has despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Elgato", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Elgato",
+        Asset = "https://github.com/plamen6789/CustomDoorsMonsters/raw/main/Elgato.rbxm",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Elgato has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Elgato is moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Elgato has despawned")
+end)
+
+entity:Run()
+end)
+
+Section:NewButton("Spawn Silence", "ButtonInfo", function()
+    print("Clicked")
+	local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+local entity = spawner.Create({
+    Entity = {
+        Name = "Silence",
+        Asset = "https://github.com/plamen6789/CustomDoorsMonsters/raw/main/Silence.rbxm",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 1
+        },
+        Shatter = true,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {1.5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 100,
+        Delay = 2,
+        Reversed = false
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 1,
+        Max = 1,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 125
+    },
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"Run", "Hide", "Now"},
+        Cause = ""
+    }
+})
+
+entity:SetCallback("OnSpawned", function()
+    print("Silence has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Silence is moving")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Silence has despawned")
+end)
 
 entity:Run()
 end)
