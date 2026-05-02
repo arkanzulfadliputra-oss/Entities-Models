@@ -1570,7 +1570,7 @@ local Button = Tab:CreateButton({
 
 local Tab = Window:CreateTab("Crucifix", 0)
 
-local Section = Tab:CreateSection("Section Example")
+local Section = Tab:CreateSection("Crucifix")
 
 local Button = Tab:CreateButton({
     Name = "Spawn Crucifix Seek",
