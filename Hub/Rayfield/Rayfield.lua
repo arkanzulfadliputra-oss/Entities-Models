@@ -1856,11 +1856,11 @@ Tab:CreateButton({
     end,
 })
 
-local ExtraTab = Rayfield:CreateTab("Extra", 0)
+local Tab = Window:CreateTab("Extra", 0)
 
-local ExtraSection = ExtraTab:CreateSection("Extra")
+local Section = Tab:CreateSection("Extra Features")
 
-local CaptionBox = ExtraTab:CreateInput({
+local CaptionBox = Tab:CreateInput({
     Name = "Caption Text",
     CurrentValue = "",
     PlaceholderText = "Enter caption text",
@@ -1870,11 +1870,10 @@ local CaptionBox = ExtraTab:CreateInput({
     end,
 })
 
-local CaptionButton = ExtraTab:CreateButton({
+local CaptionButton = Tab:CreateButton({
     Name = "Send Caption",
     Callback = function()
         local captionText = CaptionBox.CurrentValue
-        
         if captionText == "" then
             Rayfield:Notify({
                 Title = "Error",
@@ -1882,17 +1881,15 @@ local CaptionButton = ExtraTab:CreateButton({
             })
             return
         end
-        
         require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(captionText, true)
-        
-        Rayfield:Notify({
+        Window:Notify({
             Title = "Caption Sent",
             Content = captionText,
         })
     end,
 })
 
-local TitleBox = ExtraTab:CreateInput({
+local TitleBox = Tab:CreateInput({
     Name = "Title",
     CurrentValue = "",
     PlaceholderText = "Achievement title",
@@ -1902,7 +1899,7 @@ local TitleBox = ExtraTab:CreateInput({
     end,
 })
 
-local DescBox = ExtraTab:CreateInput({
+local DescBox = Tab:CreateInput({
     Name = "Description",
     CurrentValue = "",
     PlaceholderText = "Achievement description",
@@ -1912,7 +1909,7 @@ local DescBox = ExtraTab:CreateInput({
     end,
 })
 
-local ReasonBox = ExtraTab:CreateInput({
+local ReasonBox = Section:CreateInput({
     Name = "Reason",
     CurrentValue = "",
     PlaceholderText = "Achievement reason",
@@ -1922,7 +1919,7 @@ local ReasonBox = ExtraTab:CreateInput({
     end,
 })
 
-local ImageBox = ExtraTab:CreateInput({
+local ImageBox = Tab:CreateInput({
     Name = "Image ID",
     CurrentValue = "12309073114",
     PlaceholderText = "Image asset ID",
@@ -1932,7 +1929,7 @@ local ImageBox = ExtraTab:CreateInput({
     end,
 })
 
-local RevivesBox = ExtraTab:CreateInput({
+local RevivesBox = Tab:CreateInput({
     Name = "Revives",
     CurrentValue = "0",
     PlaceholderText = "Number of revives",
@@ -1942,7 +1939,7 @@ local RevivesBox = ExtraTab:CreateInput({
     end,
 })
 
-local KnobsBox = ExtraTab:CreateInput({
+local KnobsBox = Tab:CreateInput({
     Name = "Knobs",
     CurrentValue = "0",
     PlaceholderText = "Number of knobs",
@@ -1952,7 +1949,7 @@ local KnobsBox = ExtraTab:CreateInput({
     end,
 })
 
-local StardustBox = ExtraTab:CreateInput({
+local StardustBox = Tab:CreateInput({
     Name = "Stardust",
     CurrentValue = "0",
     PlaceholderText = "Amount of stardust",
@@ -1962,7 +1959,7 @@ local StardustBox = ExtraTab:CreateInput({
     end,
 })
 
-local AchievementButton = ExtraTab:CreateButton({
+local AchievementButton = Tab:CreateButton({
     Name = "Give Achievement",
     Callback = function()
         local title = TitleBox.CurrentValue
@@ -1974,7 +1971,7 @@ local AchievementButton = ExtraTab:CreateButton({
         local stardust = tonumber(StardustBox.CurrentValue) or 0
         
         if title == "" then
-            Rayfield:Notify({
+            Rayifeld:Notify({
                 Title = "Error",
                 Content = "Title cannot be empty!",
             })
