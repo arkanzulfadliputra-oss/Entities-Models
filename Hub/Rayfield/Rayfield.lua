@@ -1568,6 +1568,178 @@ local Button = Tab:CreateButton({
     end,
 })
 
+local NameBox = Tab:CreateInput({
+    Name = "Entity Name",
+    CurrentValue = "",
+    PlaceholderText = "Enter name",
+    RemoveTextAfterFocusLost = false,
+    Flag = "NameInput",
+    Callback = function(Text)
+    end,
+})
+
+local IDBox = Tab:CreateInput({
+    Name = "Asset ID",
+    CurrentValue = "",
+    PlaceholderText = "Enter asset ID",
+    RemoveTextAfterFocusLost = false,
+    Flag = "IDInput",
+    Callback = function(Text)
+    end,
+})
+
+local SpeedBox = Tab:CreateInput({
+    Name = "Speed",
+    CurrentValue = "",
+    PlaceholderText = "Enter speed",
+    RemoveTextAfterFocusLost = false,
+    Flag = "SpeedInput",
+    Callback = function(Text)
+    end,
+})
+
+local ReboundBox = Tab:CreateInput({
+    Name = "Rebounding",
+    CurrentValue = "",
+    PlaceholderText = "false / true / number",
+    RemoveTextAfterFocusLost = false,
+    Flag = "ReboundInput",
+    Callback = function(Text)
+    end,
+})
+
+Tab:CreateButton({
+    Name = "Spawn Entity",
+    Callback = function()
+        local name = NameBox.CurrentValue
+        local id = IDBox.CurrentValue
+        local speed = tonumber(SpeedBox.CurrentValue)
+        local rebound = ReboundBox.CurrentValue
+        
+        local reboundEnabled = false
+        local reboundCount = 1
+        
+        if rebound:lower() == "true" then
+            reboundEnabled = true
+            reboundCount = 1
+        elseif rebound:lower() == "false" then
+            reboundEnabled = false
+            reboundCount = 1
+        else
+            local num = tonumber(rebound)
+            if num then
+                reboundEnabled = true
+                reboundCount = num
+            end
+        end
+        
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = name,
+                Asset = "rbxassetid://" .. id,
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = true,
+                    Duration = 1
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {1.5, 20, 0.1, 1}
+            },
+            Movement = {
+                Speed = speed,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = reboundEnabled,
+                Type = "Ambush",
+                Min = reboundCount,
+                Max = reboundCount,
+                Delay = 2
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 125
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+            Death = {
+                Type = "Guiding",
+                Hints = {"Run", "Hide"},
+                Cause = ""
+            }
+        })
+        
+        entity:SetCallback("OnSpawned", function()
+            print(name .. " spawned")
+        end)
+        
+        entity:SetCallback("OnStartMoving", function()
+            print(name .. " started moving")
+        end)
+        
+        entity:SetCallback("OnEnterRoom", function(room, firstTime)
+            if firstTime then
+                print(name .. " entered room: " .. room.Name)
+            else
+                print(name .. " re-entered room: " .. room.Name)
+            end
+        end)
+        
+        entity:SetCallback("OnLookAt", function(lineOfSight)
+            if lineOfSight then
+                print("Player looking at " .. name)
+            else
+                print("Player view obstructed from " .. name)
+            end
+        end)
+        
+        entity:SetCallback("OnRebounding", function(startOfRebound)
+            if startOfRebound then
+                print(name .. " started rebounding")
+            else
+                print(name .. " finished rebounding")
+            end
+        end)
+        
+        entity:SetCallback("OnDamagePlayer", function(newHealth)
+            print(name .. " damaged player, health: " .. newHealth)
+        end)
+        
+        entity:SetCallback("OnDespawning", function()
+            print(name .. " is despawning")
+        end)
+        
+        entity:SetCallback("OnDespawned", function()
+            print(name .. " despawned")
+        end)
+        
+        entity:Run()
+        
+        Rayfield:Notify({
+            Title = "Spawned",
+            Content = name .. " spawned!",
+        })
+    end,
+})
+
 local Tab = Window:CreateTab("Crucifix", 0)
 
 local Section = Tab:CreateSection("Crucifix")
@@ -1606,6 +1778,81 @@ local Button = Tab:CreateButton({
             rightArm.Name = "RightUpperArm"
             leftArm.Name = "LeftUpperArm"
         end)
+    end,
+})
+
+local NameBox = Tab:CreateInput({
+    Name = "Item Name",
+    CurrentValue = "",
+    PlaceholderText = "Enter item name",
+    RemoveTextAfterFocusLost = false,
+    Flag = "NameInput",
+    Callback = function(Text)
+    end,
+})
+
+local IDBox = Tab:CreateInput({
+    Name = "Asset ID",
+    CurrentValue = "",
+    PlaceholderText = "Enter asset ID",
+    RemoveTextAfterFocusLost = false,
+    Flag = "IDInput",
+    Callback = function(Text)
+    end,
+})
+
+Tab:CreateButton({
+    Name = "Spawn Item",
+    Callback = function()
+        local name = NameBox.CurrentValue
+        local id = IDBox.CurrentValue
+        
+        local tool = game:GetObjects("rbxassetid://" .. id)[1]
+        
+        if not tool then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Failed to load item",
+            })
+            return
+        end
+        
+        tool.Name = name
+        
+        local player = game.Players.LocalPlayer
+        local char = player.Character or player.CharacterAdded:Wait()
+        local rightArm = char:WaitForChild("RightUpperArm")
+        local leftArm = char:WaitForChild("LeftUpperArm")
+        local rightC1 = rightArm.RightShoulder.C1
+        local leftC1 = leftArm.LeftShoulder.C1
+        local equipped = false
+        
+        tool.Equipped:Connect(function()
+            if equipped then return end
+            equipped = true
+            
+            rightArm.Name = "R_Arm"
+            leftArm.Name = "L_Arm"
+            rightArm.RightShoulder.C1 = rightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+            leftArm.LeftShoulder.C1 = leftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+        end)
+        
+        tool.Unequipped:Connect(function()
+            if not equipped then return end
+            equipped = false
+            
+            rightArm.RightShoulder.C1 = rightC1
+            leftArm.LeftShoulder.C1 = leftC1
+            rightArm.Name = "RightUpperArm"
+            leftArm.Name = "LeftUpperArm"
+        end)
+        
+        tool.Parent = player.Backpack
+        
+        Rayfield:Notify({
+            Title = "Spawned",
+            Content = name .. " added to backpack!",
+        })
     end,
 })
 
