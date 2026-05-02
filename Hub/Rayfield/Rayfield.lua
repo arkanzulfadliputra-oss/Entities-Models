@@ -1856,6 +1856,161 @@ Tab:CreateButton({
     end,
 })
 
+local ExtraTab = Rayfield:CreateTab("Extra", nil)
+
+local ExtraSection = ExtraTab:CreateSection("Extra")
+
+local CaptionBox = ExtraSection:CreateInput({
+    Name = "Caption Text",
+    CurrentValue = "",
+    PlaceholderText = "Enter caption text",
+    RemoveTextAfterFocusLost = false,
+    Flag = "CaptionInput",
+    Callback = function(Text)
+    end,
+})
+
+ExtraSection:CreateButton({
+    Name = "Send Caption",
+    Callback = function()
+        local captionText = CaptionBox.CurrentValue
+        
+        if captionText == "" then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Caption cannot be empty!",
+            })
+            return
+        end
+        
+        require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(captionText, true)
+        
+        Rayfield:Notify({
+            Title = "Caption Sent",
+            Content = captionText,
+        })
+    end,
+})
+
+local TitleBox = ExtraSection:CreateInput({
+    Name = "Title",
+    CurrentValue = "",
+    PlaceholderText = "Achievement title",
+    RemoveTextAfterFocusLost = false,
+    Flag = "TitleInput",
+    Callback = function(Text)
+    end,
+})
+
+local DescBox = ExtraSection:CreateInput({
+    Name = "Description",
+    CurrentValue = "",
+    PlaceholderText = "Achievement description",
+    RemoveTextAfterFocusLost = false,
+    Flag = "DescInput",
+    Callback = function(Text)
+    end,
+})
+
+local ReasonBox = ExtraSection:CreateInput({
+    Name = "Reason",
+    CurrentValue = "",
+    PlaceholderText = "Achievement reason",
+    RemoveTextAfterFocusLost = false,
+    Flag = "ReasonInput",
+    Callback = function(Text)
+    end,
+})
+
+local ImageBox = ExtraSection:CreateInput({
+    Name = "Image ID",
+    CurrentValue = "12309073114",
+    PlaceholderText = "Image asset ID",
+    RemoveTextAfterFocusLost = false,
+    Flag = "ImageInput",
+    Callback = function(Text)
+    end,
+})
+
+local RevivesBox = ExtraSection:CreateInput({
+    Name = "Revives",
+    CurrentValue = "0",
+    PlaceholderText = "Number of revives",
+    RemoveTextAfterFocusLost = false,
+    Flag = "RevivesInput",
+    Callback = function(Text)
+    end,
+})
+
+local KnobsBox = ExtraSection:CreateInput({
+    Name = "Knobs",
+    CurrentValue = "0",
+    PlaceholderText = "Number of knobs",
+    RemoveTextAfterFocusLost = false,
+    Flag = "KnobsInput",
+    Callback = function(Text)
+    end,
+})
+
+local StardustBox = ExtraSection:CreateInput({
+    Name = "Stardust",
+    CurrentValue = "0",
+    PlaceholderText = "Amount of stardust",
+    RemoveTextAfterFocusLost = false,
+    Flag = "StardustInput",
+    Callback = function(Text)
+    end,
+})
+
+ExtraSection:CreateButton({
+    Name = "Give Achievement",
+    Callback = function()
+        local title = TitleBox.CurrentValue
+        local desc = DescBox.CurrentValue
+        local reason = ReasonBox.CurrentValue
+        local imageId = ImageBox.CurrentValue
+        local revives = tonumber(RevivesBox.CurrentValue) or 0
+        local knobs = tonumber(KnobsBox.CurrentValue) or 0
+        local stardust = tonumber(StardustBox.CurrentValue) or 0
+        
+        if title == "" then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Title cannot be empty!",
+            })
+            return
+        end
+        
+        if desc == "" then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Description cannot be empty!",
+            })
+            return
+        end
+        
+        local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/Focuslol666/Utilities/refs/heads/patch-1/Doors/Custom%20Achievements/Source.lua"))()
+        
+        achievementGiver({
+            Title = title,
+            Desc = desc,
+            Reason = reason,
+            Image = "rbxassetid://" .. imageId,
+            Prize = {
+                Revives = revives,
+                Knobs = knobs,
+                Stardust = stardust,
+                Items = {}
+            }
+        })
+        
+        Rayfield:Notify({
+            Title = "Achievement Given",
+            Content = title,
+        })
+    end,
+})
+
 local Tab = Window:CreateTab("Credit", 0) -- Title, Image
 
 local Section = Tab:NewSection("Credit")
