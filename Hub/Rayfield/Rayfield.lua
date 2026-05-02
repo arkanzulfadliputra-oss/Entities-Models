@@ -1856,11 +1856,11 @@ Tab:CreateButton({
     end,
 })
 
-local ExtraTab = Rayfield:CreateTab("Extra", nil)
+local ExtraTab = Rayfield:CreateTab("Extra", 0)
 
 local ExtraSection = ExtraTab:CreateSection("Extra")
 
-local CaptionBox = ExtraSection:CreateInput({
+local CaptionBox = ExtraTab:CreateInput({
     Name = "Caption Text",
     CurrentValue = "",
     PlaceholderText = "Enter caption text",
@@ -1870,7 +1870,7 @@ local CaptionBox = ExtraSection:CreateInput({
     end,
 })
 
-ExtraSection:CreateButton({
+local CaptionButton = ExtraTab:CreateButton({
     Name = "Send Caption",
     Callback = function()
         local captionText = CaptionBox.CurrentValue
@@ -1892,7 +1892,7 @@ ExtraSection:CreateButton({
     end,
 })
 
-local TitleBox = ExtraSection:CreateInput({
+local TitleBox = ExtraTab:CreateInput({
     Name = "Title",
     CurrentValue = "",
     PlaceholderText = "Achievement title",
@@ -1902,7 +1902,7 @@ local TitleBox = ExtraSection:CreateInput({
     end,
 })
 
-local DescBox = ExtraSection:CreateInput({
+local DescBox = ExtraTab:CreateInput({
     Name = "Description",
     CurrentValue = "",
     PlaceholderText = "Achievement description",
@@ -1912,7 +1912,7 @@ local DescBox = ExtraSection:CreateInput({
     end,
 })
 
-local ReasonBox = ExtraSection:CreateInput({
+local ReasonBox = ExtraTab:CreateInput({
     Name = "Reason",
     CurrentValue = "",
     PlaceholderText = "Achievement reason",
@@ -1922,7 +1922,7 @@ local ReasonBox = ExtraSection:CreateInput({
     end,
 })
 
-local ImageBox = ExtraSection:CreateInput({
+local ImageBox = ExtraTab:CreateInput({
     Name = "Image ID",
     CurrentValue = "12309073114",
     PlaceholderText = "Image asset ID",
@@ -1932,7 +1932,7 @@ local ImageBox = ExtraSection:CreateInput({
     end,
 })
 
-local RevivesBox = ExtraSection:CreateInput({
+local RevivesBox = ExtraTab:CreateInput({
     Name = "Revives",
     CurrentValue = "0",
     PlaceholderText = "Number of revives",
@@ -1942,7 +1942,7 @@ local RevivesBox = ExtraSection:CreateInput({
     end,
 })
 
-local KnobsBox = ExtraSection:CreateInput({
+local KnobsBox = ExtraTab:CreateInput({
     Name = "Knobs",
     CurrentValue = "0",
     PlaceholderText = "Number of knobs",
@@ -1952,7 +1952,7 @@ local KnobsBox = ExtraSection:CreateInput({
     end,
 })
 
-local StardustBox = ExtraSection:CreateInput({
+local StardustBox = ExtraTab:CreateInput({
     Name = "Stardust",
     CurrentValue = "0",
     PlaceholderText = "Amount of stardust",
@@ -1962,7 +1962,7 @@ local StardustBox = ExtraSection:CreateInput({
     end,
 })
 
-ExtraSection:CreateButton({
+local AchievementButton = ExtraTab:CreateButton({
     Name = "Give Achievement",
     Callback = function()
         local title = TitleBox.CurrentValue
