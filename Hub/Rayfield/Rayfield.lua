@@ -1909,7 +1909,7 @@ local DescBox = Tab:CreateInput({
     end,
 })
 
-local ReasonBox = Section:CreateInput({
+local ReasonBox = Tab:CreateInput({
     Name = "Reason",
     CurrentValue = "",
     PlaceholderText = "Achievement reason",
@@ -1971,7 +1971,7 @@ local AchievementButton = Tab:CreateButton({
         local stardust = tonumber(StardustBox.CurrentValue) or 0
         
         if title == "" then
-            Rayifeld:Notify({
+            Rayfield:Notify({
                 Title = "Error",
                 Content = "Title cannot be empty!",
             })
