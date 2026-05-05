@@ -38,12 +38,12 @@ local function createGrudgeModel()
     local footstepsSound = Instance.new("Sound")
     footstepsSound.Parent = rushNew
     footstepsSound.SoundId = "rbxassetid://10384719706"
-    footstepsSound.Volume = 0.4
+    footstepsSound.Volume = 1
     footstepsSound.Looped = true
     
     local distort = Instance.new("DistortionSoundEffect")
     distort.Parent = footstepsSound
-    distort.Level = 0.5
+    distort.Level = 0.4
     
     return model
 end
