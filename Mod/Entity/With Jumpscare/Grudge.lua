@@ -20,14 +20,14 @@ local function createGrudgeModel()
     
     local face = Instance.new("ParticleEmitter")
     face.Parent = attFace
-    face.Texture = "rbxassetid://10528077679"
+    face.Texture = "rbxassetid://104171184452195"
     face.Rate = 100
     face.SpreadAngle = Vector2.new(360, 360)
     face.Lifetime = NumberRange.new(0.3)
     face.Speed = NumberRange.new(0)
     face.Color = ColorSequence.new(Color3.fromRGB(128, 0, 255))
     face.Size = NumberSequence.new(6)
-    face.Transparency = NumberSequence.new(0.2)
+    face.Transparency = NumberSequence.new(0)
     
     local light = Instance.new("PointLight")
     light.Parent = rushNew
