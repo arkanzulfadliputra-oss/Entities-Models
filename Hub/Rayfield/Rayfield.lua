@@ -1740,6 +1740,344 @@ Tab:CreateButton({
     end,
 })
 
+local Button = Tab:CreateButton({
+    Name = "Spawn Alternate",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+        
+        local entity = spawner:Create({
+            Entity = {
+                Name = "Alternate",
+                Asset = "https://github.com/arkanzulfadliputra-oss/mODELS/raw/main/Alternate.rbxm",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = true,
+                    Duration = 1
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {1.5, 20, 0.1, 1}
+            },
+            Movement = {
+                Speed = 200,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = true,
+                Type = "Ambush",
+                Min = 10,
+                Max = 10,
+                Delay = 2
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 125
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+            Death = {
+                Type = "Guiding",
+                Hints = {"It's getting faster...", "Don't stop running.", "Each rebound is quicker."},
+                Cause = "Alternate"
+            }
+        })
+        
+        local reboundCount = 0
+        local currentSpeed = 200
+        
+        entity:SetCallback("OnSpawned", function()
+            reboundCount = 0
+            currentSpeed = 200
+        end)
+        
+        entity:SetCallback("OnRebounding", function(startOfRebound)
+            if startOfRebound then
+                reboundCount = reboundCount + 1
+                currentSpeed = currentSpeed + 50
+                entity:SetSpeed(currentSpeed)
+            end
+        end)
+        
+        entity:Run()
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Spawn Depth Oldest",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+        
+        local entity = spawner:Create({
+            Entity = {
+                Name = "Depth Oldest",
+                Asset = "https://github.com/arkanzulfadliputra-oss/mODELS/raw/main/Depth%20Oldest.rbxm",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = true,
+                    Duration = 1
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {1.5, 20, 0.1, 1}
+            },
+            Movement = {
+                Speed = 200,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = true,
+                Type = "Ambush",
+                Min = 5,
+                Max = 5,
+                Delay = 2
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 125
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+            Death = {
+                Type = "Guiding",
+                Hints = {"Run.", "It's coming back.", "Hide."},
+                Cause = "Depth Oldest"
+            }
+        })
+        
+        entity:SetCallback("OnSpawned", function()
+            print("Depth Oldest has spawned")
+        end)
+        
+        entity:SetCallback("OnStartMoving", function()
+            print("Depth Oldest is moving")
+        end)
+        
+        entity:SetCallback("OnEnterRoom", function(room, firstTime)
+            if firstTime then
+                print("Depth Oldest entered: " .. room.Name)
+            end
+        end)
+        
+        entity:SetCallback("OnRebounding", function(startOfRebound)
+            if startOfRebound then
+                print("Depth Oldest started rebounding")
+            else
+                print("Depth Oldest finished rebounding")
+            end
+        end)
+        
+        entity:SetCallback("OnDespawned", function()
+            print("Depth Oldest despawned")
+        end)
+        
+        entity:Run()
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Spawn Old Ambush",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+        
+        local entity = spawner:Create({
+            Entity = {
+                Name = "Old Ambush",
+                Asset = "https://github.com/arkanzulfadliputra-oss/mODELS/raw/main/OldAmbush.rbxm",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = true,
+                    Duration = 1
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {1.5, 20, 0.1, 1}
+            },
+            Movement = {
+                Speed = 200,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = true,
+                Type = "Ambush",
+                Min = 5,
+                Max = 5,
+                Delay = 2
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 125
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+            Death = {
+                Type = "Guiding",
+                Hints = {"Run.", "It's coming back.", "Hide."},
+                Cause = "Old Ambush"
+            }
+        })
+        
+        entity:SetCallback("OnSpawned", function()
+            print("Old Ambush has spawned")
+        end)
+        
+        entity:SetCallback("OnStartMoving", function()
+            print("Old Ambush is moving")
+        end)
+        
+        entity:SetCallback("OnEnterRoom", function(room, firstTime)
+            if firstTime then
+                print("Old Ambush entered: " .. room.Name)
+            end
+        end)
+        
+        entity:SetCallback("OnRebounding", function(startOfRebound)
+            if startOfRebound then
+                print("Old Ambush started rebounding")
+            else
+                print("Old Ambush finished rebounding")
+            end
+        end)
+        
+        entity:SetCallback("OnDespawned", function()
+            print("Old Ambush despawned")
+        end)
+        
+        entity:Run()
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Spawn Oldest Ambush",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+        
+        local entity = spawner:Create({
+            Entity = {
+                Name = "Oldest Ambush",
+                Asset = "https://github.com/arkanzulfadliputra-oss/mODELS/raw/main/OldAmbush%20Oldest.rbxm",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = true,
+                    Duration = 1
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {1.5, 20, 0.1, 1}
+            },
+            Movement = {
+                Speed = 200,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = true,
+                Type = "Ambush",
+                Min = 5,
+                Max = 5,
+                Delay = 2
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 125
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+            Death = {
+                Type = "Guiding",
+                Hints = {"Run.", "It's coming back.", "Hide."},
+                Cause = "Oldest Ambush"
+            }
+        })
+        
+        entity:SetCallback("OnSpawned", function()
+            print("Oldest Ambush has spawned")
+        end)
+        
+        entity:SetCallback("OnStartMoving", function()
+            print("Oldest Ambush is moving")
+        end)
+        
+        entity:SetCallback("OnEnterRoom", function(room, firstTime)
+            if firstTime then
+                print("Oldest Ambush entered: " .. room.Name)
+            end
+        end)
+        
+        entity:SetCallback("OnRebounding", function(startOfRebound)
+            if startOfRebound then
+                print("Oldest Ambush started rebounding")
+            else
+                print("Oldest Ambush finished rebounding")
+            end
+        end)
+        
+        entity:SetCallback("OnDespawned", function()
+            print("Oldest Ambush despawned")
+        end)
+        
+        entity:Run()
+    end,
+})
+
 local Tab = Window:CreateTab("Crucifix", 0)
 
 local Section = Tab:CreateSection("Crucifix")
@@ -1748,7 +2086,7 @@ local Button = Tab:CreateButton({
     Name = "Spawn Crucifix Seek",
     Callback = function()
         local tool = game:GetObjects("rbxassetid://11780280932")[1]
-        tool.Name = "Custom Tool"
+        tool.Name = "Crucifix"
         tool.Parent = game.Players.LocalPlayer.Backpack
         
         local player = game.Players.LocalPlayer
