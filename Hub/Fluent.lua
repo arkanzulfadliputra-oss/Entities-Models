@@ -16,6 +16,7 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Entity Spawner" }),
     CustomItems = Window:AddTab({ Title = "Custom Items" }),
     Plushies = Window:AddTab({ Title = "Plushies" }),
+    Modes = Window:AddTab({ Title = "Modes" )},
     Extra = Window:AddTab({ Title = "Extra" }),
     Credit = Window:AddTab({ Title = "Credit" })
 }
@@ -1675,6 +1676,109 @@ Tabs.Main:AddButton({
 })
 
 Tabs.Main:AddButton({
+    Title = "Spawn Threat",
+    Description = "Spawn Threat entity",
+    Callback = function()
+        local TweenService = game:GetService("TweenService")
+        local Lighting = game:GetService("Lighting")
+
+        local function GitAud(soundgit, filename)
+            local url = soundgit
+            local FileName = filename
+            if not isfile(FileName .. ".mp3") then
+                writefile(FileName .. ".mp3", game:HttpGet(url))
+            end
+            return (getcustomasset or getsynasset)(FileName .. ".mp3")
+        end
+
+        local function CustomGitSound(soundlink, vol, filename)
+            local sound = Instance.new("Sound")
+            sound.SoundId = GitAud(soundlink, filename)
+            sound.Parent = workspace
+            sound.Volume = vol or 2
+            sound.PlaybackSpeed = 1
+            sound.Name = filename or "Spawn"
+            sound:Play()
+            
+            sound.Ended:Connect(function()
+                sound:Destroy()
+            end)
+        end
+
+        local function TriggerPinkEffect()
+            local colorCorrection = Instance.new("ColorCorrectionEffect")
+            colorCorrection.Name = "ThreatPinkEffect"
+            colorCorrection.TintColor = Color3.fromRGB(255, 105, 180)
+            colorCorrection.Parent = Lighting
+
+            local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+            local tween = TweenService:Create(colorCorrection, tweenInfo, {
+                TintColor = Color3.fromRGB(255, 255, 255)
+            })
+            
+            tween:Play()
+            tween.Completed:Connect(function()
+                colorCorrection:Destroy()
+            end)
+        end
+
+        TriggerPinkEffect()
+         local SoundService = game:GetService("SoundService")
+
+local cue1 = Instance.new("Sound")
+cue1.SoundId = "rbxassetid://3359047385"
+cue1.Parent = SoundService
+cue1.Name = "Cue1"
+cue1.Volume = 10
+
+local Equalizer = Instance.new("EqualizerSoundEffect")
+Equalizer.Parent = cue1
+Equalizer.Enabled = true
+Equalizer.HighGain = 10
+Equalizer.LowGain = 0
+Equalizer.MidGain = 0
+cue1:Play()
+         wait(1)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Threat",
+                Asset = "rbxassetid://132786450712083",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = { Enabled = true, Duration = 1.5 },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = {2, 25, 0.1, 1} },
+            Movement = { Speed = 140, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 2, Max = 4, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to who you call Threat...",
+                    "Threat is a high-speed Hard Mode entity that attacks with minimal warning.",
+                    "Pay close attention to flickering lights and screen distortions.",
+                    "It can rebound multiple times, so stay inside a hiding spot until it completely leaves!"
+                },
+                Cause = "Threat"
+            }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Threat spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
     Title = "Spawn Foul",
     Description = "Spawn Foul entity",
     Callback = function()
@@ -1688,7 +1792,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -1989,9 +2093,25 @@ Tabs.Main:AddButton({
             end)
         end
 
-        TriggerPinkEffect()
-        CustomGitSound("https://github.com/arkanzulfadliputra-oss/Entities-Models/raw/refs/heads/main/Sound/Threat%20Spawn.mp3?raw=true", 1, "ThreatSpawn")
+            local SoundService = game:GetService("SoundService")
 
+local cue1 = Instance.new("Sound")
+cue1.SoundId = "rbxassetid://3359047385"
+cue1.Parent = SoundService
+cue1.Name = "Cue1"
+cue1.Volume = 10
+
+local Equalizer = Instance.new("EqualizerSoundEffect")
+Equalizer.Parent = cue1
+Equalizer.Enabled = true
+Equalizer.HighGain = 10
+Equalizer.LowGain = 0
+Equalizer.MidGain = 0
+cue1:Play()
+
+        TriggerPinkEffect()
+        wait(1)
+        
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
         local entity = spawner.Create({
             Entity = {
@@ -2006,7 +2126,7 @@ Tabs.Main:AddButton({
             },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = {2, 25, 0.1, 1} },
-            Movement = { Speed = 200, Delay = 1.5, Reversed = false },
+            Movement = { Speed = 190, Delay = 1.5, Reversed = false },
             Rebounding = { Enabled = true, Type = "Ambush", Min = 3, Max = 6, Delay = 1.5 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2043,7 +2163,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 150, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2072,7 +2192,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 90, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2101,7 +2221,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 130, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2130,7 +2250,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2159,7 +2279,7 @@ Tabs.Main:AddButton({
             Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Movement = { Speed = 150, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
             Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
@@ -2174,6 +2294,2107 @@ Tabs.Main:AddButton({
     end
 })
 
+Tabs.Main:AddButton({
+    Title = "Spawn Monoxide",
+    Description = "Spawn Monoxide entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Monoxide",
+                Asset = "rbxassetid://106072785214191",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = { Type = "Guiding", Hints = { "You died to Monoxide!", "Hide when lights flicker!" }, Cause = "Monoxide" }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Monoxide spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Gloom",
+    Description = "Spawn Gloom entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Gloom",
+                Asset = "rbxassetid://107557459056627",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = { 
+                Type = "Guiding", 
+                Hints = { 
+                    "You died to Gloom...", 
+                    "It moves faster than Rush, but doesn't rebound.", 
+                    "Hide as soon as you see the lights flicker!" 
+                }, 
+                Cause = "Gloom" 
+            }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Gloom spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Fragmented",
+    Description = "Spawn Fragmented sequence (Entity 1 to 6)",
+    Callback = function()
+        task.spawn(function()
+            local TweenService = game:GetService("TweenService")
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local Lighting = game:GetService("Lighting")
+            local Debris = game:GetService("Debris")
+
+            -- Intro Visual & Sound Effects
+            local Reboundcolor = Instance.new("ColorCorrectionEffect", Lighting)
+            Debris:AddItem(Reboundcolor, 24)
+            Reboundcolor.Name = "Warn"
+            Reboundcolor.TintColor = Color3.fromRGB(65, 138, 255)
+            Reboundcolor.Saturation = -0.7
+            Reboundcolor.Contrast = 0.2
+            TweenService:Create(Reboundcolor, TweenInfo.new(15), {
+                TintColor = Color3.fromRGB(255, 255, 255),
+                Saturation = 0,
+                Contrast = 0
+            }):Play()
+
+            local TW = TweenService:Create(Lighting.MainColorCorrection, TweenInfo.new(5), {
+                TintColor = Color3.fromRGB(255, 255, 255)
+            })
+            TW:Play()
+
+            local cue1 = Instance.new("Sound", workspace)
+            cue1.Name = "Scream"
+            cue1.SoundId = "rbxassetid://9114397505"
+            cue1.Volume = 0.1
+
+            local distort1 = Instance.new("DistortionSoundEffect", cue1)
+            distort1.Level = 1
+            local distort2 = Instance.new("DistortionSoundEffect", cue1)
+            distort2.Level = 1
+
+            for _ = 1, 3 do
+                local pitch = Instance.new("PitchShiftSoundEffect", cue1)
+                pitch.Octave = 0.5
+            end
+            cue1:Play()
+
+            local cue2 = Instance.new("Sound", workspace)
+            cue2.Name = "Spawn"
+            cue2.SoundId = "rbxassetid://9114221327"
+            cue2.Volume = 3
+            cue2:Play()
+
+            pcall(function()
+                local CameraShaker = require(ReplicatedStorage.CameraShaker)
+                local camara = workspace.CurrentCamera
+                local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                    camara.CFrame = camara.CFrame * shakeCf
+                end)
+                camShake:Start()
+                camShake:ShakeOnce(10, 3, 0.1, 6, 2, 0.5)
+            end)
+
+            task.wait(2.8)
+
+            local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+            local function SpawnFragmented()
+                local entity = spawner.Create({
+                    Entity = {
+                        Name = "Fragmented",
+                        Asset = "rbxassetid://133654763659646",
+                        HeightOffset = 0
+                    },
+                    Lights = { Flicker = { Enabled = true, Duration = 1.5 }, Shatter = true, Repair = false },
+                    Earthquake = { Enabled = false },
+                    CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+                    Movement = { Speed = 140, Delay = 2, Reversed = false },
+                    Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+                    Damage = { Enabled = false, Range = 40, Amount = 0 },
+                    Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+                    Death = {
+                        Type = "Guiding",
+                        Hints = { "You died to Fragmented...", "It will follow you through multiple rooms!" },
+                        Cause = "Fragmented"
+                    }
+                })
+                entity:Run()
+            end
+
+            local function PlayScareSound()
+                local scare = Instance.new("Sound", workspace)
+                scare.Name = "MyEarsBurn"
+                scare.SoundId = "rbxassetid://5567523008"
+                scare.PlaybackSpeed = 3
+                scare.Volume = 1
+
+                local shift = Instance.new("PitchShiftSoundEffect", scare)
+                shift.Octave = 0.5
+
+                local distort = Instance.new("DistortionSoundEffect", scare)
+                distort.Level = 1
+
+                scare:Play()
+                Debris:AddItem(scare, 3)
+            end
+
+            -- Entity 1
+            PlayScareSound()
+            SpawnFragmented()
+
+            -- Entity 2 sampai Entity 6 (Berjalan setiap kali ganti kamar)
+            local randomnumber = math.random(3, 6)
+            for i = 2, randomnumber do
+                ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+                task.wait(1)
+
+                PlayScareSound()
+                SpawnFragmented()
+            end
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Rebound Spawned",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Hustle",
+    Description = "Spawn Hustle entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Hustle",
+                Asset = "rbxassetid://89988156409359",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 1.5 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 160, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Hustle...",
+                    "It moves quickly after the lights flicker.",
+                    "Hide immediately when you notice the warning!"
+                },
+                Cause = "Hustle"
+            }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Hustle spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Twister",
+    Description = "Spawn Twister at player's position in next room",
+    Callback = function()
+        Fluent:Notify({
+            Title = "Queued",
+            Content = "Twister will spawn at your position when you enter the next room!",
+            Duration = 3
+        })
+
+        task.spawn(function()
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+            task.wait(1)
+
+            local twisterModel = game:GetObjects("rbxassetid://72643424887636")[1]
+            if not twisterModel then return end
+
+            twisterModel.Name = "Twister"
+            twisterModel.Parent = workspace
+                    
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local hrp = character:FindFirstChild("HumanoidRootPart")
+
+            if hrp then
+                if twisterModel:IsA("Model") then
+                    twisterModel:PivotTo(hrp.CFrame)
+                elseif twisterModel:IsA("BasePart") then
+                    twisterModel.CFrame = hrp.CFrame
+                end
+            end
+
+            local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            local targetPart = twisterModel:IsA("Model") and (twisterModel.PrimaryPart or twisterModel:FindFirstChildWhichIsA("BasePart")) or twisterModel
+
+            if targetPart then
+                local Jumpscare = GetGitSound("https://github.com/eoyoustme/Mayhem-Remake/raw/main/Mayhem%20mode%20recreate_TwisterScream2.mp3", "Twitersaygttyt")
+                Jumpscare.Parent = targetPart
+                Jumpscare.Looped = true
+                Jumpscare.RollOffMinDistance = 100
+                Jumpscare.PlaybackRegionsEnabled = true
+                Jumpscare.LoopRegion = NumberRange.new(0, 3)
+                Jumpscare.RollOffMaxDistance = 200
+                Jumpscare.RollOffMode = Enum.RollOffMode.LinearSquare
+                Jumpscare.Volume = 6
+                Jumpscare.PlaybackSpeed = 1
+                Jumpscare:Play()
+            end
+
+            Fluent:Notify({
+                Title = "Spawned",
+                Content = "Twister spawned at your position!",
+                Duration = 3
+            })
+
+            task.wait(6)
+
+            if twisterModel then
+                twisterModel:Destroy()
+            end
+        end)
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Maniac Ambush",
+    Description = "Spawn Maniac Ambush entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Maniac Ambush",
+                Asset = "rbxassetid://114079872899758",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 1.5 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 3, Max = 6, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Maniac Ambush...",
+                    "It moves extremely fast and rebounds multiple times!",
+                    "Do not exit your hiding spot until it has completely left."
+                },
+                Cause = "Maniac Ambush"
+            }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Maniac Ambush spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Maniac Eyes",
+    Description = "Spawn Maniac Eyes",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local hrp = character:FindFirstChild("HumanoidRootPart")
+
+        if not hrp then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Player character not found!",
+                Duration = 3
+            })
+            return
+        end
+
+        local eyesModel = game:GetObjects("rbxassetid://80156053189159")[1]
+        if not eyesModel then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Maniac Eyes model!",
+                Duration = 3
+            })
+            return
+        end
+
+        eyesModel.Name = "Maniac Eyes"
+        eyesModel.Parent = workspace
+            
+        local spawnCFrame = hrp.CFrame + (hrp.CFrame.LookVector * 25)
+
+        if eyesModel:IsA("Model") then
+            eyesModel:PivotTo(spawnCFrame)
+        elseif eyesModel:IsA("BasePart") then
+            eyesModel.CFrame = spawnCFrame
+        end
+
+        local roomConn
+        roomConn = game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+            if eyesModel then eyesModel:Destroy() end
+            if roomConn then roomConn:Disconnect() end
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Maniac Eyes spawned",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Twister",
+    Description = "Spawn Twister",
+    Callback = function()
+        Fluent:Notify({
+            Title = "Queued",
+            Content = "Twister Spawn next rooms",
+            Duration = 3
+        })
+
+        task.spawn(function()
+            game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+            task.wait(1)
+
+            local twisterModel = game:GetObjects("rbxassetid://72643424887636")[1]
+            if not twisterModel then return end
+
+            twisterModel.Name = "Twister"
+            twisterModel.Parent = workspace
+            
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local hrp = character:FindFirstChild("HumanoidRootPart")
+
+            if hrp then
+                local spawnCFrame = hrp.CFrame + (hrp.CFrame.LookVector * 25)
+                if twisterModel:IsA("Model") then
+                    twisterModel:PivotTo(spawnCFrame)
+                elseif twisterModel:IsA("BasePart") then
+                    twisterModel.CFrame = spawnCFrame
+                end
+            end
+
+            local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            
+            local targetPart = twisterModel:IsA("Model") and (twisterModel.PrimaryPart or twisterModel:FindFirstChildWhichIsA("BasePart")) or twisterModel
+
+            if targetPart then
+                local Jumpscare = GetGitSound("https://github.com/eoyoustme/Mayhem-Remake/raw/main/Mayhem%20mode%20recreate_TwisterScream2.mp3", "Twitersaygttyt")
+                Jumpscare.Parent = targetPart
+                Jumpscare.Looped = false
+                Jumpscare.RollOffMinDistance = 100
+                Jumpscare.PlaybackRegionsEnabled = true
+                Jumpscare.LoopRegion = NumberRange.new(0, 3)
+                Jumpscare.RollOffMaxDistance = 200
+                Jumpscare.RollOffMode = Enum.RollOffMode.LinearSquare
+                Jumpscare.Volume = 6
+                Jumpscare.PlaybackSpeed = 1
+                Jumpscare:Play()
+            end
+
+            Fluent:Notify({
+                Title = "Spawned",
+                Content = "Twister spawned",
+                Duration = 3
+            })
+
+            task.wait(6)
+
+            if twisterModel then
+                twisterModel:Destroy()
+            end
+        end)
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Grudge",
+    Description = "Spawn Grudge entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Grudge",
+                Asset = "rbxassetid://89071321426184",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 1.5 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 160, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Grudge...",
+                    "Hide as soon as you notice the warning!"
+                },
+                Cause = "Grudge"
+            }
+        })
+        entity:Run()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Grudge spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Maniac Depth",
+    Description = "Spawn Maniac Depth entity",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Plamen.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Maniac Depth spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Depth Remake",
+    Description = "Spawn Depth Remake entity",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Remake.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Depth Remake spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Depth Retake",
+    Description = "Spawn Depth Retake entity",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Retake.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Depth Retake spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Speedster / Trauma",
+    Description = "Spawn Trauma entity (No rebound)",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Trauma",
+                Asset = "rbxassetid://16957473352",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 1 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Trauma...",
+                    "It moves at extreme speed through the rooms!",
+                    "Hide as soon as you notice the lights flicker."
+                },
+                Cause = "Trauma"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Trauma spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn A-130",
+    Description = "Spawn A-130 entity (Wiki accurate)",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-130",
+                Asset = "rbxassetid://12174018892",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-130...",
+                    "Like all Rooms entities, A-130 will not flicker any lights.",
+                    "Listen closely for its sound cue to know when to hide!"
+                },
+                Cause = "A-130"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-130 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddParagraph({
+    Title = "📦 Custom Items",
+    Content = "Spawn custom items into your backpack."
+})
+
+local function spawnTool(assetId, toolName, customSetup)
+    local tool = game:GetObjects(assetId)[1]
+    if not tool then
+        Fluent:Notify({
+            Title = "Error",
+            Content = "Failed to load " .. toolName,
+            Duration = 3
+        })
+        return
+    end
+    
+    if toolName then
+        tool.Name = toolName
+    end
+    
+    tool.Parent = game.Players.LocalPlayer.Backpack
+    
+    if customSetup then
+        customSetup(tool)
+    end
+    
+    Fluent:Notify({
+        Title = "Spawned",
+        Content = tool.Name .. " added to backpack!",
+        Duration = 3
+    })
+end
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix All",
+    Description = "Spawn all crucifixes",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Eyes%20Crucifix.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/%3F%3F%3F%20Crucifix.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Ambush%20Crucifix.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/seek%20Crucifix.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Crucifix%20Blue.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "All crucifixes spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Spawn Crucifix Cracked (1)",
+    Description = "Spawn Crucifix Cracked (1)",
+    Callback = function()
+        spawnTool("rbxassetid://12653118809", "Crucifix Cracked (1)")
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Spawn Crucifix Cracked (2)",
+    Description = "Spawn Crucifix Cracked (2)",
+    Callback = function()
+        spawnTool("rbxassetid://11766540827", "Crucifix Cracked (2)")
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Spawn Crucifix Cracked (3)",
+    Description = "Spawn Crucifix Cracked (3)",
+    Callback = function()
+        spawnTool("rbxassetid://11766544358", "Crucifix Cracked (3)")
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Spawn Crucifix Glow",
+    Description = "Spawn Crucifix Glow",
+    Callback = function()
+        spawnTool("rbxassetid://11753631279", "Crucifix Glow")
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Spawn Crucifix Unknown",
+    Description = "Spawn Crucifix Unknown",
+    Callback = function()
+        spawnTool("rbxassetid://11742346377", "Crucifix Unknown")
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Rebound Plushie (Still Bug)",
+    Description = "Spawn Rebound Plushie",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/Rebound%20Plushie"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Rebound Plushie spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "A-60 Plushie",
+    Description = "Spawn A-60 Plushie",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Custom%20Item/A-60%20Plushie"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-60 Plushie spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Guiding",
+    Description = "Spawn Crucifix Guiding",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/Crucifix.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Crucifix Guiding spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix White",
+    Description = "Spawn Crucifix White",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20White.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Crucifix White spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Lotus",
+    Description = "Spawn Crucifix Lotus",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Lotus.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Crucifix Lotus spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Guiding Light",
+    Description = "Spawn Guiding Light",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Guiding%20Light.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Guiding Light spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Old",
+    Description = "Spawn Crucifix Old",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Old.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Crucifix Old spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Plushie",
+    Description = "Spawn Crucifix Plushie",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Item%20Model/Crucifix%20Plushie.lua"))()
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Crucifix Plushie spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Devils Crucifix",
+    Description = "Spawn Devils Crucifix",
+    Callback = function()
+        spawnTool("rbxassetid://11813582804", "Crucifix", function(tool)
+            local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+            local RightArm = Char:WaitForChild("RightUpperArm")
+            local LeftArm = Char:WaitForChild("LeftUpperArm")
+            local RightC1 = RightArm.RightShoulder.C1
+            local LeftC1 = LeftArm.LeftShoulder.C1
+            local Equipped = false
+            
+            tool.Equipped:Connect(function()
+                if Equipped then return end
+                Equipped = true
+                RightArm.Name = "R_Arm"
+                LeftArm.Name = "L_Arm"
+                RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+                LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+            end)
+            
+            tool.Unequipped:Connect(function()
+                if not Equipped then return end
+                Equipped = false
+                RightArm.RightShoulder.C1 = RightC1
+                LeftArm.LeftShoulder.C1 = LeftC1
+                RightArm.Name = "RightUpperArm"
+                LeftArm.Name = "LeftUpperArm"
+            end)
+        end)
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Seek Cracked",
+    Description = "Spawn Crucifix Seek Cracked",
+    Callback = function()
+        spawnTool("rbxassetid://11780280932", "Crucifix", function(tool)
+            local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+            local RightArm = Char:WaitForChild("RightUpperArm")
+            local LeftArm = Char:WaitForChild("LeftUpperArm")
+            local RightC1 = RightArm.RightShoulder.C1
+            local LeftC1 = LeftArm.LeftShoulder.C1
+            local Equipped = false
+            
+            tool.Equipped:Connect(function()
+                if Equipped then return end
+                Equipped = true
+                RightArm.Name = "R_Arm"
+                LeftArm.Name = "L_Arm"
+                RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+                LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+            end)
+            
+            tool.Unequipped:Connect(function()
+                if not Equipped then return end
+                Equipped = false
+                RightArm.RightShoulder.C1 = RightC1
+                LeftArm.LeftShoulder.C1 = LeftC1
+                RightArm.Name = "RightUpperArm"
+                LeftArm.Name = "LeftUpperArm"
+            end)
+        end)
+    end
+})
+
+Tabs.CustomItems:AddButton({
+    Title = "Crucifix Seek",
+    Description = "Spawn Crucifix Seek",
+    Callback = function()
+        spawnTool("rbxassetid://11780279145", "Crucifix", function(tool)
+            local Char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+            local RightArm = Char:WaitForChild("RightUpperArm")
+            local LeftArm = Char:WaitForChild("LeftUpperArm")
+            local RightC1 = RightArm.RightShoulder.C1
+            local LeftC1 = LeftArm.LeftShoulder.C1
+            local Equipped = false
+            
+            tool.Equipped:Connect(function()
+                if Equipped then return end
+                Equipped = true
+                RightArm.Name = "R_Arm"
+                LeftArm.Name = "L_Arm"
+                RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+                LeftArm.LeftShoulder.C1 = LeftC1 * CFrame.new(-0.2, -0.3, -0.5) * CFrame.Angles(math.rad(-125), math.rad(25), math.rad(25))
+            end)
+            
+            tool.Unequipped:Connect(function()
+                if not Equipped then return end
+                Equipped = false
+                RightArm.RightShoulder.C1 = RightC1
+                LeftArm.LeftShoulder.C1 = LeftC1
+                RightArm.Name = "RightUpperArm"
+                LeftArm.Name = "LeftUpperArm"
+            end)
+        end)
+    end
+})
+
+Tabs.Modes:AddParagraph({
+    Title = "Modes",
+    Content = "Modes"
+})
+
+Tabs.Modes:AddButton({
+    Title = "Forgotten Mode",
+    Description = "Working Perfectly",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/Wy7PSxjz"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Forgotten Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Creepy Mode",
+    Description = "Working Perfectly",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DripCapybara/Doors-Modes/refs/heads/main/CreepyMode/ObfuscatedMain.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Creepy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Combined Mode",
+    Description = "Unknown",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/g4nvj2EP"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Combined Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Ultra Hard Mode (UPDATED)",
+    Description = "Made By Zunxd",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Junxd-03/UltraHardModeUpdate/refs/heads/main/UltraHardMode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Ultra Hard Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fear Mode (Fixed)",
+    Description = "Recreate by Voorpr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/lelele78/Securityproject/refs/heads/main/FEAROBF"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fear Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hard Mode (Fixed)",
+    Description = "Fixed by Voorpr0 & Nowhywhats",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/ProtectHard"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hard Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hazy Mode (Recreated)",
+    Description = "Recreated by Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hazy-Mode-Recreated-made-by-Guestly-(Celestian)-on-Discord"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hazy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Void Mode",
+    Description = "Credit to Minh_Dcord",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/minh-scripter/doors_void/refs/heads/main/Doors_Void_Mode.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Void Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Null Mode",
+    Description = "Made by RealblueYT & LDLT_Legacy",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Null-mode/refs/heads/main/Null%20mode%20alpha%20by%20RealblueYT%20and%20LDLT_legacy"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Null Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fog Mode (Coming Soon)",
+    Description = "ButtonInfo",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/twinmaw/twin-maw-doors/refs/heads/main/twin-maw-doors.txt?token=GHSAT0AAAAAADTNMJDQ7LPWVB76QIHMW46O2LK6URQ"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fog Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Wer Mode (Homemade Mode)",
+    Description = "Made by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Projectwermode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Wer Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Impossible Mode V1.8 (Fixed)",
+    Description = "Fixed by Voorpr0 & Nowhywwhat & Guestly & Vuivuiviu2",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Impossible-mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Impossible Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hallucination Mode (Easy Version)",
+    Description = "Credit to Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hallucination-Mode-(Easy-Version)-Made-by-Celestian-on-Discord"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hallucination Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Water Rises Mode",
+    Description = "Original Credit to Oof & Credit to VoorPr0 for reworking it",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/mrM9vA2L/raw"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Water Rises Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Insanitas Mode",
+    Description = "Made by Guestly (Celestian) & Vuivuiviu2",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Insanitas-Mode-Made-By-Guestly-And-Vuivuiviu2"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Insanitas Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Inferno Mode",
+    Description = "Made by Anctarus7105",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/My-Modes/refs/heads/main/Inferno.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Inferno Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Horror Mode (Fixed)",
+    Description = "Original Credit to Chrono and Credit to THE_LOSTW3R for fixing it",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thelostw3r/Mods/main/HorrorMode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Horror Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Crazy Mode",
+    Description = "Credit to FenzerPlayerPressure",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FenzerPlayerPressure/Recreates/refs/heads/main/Crazy%20Mode.Lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Crazy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Roomy Mode",
+    Description = "Made by FenzerPlayerPressure",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FenzerPlayerPressure/SubVersions/refs/heads/main/Roomy%20Mode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Roomy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Scary Mode",
+    Description = "Made by Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/Scary%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Scary Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Draco Mode V2",
+    Description = "Made by Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/Draco%20Mode%20(Fully%20Completed)"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Draco Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Baller Mode",
+    Description = "Made by Zunxd",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Baller-mode/refs/heads/main/Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Baller Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Critazy Mode",
+    Description = "Made by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Critazy-mode-/refs/heads/main/Critazy%20mode.LocalPlayer"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Critazy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Devil Mode (Fixed)",
+    Description = "Fixed by Smile & Tuffmu Chicken Boy🔥",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/datdoors/Devilmodefixed.main/refs/heads/main/Devilmodefixed"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Devil Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Anarchy Mode",
+    Description = "Released By Anctarus7105",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Recreated-modes/refs/heads/main/Anarchy%20Release"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Anarchy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Extreme Mode (Recreated)",
+    Description = "Recreated by Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Extreme-Mode-Recreated-made-by-Guestly"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Extreme Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Chaos + Recall Mode",
+    Description = "Made by Anctarus7105 & Aboba288-Abobic",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Recreated-modes/refs/heads/main/Chaos%20Recall%20V1.0"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Chaos + Recall Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Insane Mode",
+    Description = "Made by TheDarkMan",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheDarkMan1334/Insane-mode/refs/heads/main/Insane%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Insane Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Voidness Mode",
+    Description = "Voidness Mode V2 will release soon",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Voidness-Mode-Made-By-Guestly-Vuivuiviu2-And-Voorpr0"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Voidness Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Forbidden Mode (Recreated)",
+    Description = "Credit to Noah and Recreated By Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Forbidden-Mode-recreated-by-Guestly"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Forbidden Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Lunacy Mode V2 (Recreated)",
+    Description = "Made by Guestly & Vuivuiviu2 & Nowhywhat & VoorPr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Not-Guestly/Modes/refs/heads/main/Lunacy-Mode-Made-By-Guestly-Vuivuiviu2-Nowhywhat-And-Voorpr0"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Lunacy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fragmented Mode V5",
+    Description = "Credit by Nhankgnew",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/talales/Nhankg/refs/heads/main/fragmented%20v5"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fragmented Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Degenerate Mode",
+    Description = "Made by Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/My-brand-new-Degenerate-Mode%20(New%20Obfuscator)"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Degenerate Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode (Fixed)",
+    Description = "Made By Noonie & Ping and Credit to THE_LOSTW3R for fixing",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thelostw3r/Mods/main/HardcoreMode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Mayhem Mode",
+    Description = "Working Perfectly",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Mayhem%20mode%20recreate/Code"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Mayhem Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Endless Mode (Fixed)",
+    Description = "Made by DripCapybara & Reworked By VoorPr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/EndlessMode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Endless Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hollow Mode",
+    Description = "Made by someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/DOORS-DAILY-RUNS-Hollow-Mode-91878"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hollow Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Scamer Mode",
+    Description = "Made by RealblueYT & Zunxd & Smile & thinh6789 & Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Scamer mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Scamer Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode (Re-Remastered)",
+    Description = "ButtonInfo",
+    Callback = function()
+        local url = "https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/main/Hardcore-Mode-Re-Remastered-Made-By-Guestly-Vuivuiviu2-Nowhywhat-Voorpr0"
+        local ok, err = pcall(function()
+            loadstring(game:HttpGet(url, true))()
+        end)
+        if not ok then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Hardcore Mode!",
+                Duration = 3
+            })
+            warn("[Loadstring Error]", err)
+        else
+            Fluent:Notify({
+                Title = "Loaded",
+                Content = "Hardcore Mode loaded!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Immersive Mode (Remake)",
+    Description = "Remake by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/immersive-remake/refs/heads/main/Immersive-remake-loaded-localplayer-Origin-script.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Immersive Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Chaos Mode V1",
+    Description = "Credit to DJ SD (Tunder8401)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Tunder8401/Doors-Modes/refs/heads/main/Chaos%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Chaos Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Ultra Hard Mode V3 (Remake)",
+    Description = "Remake by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/projecthradmodv3"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Ultra Hard Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Plamen6789's Hardcore Mode (Remake)",
+    Description = "Remaked By Zunxd",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Hardcore-mode/refs/heads/main/hardcore.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Plamen6789's Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Insanity Mode (Reworked)",
+    Description = "Credit to Kotyara19k & ReboundPlayz & Voorpr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Anctarus7105/Recreated-modes/refs/heads/main/Insanity%20Reworked%201.3"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Insanity Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Furry Mode (Remake)",
+    Description = "Remake by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Projectfurrymoderework"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Furry Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fear Mode (Remake)",
+    Description = "Remaked by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Fearmode-/refs/heads/main/Fearmodereamake.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fear Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Meme Mode",
+    Description = "Made by Chu be te liet",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/chubeteliet-cpu/meme-mode-m-p/refs/heads/main/Meme-mode-ma-hoa", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Meme Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Christmas Mode",
+    Description = "Credit to Chill Guy",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Idk-lol2/xmasmode/refs/heads/main/xmasmode.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Christmas Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode V4 (Old Version)",
+    Description = "Made by Noonie & Ping",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/localplayerr/Doors-stuff/refs/heads/main/Hardcore%20v4%20recreate/main%20code"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode V4 loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Impossible Mode (Remake)",
+    Description = "Remaked by RealblueYT & Smile",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Projectimpossiblebyrealblueytandsmile"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Impossible Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Lunacy Mode (Remake)",
+    Description = "Remaked By RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Lunacyreamake"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Lunacy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fragmented Mode V4 (Remake)",
+    Description = "Remaked by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/fragmented-v4-fixe/refs/heads/main/fragmentedv4fixed.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fragmented Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Ultimate Nightmare Mode V8.2",
+    Description = "Credit to Tuffmu Chicken Boy",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/ByTuffmuScriptVersion8.2UltimateNightmareMode.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Ultimate Nightmare Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Impossible Mode (Re-Degenerate)",
+    Description = "Made by Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Not-Guestly/Modes/refs/heads/main/Impossible-Mode-Re-Degenerate-Made-By-Guestly"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Impossible Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hard Mode V4 (Recaptured)",
+    Description = "Credit to RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://arch-http.vercel.app/files/Projecthradmodev4byrealblueyt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hard Mode V4 loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Gab's Hardcore Mode",
+    Description = "ButtonInfo",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Gabs-Hardcore-Mode/refs/heads/main/Gab's%20Hardcore%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Gab's Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Silence Mode V3",
+    Description = "Made By Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/Silence%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Silence Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Degenerate Mode (Darkness Version)",
+    Description = "Credit to Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Darkness-Degenerate-Mode-Made-By-Guestly"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Degenerate Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Cizinuness Mode",
+    Description = "Created by Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Cizinuness-Mode-Made-By-Guestly", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Cizinuness Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Suggestion Mode",
+    Description = "Made By Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Not-Guestly/Modes/refs/heads/main/Suggestions-Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Suggestion Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Dreamcore Mode",
+    Description = "Made by Guestly & VoorPr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Dreamcore-Mode-Made-by-Guestly-and-Voorpr0"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Dreamcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Cataclysm Mode",
+    Description = "Made by Guestly (Celestian) & Vuivuiviu3",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Cataclysm-Mode-made-by-Guestly-and-Vuivuiviu3"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Cataclysm Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Sadness Mode",
+    Description = "Credit to someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LLGCAllIWantIsYou/urban-broccoli/refs/heads/main/SadnessMode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Sadness Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hazy Mode + Extreme Mode (Combined)",
+    Description = "Credit to Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hazy%2BExtreme-Mode-made-by-Guestly-on-Discord"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hazy + Extreme Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode (Reworker)",
+    Description = "Made by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Hradcore-by-noonies-remakes/refs/heads/main/Hradcore%20reworker%20by%20RealblueYT%20chubeteliet%20LDLT_legacy%22))()"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fragmented Mode V4 (Not Official)",
+    Description = "Credit to someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://glot.io/snippets/h7zlma80wm/raw/Main.java"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fragmented Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Terror Mode",
+    Description = "Working Perfectly",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Teilsthebfdifan/Modhub-assets/refs/heads/main/TerrorModeOBF.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Terror Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode (Remake)",
+    Description = "Remake by RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Hradcore-by-noonies-remak/refs/heads/main/Hradcore%20remakes%20by%20RealblueYT"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Endless Mode (Remake)",
+    Description = "Remaked by Chu be te liet",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/binhlforsaken156-sys/Enless-mode-remake/refs/heads/main/Endless-remake-by-chubeteliet.txt", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Endless Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fear Mode (Re-Remastered)",
+    Description = "Credit to RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Fear-mode-re_remastere/refs/heads/main/obfuscated_script-1769600892332.lua.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fear Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hallucination Mode (Hard Version)",
+    Description = "Credit to Guestly (Celestian)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Hallucination-Mode-(Hard-Version)-Made-by-Celestian-On-Discord"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hallucination Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Cataclysmic Mode",
+    Description = "Credit to Guestly & Vuivuiviu4",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GuestlyTheGreatestGuest/Modes/refs/heads/main/Cataclysmic-Mode-Made-by-Guestly-and-Vuivuiviu4"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Cataclysmic Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "White Haze Mode",
+    Description = "Made by Minh_DCord",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/White%20Haze%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "White Haze Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Chaos Mode V1 (Hardcore Version)",
+    Description = "Credit to DJ SD (Tunder8401) & Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Chaos-Mode-Hardcore-Version/refs/heads/main/Chaos%20Mode%20V1%20(Hardcore%20Version)"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Chaos Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Nightmare Mode",
+    Description = "Made by Kodbol",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/kodbolx/kodbolhub/refs/heads/main/Nightmare%20Mode/Nightmare%20Mode.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Nightmare Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Difficulty Mode",
+    Description = "Made by eoyoustme",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/41450088/refs/heads/main/Difficulty%20mode%20fix"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Difficulty Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Psychotic Mode",
+    Description = "Made by someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Drop56796/Psychotic-mode/main/monste%20and%20Door%20Sounds.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Psychotic Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Darkness Mode",
+    Description = "Made by Chu be te liet",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/chubeteliet-cpu/Darkness-mode/refs/heads/main/Darkness%20mode%20rework", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Darkness Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Stryker Mode",
+    Description = "Made by Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/Stryker-Mode-(Fully-Completed)"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Stryker Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode (Remastered)",
+    Description = "Credit to someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/daiayday/HardcoreRemastered/refs/heads/main/obf_L6zO2N0sG5ehDHd56JBc5z70TZ2piVOvIqsgE88741HXGrwv7E4qd6c8axu8z4oh.lua.txt"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Fragmented Mode (Recreation??)",
+    Description = "Recreation By THE_LOSTW3R",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thelostw3r/Mods/refs/heads/main/FragmentedModeRemake.lua"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Fragmented Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Furry Mode",
+    Description = "Made by VoorPr0",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/lelele78/Securityproject/refs/heads/main/Furry"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Furry Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Broken Mode",
+    Description = "Made by TheDarkMan",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheDarkMan1334/Broken-mode/refs/heads/main/BrokenMode%20Version%201.8%20Fix"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Broken Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Grace Mode (Remake)",
+    Description = "Credit to someone that idk",
+    Callback = function()
+        loadstring(game:HttpGet("https://github.com/IdkMyNameLoll/PublicScripts/raw/refs/heads/main/DoorsXGrace.lua", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Grace Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Super Crazy Mode",
+    Description = "Credit to Dt_roblx doors:))",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme2/dm123/refs/heads/main/super%20crazy%20mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Super Crazy Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hardcore Mode V99999999",
+    Description = "Credit to RealblueYT",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tranhuuthien958-arch/Hradcore-v999999/refs/heads/main/Hradcore%20v99999999", true))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hardcore Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Mental Mode",
+    Description = "Made By TheLastOne",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/TheLastOne5778/Read/refs/heads/main/Mental%20Mode"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Mental Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Super Packed Mode",
+    Description = "Credit to Zunxd",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Junbbinopro/Doors-sieu-don-mode/refs/heads/main/Modeee"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Super Packed Mode loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Hallucination Mode (IMPOSSIBLE VERSION⚠️⚠️⚠️)",
+    Description = "Credit to Guestly (Celestian) and Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Hallucination-Mode-SUPER-IMPOSSIBLE-/refs/heads/main/Hallucination%20Mode%20(IMPOSSIBLE)"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Hallucination Mode IMPOSSIBLE loaded!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Modes:AddButton({
+    Title = "Improbable Mode Final Version (IMPOSSIBLE⚠️⚠️⚠️)",
+    Description = "Credits to Chu be the liet & AmadeyHunter & Rip_Silence",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idkman60093/Doors-Modes/refs/heads/main/Improbable-Mode-Final-Version"))()
+        Fluent:Notify({
+            Title = "Loaded",
+            Content = "Improbable Mode loaded!",
+            Duration = 3
+        })
+    end
+})
 
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
