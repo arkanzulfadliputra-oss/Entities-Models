@@ -16,7 +16,7 @@ local Tabs = {
     Main = Window:AddTab({ Title = "Entity Spawner" }),
     CustomItems = Window:AddTab({ Title = "Custom Items" }),
     Plushies = Window:AddTab({ Title = "Plushies" }),
-    Modes = Window:AddTab({ Title = "Modes" )},
+    Modes = Window:AddTab({ Title = "Modes" }),
     Extra = Window:AddTab({ Title = "Extra" }),
     Credit = Window:AddTab({ Title = "Credit" })
 }
