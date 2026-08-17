@@ -2916,6 +2916,1314 @@ Tabs.Main:AddButton({
     end
 })
 
+Tabs.Main:AddButton({
+    Title = "Spawn Hungry",
+    Description = "?",
+    Callback = function()
+        local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
+        local model = Functions.LoadCustomInstance("https://github.com/kodbolx/kodbolhub/raw/400fd27e0297d11ec3c3a020e97dca02cbd0c1c2/Nightmare%20Mode/Models/hungry.rbxm")
+
+        if model then
+            model.Name = "Hungry"
+            model.Parent = game.Workspace
+
+            local player = game.Players.LocalPlayer
+            local char = player.Character or player.CharacterAdded:Wait()
+            local root = char:FindFirstChild("HumanoidRootPart")
+
+            if root then
+                local spawnCFrame = root.CFrame * CFrame.new(0, 0, 25)
+
+                if model:IsA("Model") then
+                    model:PivotTo(spawnCFrame)
+                elseif model:IsA("BasePart") then
+                    model.CFrame = spawnCFrame
+                end
+            end
+
+            Fluent:Notify({
+                Title = "Spawned",
+                Content = "Hungry spawned!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn RedEyes",
+    Description = "?",
+    Callback = function()
+        local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/refs/heads/main/Functions.lua"))()
+        local model = Functions.LoadCustomInstance("https://github.com/kodbolx/kodbolhub/raw/400fd27e0297d11ec3c3a020e97dca02cbd0c1c2/Nightmare%20Mode/Models/RedEyes%20(2).rbxm")
+
+        if model then
+            model.Name = "RedEyes"
+            model.Parent = game.Workspace
+
+            local player = game.Players.LocalPlayer
+            local char = player.Character or player.CharacterAdded:Wait()
+            local root = char:FindFirstChild("HumanoidRootPart")
+
+            if root then
+                -- Spawn tepat di depan pemain (jarak 5 stud)
+                local spawnCFrame = root.CFrame * CFrame.new(0, 0, 25)
+
+                if model:IsA("Model") then
+                    model:PivotTo(spawnCFrame)
+                elseif model:IsA("BasePart") then
+                    model.CFrame = spawnCFrame
+                end
+            end
+
+            Fluent:Notify({
+                Title = "Spawned",
+                Content = "RedEyes spawned!",
+                Duration = 3
+            })
+        end
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Silent",
+    Description = "?",
+    Callback = function()
+        ---====== Load spawner ======---
+        local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+        ---====== Asset Handling ======---
+        local fileName = "SilentArrivalSpawn.mp3"
+        local soundUrl = "https://github.com/idkman60093/Audio/raw/refs/heads/main/Silent%20Arrival%20Sound.mp3"
+
+        if not isfile(fileName) then
+            writefile(fileName, game:HttpGet(soundUrl))
+        end
+
+        local function playSpawnSound()
+            local success, assetId = pcall(function() return getcustomasset(fileName) end)
+            if success then
+                local sound = Instance.new("Sound")
+                sound.SoundId = assetId
+                sound.Volume = 3
+                sound.Parent = game:GetService("SoundService")
+                sound:Play()
+                game:GetService("Debris"):AddItem(sound, 10)
+            end
+        end
+
+        local function makeCurrentRoomBlue()
+            local player = game.Players.LocalPlayer
+            local currentRoomNumber = player:GetAttribute("CurrentRoom")
+            local rooms = game.Workspace:FindFirstChild("CurrentRooms")
+            if rooms then
+                local room = rooms:FindFirstChild(tostring(currentRoomNumber))
+                if room then
+                    for _, v in pairs(room:GetDescendants()) do
+                        if v:IsA("Light") then
+                            v.Color = Color3.fromRGB(0, 0, 255)
+                            v.Brightness = v.Brightness * 2
+                        elseif (v:IsA("Part") or v:IsA("MeshPart")) and (v.Material == Enum.Material.Neon or v.Name == "LightFixture") then
+                            v.Color = Color3.fromRGB(0, 0, 255)
+                        end
+                    end
+                end
+            end
+        end
+
+        local function onEntityGone()
+            print("Silent destroyed/despawned")
+
+            if not getgenv().SilentAchievementExecuted then
+                getgenv().SilentAchievementExecuted = true
+
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()({
+                    Title = "Scared",
+                    Desc = "I won't harm you",
+                    Reason = "Encounter Silent",
+                    Image = "rbxassetid://70697566673795",
+                })
+            end
+        end
+
+        ---====== Create Entity ======---
+
+        local entity = Spawner:Create({
+            Entity = {
+                Name = "Silent",
+                Asset = "https://github.com/kodbolx/kodbolhub/raw/400fd27e0297d11ec3c3a020e97dca02cbd0c1c2/Nightmare%20Mode/Models/Slient.rbxm",
+                HeightOffset = 5 
+            },
+            Lights = { Flicker = { Enabled = false }, Shatter = true, Repair = false },
+            Movement = { Speed = 150, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 3, Max = 3, Delay = 0.5 },
+            Damage = { Enabled = false }, 
+            Earthquake = { Enabled = false },
+            Death = { Enabled = false }
+        })
+
+        ---====== Triggers ======---
+
+        entity:SetCallback("OnSpawned", function()
+            task.spawn(playSpawnSound)
+            makeCurrentRoomBlue()
+        end)
+
+        entity:SetCallback("OnEnterRoom", function()
+            makeCurrentRoomBlue()
+        end)
+
+        entity:SetCallback("OnDespawning", function()
+            -- sjsj
+        end)
+
+        entity:SetCallback("OnDespawned", function()
+            onEntityGone()
+        end)
+
+        ---====== Run Entity ======---
+
+        entity:Run(true)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Silent spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 1. Spawn A-332
+Tabs.Main:AddButton({
+    Title = "Spawn A-332",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-332",
+                Asset = "rbxassetid://138299566009563",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-332...",
+                    "As a Rooms entity, A-332 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-332"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-332 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 2. Spawn A-50
+Tabs.Main:AddButton({
+    Title = "Spawn A-50",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-50",
+                Asset = "rbxassetid://133041178604049",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 210, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-50...",
+                    "As a Rooms entity, A-50 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-50"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-50 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 3. Spawn X-10
+Tabs.Main:AddButton({
+    Title = "Spawn X-10",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "X-10",
+                Asset = "rbxassetid://112192020741309",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to X-10...",
+                    "As a Rooms entity, X-10 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "X-10"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "X-10 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 4. Spawn A-245
+Tabs.Main:AddButton({
+    Title = "Spawn A-245",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-245",
+                Asset = "rbxassetid://103373069033562",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 240, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-245...",
+                    "As a Rooms entity, A-245 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-245"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-245 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 5. Spawn Among Us
+Tabs.Main:AddButton({
+    Title = "Spawn Among Us",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Among Us",
+                Asset = "rbxassetid://115322680287785",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Among Us...",
+                    "Watch out for flickering lights and hide in time!"
+                },
+                Cause = "Among Us"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Among Us spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 1. Spawn X-35
+Tabs.Main:AddButton({
+    Title = "Spawn X-35",
+    Description = "Spawn X-35 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "X-35",
+                Asset = "rbxassetid://131021500013601",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to X-35...",
+                    "As a Rooms entity, X-35 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "X-35"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "X-35 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 2. Spawn G-95
+Tabs.Main:AddButton({
+    Title = "Spawn G-95",
+    Description = "Spawn G-95 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "G-95",
+                Asset = "rbxassetid://140652536379398",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to G-95...",
+                    "As a Rooms entity, G-95 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "G-95"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "G-95 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 3. Spawn B-60 Scary
+Tabs.Main:AddButton({
+    Title = "Spawn B-60 Scary",
+    Description = "Spawn B-60 Scary entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "B-60 Scary",
+                Asset = "rbxassetid://102434342326751",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 240, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to B-60 Scary...",
+                    "As a Rooms entity, B-60 Scary will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "B-60 Scary"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "B-60 Scary spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 4. Spawn A-40
+Tabs.Main:AddButton({
+    Title = "Spawn A-40",
+    Description = "Spawn A-40 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-40",
+                Asset = "rbxassetid://111800141305604",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 210, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-40...",
+                    "As a Rooms entity, A-40 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-40"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-40 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 5. Spawn A-278
+Tabs.Main:AddButton({
+    Title = "Spawn A-278",
+    Description = "Spawn A-278 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-278",
+                Asset = "rbxassetid://94256444369531",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-278...",
+                    "As a Rooms entity, A-278 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-278"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-278 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 6. Spawn A-25
+Tabs.Main:AddButton({
+    Title = "Spawn A-25",
+    Description = "Spawn A-25 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-25",
+                Asset = "rbxassetid://77194266165825",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-25...",
+                    "As a Rooms entity, A-25 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-25"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-25 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 7. Spawn A-35
+Tabs.Main:AddButton({
+    Title = "Spawn A-35",
+    Description = "Spawn A-35 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-35",
+                Asset = "rbxassetid://121169111916512",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 210, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-35...",
+                    "As a Rooms entity, A-35 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-35"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-35 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 8. Spawn V-35
+Tabs.Main:AddButton({
+    Title = "Spawn V-35",
+    Description = "Spawn V-35 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "V-35",
+                Asset = "rbxassetid://93142763227397",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to V-35...",
+                    "As a Rooms entity, V-35 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "V-35"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "V-35 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 9. Spawn A-10
+Tabs.Main:AddButton({
+    Title = "Spawn A-10",
+    Description = "Spawn A-10 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-10",
+                Asset = "rbxassetid://73646370551284",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-10...",
+                    "As a Rooms entity, A-10 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "A-10"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-10 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 1. Spawn E-200 (Rooms Style)
+Tabs.Main:AddButton({
+    Title = "Spawn E-200",
+    Description = "Spawn E-200 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "E-200",
+                Asset = "rbxassetid://73781481371106",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to E-200...",
+                    "As a Rooms entity, E-200 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes."
+                },
+                Cause = "E-200"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "E-200 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 2. Spawn Angry
+Tabs.Main:AddButton({
+    Title = "Spawn Angry",
+    Description = "Spawn Angry entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Angry",
+                Asset = "rbxassetid://134357345127640",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Angry...",
+                    "Watch out for flickering lights and hide in time!"
+                },
+                Cause = "Angry"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Angry spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 3. Spawn A-200 (Rooms Style)
+Tabs.Main:AddButton({
+    Title = "Spawn A-200",
+    Description = "Spawn A-200 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-200",
+                Asset = "rbxassetid://94418383228847",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-200...",
+                    "As a Rooms entity, A-200 will not flicker any lights!",
+                    "Listen closely for audio cues and hide immediately."
+                },
+                Cause = "A-200"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-200 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- 4. Spawn FrostDire
+Tabs.Main:AddButton({
+    Title = "Spawn FrostDire",
+    Description = "Spawn FrostDire entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "FrostDire",
+                Asset = "rbxassetid://94418383228847",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 190, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to FrostDire...",
+                    "Pay attention to the flickering lights and hide before it reaches you!"
+                },
+                Cause = "FrostDire"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "FrostDire spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn A-150",
+    Description = "Spawn A-150 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-150",
+                Asset = "rbxassetid://130293057117643",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-150...",
+                    "As a Rooms entity, A-150 will not flicker any lights!",
+                    "Listen closely for audio cues and hide before it passes through."
+                },
+                Cause = "A-150"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-150 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Sandstorm",
+    Description = "Spawn Sandstorm entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Sandstorm",
+                Asset = "rbxassetid://133301092640364",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Sandstorm...",
+                    "Pay attention to the flickering lights and hide in time!"
+                },
+                Cause = "Sandstorm"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Sandstorm spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn E-146",
+    Description = "Spawn E-146 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "E-146",
+                Asset = "rbxassetid://121498798894715",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 220, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 1, Max = 3, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to E-146...",
+                    "As an E-entity, E-146 will not flicker any lights!",
+                    "Listen closely for audio cues and stay hidden until it finishes rebounding."
+                },
+                Cause = "E-146"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "E-146 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Fire Guardian",
+    Description = "Spawn Fire Guardian entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Fire Guardian",
+                Asset = "rbxassetid://82370964643599",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 2, Max = 5, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Fire Guardian...",
+                    "It rebounds multiple times through the rooms!",
+                    "Stay hidden until it has completely finished all of its passes."
+                },
+                Cause = "Fire Guardian"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Fire Guardian (Rebounding) spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Gloom V2",
+    Description = "Spawn Gloom V2 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Gloom V2",
+                Asset = "rbxassetid://121498475217418",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1.5 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 20, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Gloom V2...",
+                    "Pay attention to the flickering lights and hide in time!"
+                },
+                Cause = "Gloom V2"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Gloom V2 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn B-200",
+    Description = "Spawn B-200 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "B-200",
+                Asset = "rbxassetid://107217434350969",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 260, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to B-200...",
+                    "As a Rooms entity, B-200 will not flicker any lights!",
+                    "Listen closely for its audio cue and hide immediately before it rushes through."
+                },
+                Cause = "B-200"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "B-200 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn A-60",
+    Description = "Spawn A-60 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-60",
+                Asset = "rbxassetid://114930961460627",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-60...",
+                    "As a Rooms entity, A-60 will not flicker any lights!",
+                    "Listen closely for its loud audio cue and hide quickly before it passes."
+                },
+                Cause = "A-60"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-60 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn B-60",
+    Description = "Spawn B-60 entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local entity = spawner.Create({
+            Entity = {
+                Name = "B-60",
+                Asset = "rbxassetid://82859496455626",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 1 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2, 20, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false, Type = "Ambush", Min = 1, Max = 1, Delay = 2 },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to B-60...",
+                    "As a Rooms entity, B-60 will not flicker the lights!",
+                    "Listen closely for its sound cue and hide immediately."
+                },
+                Cause = "B-60"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "B-60 spawned!",
+            Duration = 3
+        })
+    end
+})
+
 Tabs.CustomItems:AddParagraph({
     Title = "📦 Custom Items",
     Content = "Spawn custom items into your backpack."
