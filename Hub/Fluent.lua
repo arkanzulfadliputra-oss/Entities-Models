@@ -1646,7 +1646,7 @@ Tabs.Main:AddButton({
             latestRoom.Changed:Connect(function()
                 onRoomChanged()
             end)
-        end
+        end0
         
         Fluent:Notify({
             Title = "Spawned",
@@ -1659,7 +1659,7 @@ Tabs.Main:AddButton({
 -- REVOKER
 Tabs.Main:AddButton({
     Title = "Spawn Revoker",
-    Description = "Spawn Revoker entity (Jangan tatap & sembunyi!)",
+    Description = "Spawn Revoker entity",
     Callback = function()
         spawnEntity({
             Entity = { Name = "Revoker", Asset = "rbxassetid://134852743257842", HeightOffset = 0 },
@@ -1899,6 +1899,7 @@ Tabs.Main:AddButton({
             if room:FindFirstChild("KeyObtain", true) then
                 return true
             end
+        
             local door = room:FindFirstChild("Door", true)
             if door and door:FindFirstChild("RequiresKey") then
                 return door.RequiresKey.Value == true
@@ -2440,8 +2441,8 @@ Tabs.Main:AddButton({
                     Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
                     Death = {
                         Type = "Guiding",
-                        Hints = { "You died to Fragmented...", "It will follow you through multiple rooms!" },
-                        Cause = "Fragmented"
+                        Hints = { "You died By Rebound..", "It will follow you through multiple rooms!" },
+                        Cause = "Rebound"
                     }
                 })
                 entity:Run()
@@ -2468,7 +2469,6 @@ Tabs.Main:AddButton({
             PlayScareSound()
             SpawnFragmented()
 
-            -- Entity 2 sampai Entity 6 (Berjalan setiap kali ganti kamar)
             local randomnumber = math.random(3, 6)
             for i = 2, randomnumber do
                 ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
@@ -2521,78 +2521,6 @@ Tabs.Main:AddButton({
             Content = "Hustle spawned!",
             Duration = 3
         })
-    end
-})
-
-Tabs.Main:AddButton({
-    Title = "Spawn Twister",
-    Description = "Spawn Twister at player's position in next room",
-    Callback = function()
-        Fluent:Notify({
-            Title = "Queued",
-            Content = "Twister will spawn at your position when you enter the next room!",
-            Duration = 3
-        })
-
-        task.spawn(function()
-            game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
-            task.wait(1)
-
-            local twisterModel = game:GetObjects("rbxassetid://72643424887636")[1]
-            if not twisterModel then return end
-
-            twisterModel.Name = "Twister"
-            twisterModel.Parent = workspace
-                    
-            local player = game.Players.LocalPlayer
-            local character = player.Character or player.CharacterAdded:Wait()
-            local hrp = character:FindFirstChild("HumanoidRootPart")
-
-            if hrp then
-                if twisterModel:IsA("Model") then
-                    twisterModel:PivotTo(hrp.CFrame)
-                elseif twisterModel:IsA("BasePart") then
-                    twisterModel.CFrame = hrp.CFrame
-                end
-            end
-
-            local function GetGitSound(GithubSnd, SoundName)
-                local url = GithubSnd
-                if not isfile(SoundName .. ".mp3") then
-                    writefile(SoundName .. ".mp3", game:HttpGet(url))
-                end
-                local sound = Instance.new("Sound")
-                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
-                return sound
-            end
-            local targetPart = twisterModel:IsA("Model") and (twisterModel.PrimaryPart or twisterModel:FindFirstChildWhichIsA("BasePart")) or twisterModel
-
-            if targetPart then
-                local Jumpscare = GetGitSound("https://github.com/eoyoustme/Mayhem-Remake/raw/main/Mayhem%20mode%20recreate_TwisterScream2.mp3", "Twitersaygttyt")
-                Jumpscare.Parent = targetPart
-                Jumpscare.Looped = true
-                Jumpscare.RollOffMinDistance = 100
-                Jumpscare.PlaybackRegionsEnabled = true
-                Jumpscare.LoopRegion = NumberRange.new(0, 3)
-                Jumpscare.RollOffMaxDistance = 200
-                Jumpscare.RollOffMode = Enum.RollOffMode.LinearSquare
-                Jumpscare.Volume = 6
-                Jumpscare.PlaybackSpeed = 1
-                Jumpscare:Play()
-            end
-
-            Fluent:Notify({
-                Title = "Spawned",
-                Content = "Twister spawned at your position!",
-                Duration = 3
-            })
-
-            task.wait(6)
-
-            if twisterModel then
-                twisterModel:Destroy()
-            end
-        end)
     end
 })
 
@@ -2822,21 +2750,8 @@ Tabs.Main:AddButton({
 })
 
 Tabs.Main:AddButton({
-    Title = "Spawn Depth Retake",
-    Description = "Spawn Depth Retake entity",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Custom%20Entities%20Models/Depth%20Retake.lua"))()
-        Fluent:Notify({
-            Title = "Spawned",
-            Content = "Depth Retake spawned!",
-            Duration = 3
-        })
-    end
-})
-
-Tabs.Main:AddButton({
     Title = "Spawn Speedster / Trauma",
-    Description = "Spawn Trauma entity (No rebound)",
+    Description = "Spawn Trauma entity",
     Callback = function()
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
         local entity = spawner.Create({
@@ -2941,6 +2856,24 @@ Tabs.Main:AddButton({
                 end
             end
 
+            local function onRoomChanged()
+            if model and model.Parent and not isCrucified then
+                model:Destroy()
+                Fluent:Notify({
+                    Title = "Despawned",
+                    Content = "Shocker despawned (Room changed)!",
+                    Duration = 2
+                })
+            end
+        end
+        
+        local latestRoom = game.ReplicatedStorage.GameData:FindFirstChild("LatestRoom")
+        if latestRoom then
+            latestRoom.Changed:Connect(function()
+                onRoomChanged()
+            end)
+        end
+
             Fluent:Notify({
                 Title = "Spawned",
                 Content = "Hungry spawned!",
@@ -2965,8 +2898,7 @@ Tabs.Main:AddButton({
             local char = player.Character or player.CharacterAdded:Wait()
             local root = char:FindFirstChild("HumanoidRootPart")
 
-            if root then
-                -- Spawn tepat di depan pemain (jarak 5 stud)
+            if root then                
                 local spawnCFrame = root.CFrame * CFrame.new(0, 0, 25)
 
                 if model:IsA("Model") then
@@ -4278,7 +4210,7 @@ Tabs.CustomItems:AddButton({
     Title = "Spawn Crucifix Cracked (1)",
     Description = "Spawn Crucifix Cracked (1)",
     Callback = function()
-        spawnTool("rbxassetid://12653118809", "Crucifix Cracked (1)")
+        spawnTool("rbxassetid://12653118809", "Crucifix")
     end
 })
 
@@ -4286,7 +4218,7 @@ Tabs.CustomItems:AddButton({
     Title = "Spawn Crucifix Cracked (2)",
     Description = "Spawn Crucifix Cracked (2)",
     Callback = function()
-        spawnTool("rbxassetid://11766540827", "Crucifix Cracked (2)")
+        spawnTool("rbxassetid://11766540827", "Crucifix")
     end
 })
 
@@ -4294,7 +4226,7 @@ Tabs.CustomItems:AddButton({
     Title = "Spawn Crucifix Cracked (3)",
     Description = "Spawn Crucifix Cracked (3)",
     Callback = function()
-        spawnTool("rbxassetid://11766544358", "Crucifix Cracked (3)")
+        spawnTool("rbxassetid://11766544358", "Crucifix")
     end
 })
 
@@ -4302,7 +4234,7 @@ Tabs.CustomItems:AddButton({
     Title = "Spawn Crucifix Glow",
     Description = "Spawn Crucifix Glow",
     Callback = function()
-        spawnTool("rbxassetid://11753631279", "Crucifix Glow")
+        spawnTool("rbxassetid://11753631279", "Crucifix")
     end
 })
 
@@ -4310,7 +4242,7 @@ Tabs.CustomItems:AddButton({
     Title = "Spawn Crucifix Unknown",
     Description = "Spawn Crucifix Unknown",
     Callback = function()
-        spawnTool("rbxassetid://11742346377", "Crucifix Unknown")
+        spawnTool("rbxassetid://11742346377", "Crucifix")
     end
 })
 
