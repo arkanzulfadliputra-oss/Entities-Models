@@ -7,10 +7,12 @@ Jumpscare.CreateJumpscare({
         Image1 = "rbxassetid://11846426821",
         Image2 = "rbxassetid://11846426821",
 
+        BackgroundColor = Color3.fromRGB(255, 0, 0),
+
         Shake = true,
 
         Sound1 = {
-            1234567890, -- SoundId
+            1234567890,
 
             {
                 Volume = 0.5,
@@ -19,7 +21,6 @@ Jumpscare.CreateJumpscare({
             },
 
             SoundEffect = {
-
                 Echo = {
                     Enabled = false,
                     Delay = 0.1,
@@ -81,7 +82,7 @@ Jumpscare.CreateJumpscare({
         },
 
         Sound2 = {
-            10483837590, -- SoundId
+            10483837590,
 
             {
                 Volume = 0.5,
@@ -90,7 +91,6 @@ Jumpscare.CreateJumpscare({
             },
 
             SoundEffect = {
-
                 Echo = {
                     Enabled = false,
                     Delay = 0.08,
@@ -152,12 +152,12 @@ Jumpscare.CreateJumpscare({
         },
 
         Flashing = {
-            true, -- Enabled/Disabled
-            Color3.fromRGB(0, 0, 255), -- Color
+            true,
+            Color3.fromRGB(0, 0, 255),
         },
 
         Tease = {
-            true, -- Enabled/Disabled
+            true,
             Min = 4,
             Max = 4,
         },
