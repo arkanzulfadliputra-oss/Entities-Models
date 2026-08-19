@@ -163,3 +163,9 @@ Jumpscare.CreateJumpscare({
         },
     },
 })
+
+---replace if shake false or Directly on vynixus
+wait(2)
+
+-----Delete if in Vynixus
+Humanoid:TakeDamage(100)
