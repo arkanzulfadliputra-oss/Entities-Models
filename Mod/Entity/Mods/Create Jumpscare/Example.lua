@@ -1,3 +1,10 @@
+[[--
+----if you add Humanoid:TakeDamage(0) it is mandatory
+----local Player = game.Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+--]]
+
 local Jumpscare = loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/Entities-Models/refs/heads/main/Mod/Entity/Mods/Create%20Jumpscare/Source.lua"))()
 
 Jumpscare.CreateJumpscare({
@@ -164,8 +171,8 @@ Jumpscare.CreateJumpscare({
     },
 })
 
----replace if shake false or Directly on vynixus
-wait(2)
-
------Delete if in Vynixus
-Humanoid:TakeDamage(100)
+[[---
+---make sure you add this
+-----wait(2)
+------Humanoid:TakeDamage(100)
+--]]
