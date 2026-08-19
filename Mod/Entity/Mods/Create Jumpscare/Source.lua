@@ -23,30 +23,36 @@ local function LoadCustomAsset(asset)
         return ""
     end
 
-    if getsynasset then
-        local success, result = pcall(function()
-            return getsynasset(asset)
-        end)
-
-        if success and result then
-            return result
+    if type(asset) == "string" then
+        if asset:find("rbxassetid://") then
+            return asset
         end
-    end
 
-    if getcustomasset then
-        local success, result = pcall(function()
-            return getcustomasset(asset)
-        end)
+        if getcustomasset then
+            local success, result = pcall(function()
+                return getcustomasset(asset)
+            end)
 
-        if success and result then
-            return result
+            if success and result then
+                return result
+            end
+        end
+
+        if getsynasset then
+            local success, result = pcall(function()
+                return getsynasset(asset)
+            end)
+
+            if success and result then
+                return result
+            end
         end
     end
 
     return tostring(asset)
 end
 
-local function ApplyProperties(sound, properties)
+local function ApplySoundProperties(sound, properties)
     if typeof(properties) ~= "table" then
         return
     end
@@ -58,47 +64,39 @@ local function ApplyProperties(sound, properties)
     end
 end
 
-local function CreateSoundEffect(sound, effectName, settings)
+local EffectClasses = {
+    Echo = "EchoSoundEffect",
+    Distortion = "DistortionSoundEffect",
+    Equalizer = "EqualizerSoundEffect",
+    Reverb = "ReverbSoundEffect",
+    Chorus = "ChorusSoundEffect",
+    Flange = "FlangeSoundEffect",
+    Compressor = "CompressorSoundEffect",
+    Tremolo = "TremoloSoundEffect",
+}
 
+local function CreateSoundEffect(sound, effectName, settings)
     if typeof(settings) ~= "table" then
         return
     end
 
-    local effect
+    local className = EffectClasses[effectName]
 
-    if effectName == "Echo" then
-        effect = Instance.new("EchoSoundEffect")
-    elseif effectName == "Distortion" then
-        effect = Instance.new("DistortionSoundEffect")
-    elseif effectName == "Equalizer" then
-        effect = Instance.new("EqualizerSoundEffect")
-    elseif effectName == "Reverb" then
-        effect = Instance.new("ReverbSoundEffect")
-    elseif effectName == "Chorus" then
-        effect = Instance.new("ChorusSoundEffect")
-    elseif effectName == "Flange" then
-        effect = Instance.new("FlangeSoundEffect")
-    elseif effectName == "Compressor" then
-        effect = Instance.new("CompressorSoundEffect")
-    elseif effectName == "Tremolo" then
-        effect = Instance.new("TremoloSoundEffect")
+    if not className then
+        return
     end
 
-    if not effect then
+    local success, effect = pcall(function()
+        return Instance.new(className)
+    end)
+
+    if not success or not effect then
         return
     end
 
     for property, value in pairs(settings) do
-        if property ~= "Enabled" then
-            pcall(function()
-                effect[property] = value
-            end)
-        end
-    end
-
-    if settings.Enabled ~= nil then
         pcall(function()
-            effect.Enabled = settings.Enabled
+            effect[property] = value
         end)
     end
 
@@ -126,7 +124,7 @@ local function playSound(soundId, properties, soundEffects)
         sound.SoundId = id
     end
 
-    ApplyProperties(sound, properties)
+    ApplySoundProperties(sound, properties)
 
     if typeof(soundEffects) == "table" then
         for effectName, settings in pairs(soundEffects) do
@@ -166,7 +164,7 @@ Creator.runJumpscare = function(config)
     JumpscareGui.ResetOnSpawn = false
 
     Background.Name = "Background"
-    Background.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Background.BackgroundColor3 = config.BackgroundColor or Color3.fromRGB(0, 0, 0)
     Background.BorderSizePixel = 0
     Background.Size = UDim2.new(1, 0, 1, 0)
     Background.ZIndex = 999
@@ -212,7 +210,7 @@ Creator.runJumpscare = function(config)
             while JumpscareGui.Parent do
                 Background.BackgroundColor3 = config.Flashing[2] or Color3.fromRGB(255, 255, 255)
                 task.wait(math.random(25, 100) / 1000)
-                Background.BackgroundColor3 = Color3.new(0, 0, 0)
+                Background.BackgroundColor3 = config.BackgroundColor or Color3.fromRGB(0, 0, 0)
                 task.wait(math.random(25, 100) / 1000)
             end
         end)
@@ -238,10 +236,12 @@ Creator.runJumpscare = function(config)
     Face.Size = UDim2.new(0, 750, 0, 750)
     Face.ImageTransparency = 0
 
-    TS:Create(Face, TweenInfo.new(0.75), {
+    local Tween = TS:Create(Face, TweenInfo.new(0.75), {
         Size = UDim2.new(0, 2000, 0, 2000),
         ImageTransparency = 0.5
-    }):Play()
+    })
+
+    Tween:Play()
 
     task.wait(0.75)
 
