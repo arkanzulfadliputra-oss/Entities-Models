@@ -6024,6 +6024,353 @@ Tabs.Main:AddButton({
     end
 })
 
+Tabs.Main:AddButton({
+    Title = "Spawn Ripper Old",
+    Description = "?",
+    Callback = function()
+        local spawnSound = Instance.new("Sound")
+        spawnSound.Name = "RipperSpawnSound"
+        spawnSound.SoundId = "rbxassetid://9125713501"
+        spawnSound.PlaybackSpeed = 0.6
+        spawnSound.Volume = 10
+        spawnSound.Parent = game:GetService("SoundService")
+        spawnSound:Play()
+
+        local redCC = Instance.new("ColorCorrectionEffect")
+        redCC.Name = "RipperRedCC"
+        redCC.TintColor = Color3.fromRGB(255, 0, 0)
+        redCC.Saturation = 0
+        redCC.Contrast = 0
+        redCC.Parent = game:GetService("Lighting")
+
+        task.wait(2.8)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Ripper Old",
+                Asset = "rbxassetid://123958522081318",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 270, Delay = 0, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Ripper Old...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "Ripper Old"
+            }
+        })
+
+        entity:SetCallback("OnSpawned", function()
+            print("200 kiloMeter")
+        end)
+
+        
+   entity:SetCallback("OnDespawned", function()       
+    if redCC then
+        redCC:Destroy()
+    end
+
+    local foundCC = game:GetService("Lighting"):FindFirstChild("RipperRedCC")
+    if foundCC then
+        foundCC:Destroy()
+    end
+end)   
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Ripper Old spawned!",
+            Duration = 3
+        })
+    end
+})
+
+
+Tabs.Main:AddButton({
+    Title = "Spawn Ripper Current",
+    Description = "?",
+    Callback = function()
+            local sound1 = Instance.new("Sound")
+            sound1.Name = "RipperCustomSound1"
+            sound1.SoundId = "rbxassetid://1318185544"
+            sound1.PlaybackSpeed = 1
+            sound1.Volume = 10
+            sound1.Parent = game:GetService("SoundService")
+
+            local pitchEffect = Instance.new("PitchShiftSoundEffect")
+            pitchEffect.Octave = 0.5
+            pitchEffect.Parent = sound1
+
+            local pitchEffect2 = Instance.new("PitchShiftSoundEffect")
+            pitchEffect2.Octave = 0.8
+            pitchEffect2.Parent = sound1
+      
+            sound1:Play()
+
+            local sound2 = Instance.new("Sound")
+            sound2.Name = "RipperCustomSound2"
+            sound2.SoundId = "rbxassetid://9125713501"
+            sound2.PlaybackSpeed = 0.6
+            sound2.Volume = 10
+            sound2.Parent = game:GetService("SoundService")
+            sound2:Play()
+
+            local redCC = Instance.new("ColorCorrectionEffect")
+        redCC.Name = "RipperRedCC"
+        redCC.TintColor = Color3.fromRGB(255, 0, 0)
+        redCC.Saturation = 0
+        redCC.Contrast = 0
+        redCC.Parent = game:GetService("Lighting")
+  
+            wait(2.8)
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Ripper",
+                Asset = "rbxassetid://123958522081318",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 270, Delay = 0, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Ripper...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "Ripper"
+            }
+        })
+
+        entity:SetCallback("OnSpawned", function()
+            task.spawn(function()
+                local ripper = workspace:WaitForChild("Ripper", 5)
+                if ripper then
+                    local soundGroup = ripper:FindFirstChild("SoundGroup")
+                    if soundGroup then
+                        local amb = soundGroup:FindFirstChild("Ambience_Ripper")
+                        if amb then
+                            amb:Stop()
+                            amb.Volume = 0
+                        end
+
+                        local scream = soundGroup:FindFirstChild("Nightmare Yelling Bursts Of Distorted Scream (SFX)")
+                        if scream then
+                            scream:Stop()
+                            scream.Volume = 0
+                        end
+                    end
+                end
+            end)
+        end)
+
+   entity:SetCallback("OnDespawned", function()    
+    if redCC then
+        redCC:Destroy()
+    end
+
+    local foundCC = game:GetService("Lighting"):FindFirstChild("RipperRedCC")
+    if foundCC then
+        foundCC:Destroy()
+    end
+end)
+   
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Ripper Current spawned!",
+            Duration = 3
+        })
+    end
+})
+ 
+-- Spawn Cease
+Tabs.Main:AddButton({
+    Title = "Spawn Cease Old",
+    Description = "Spawn Cease",
+    Callback = function()
+        local sound1 = Instance.new("Sound")
+        sound1.Name = "CeaseSound1"
+        sound1.SoundId = "rbxassetid://9125632539"
+        sound1.PlaybackSpeed = 0.5
+        sound1.Pitch = 0.5 -- Setting pitch langsung
+        sound1.Volume = 1
+        sound1.Parent = game:GetService("SoundService")
+        sound1:Play()
+        game:GetService("Debris"):AddItem(sound1, 10)
+
+        local sound2 = Instance.new("Sound")
+        sound2.Name = "CeaseSound2"
+        sound2.SoundId = "rbxassetid://166047422"
+        sound2.PlaybackSpeed = 1
+        sound2.Pitch = 1
+        sound2.Volume = 1
+        sound2.Parent = game:GetService("SoundService")
+        sound2:Play()
+        game:GetService("Debris"):AddItem(sound2, 10)
+
+        local purpleCC = Instance.new("ColorCorrectionEffect")
+        purpleCC.Name = "CeasePurpleCC"
+        purpleCC.TintColor = Color3.fromRGB(128, 0, 128) -- Warna Ungu
+        purpleCC.Saturation = 0.2
+        purpleCC.Contrast = 0.1
+        purpleCC.Parent = game:GetService("Lighting")
+
+        task.wait(2.8)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Cease",
+                Asset = "rbxassetid://11547018893",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 270, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Cease...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "Cease"
+            }
+        })
+
+        entity:SetCallback("OnDespawned", function()
+            if purpleCC then
+                purpleCC:Destroy()
+            end
+        end)
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Cease spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Cease Current
+Tabs.Main:AddButton({
+    Title = "Spawn Cease Current",
+    Description = "Delay 2.8s + Efek Ungu",
+    Callback = function()
+        -- Play Sound 1
+        local sound1 = Instance.new("Sound")
+        sound1.Name = "CeaseSound1"
+        sound1.SoundId = "rbxassetid://9125632539"
+        sound1.PlaybackSpeed = 0.5
+        sound1.Pitch = 0.5
+        sound1.Volume = 1
+        sound1.Parent = game:GetService("SoundService")
+        sound1:Play()
+        game:GetService("Debris"):AddItem(sound1, 10)
+
+        local sound2 = Instance.new("Sound")
+        sound2.Name = "CeaseSound2"
+        sound2.SoundId = "rbxassetid://166047422"
+        sound2.PlaybackSpeed = 1
+        sound2.Pitch = 1
+        sound2.Volume = 1
+        sound2.Parent = game:GetService("SoundService")
+        sound2:Play()
+        game:GetService("Debris"):AddItem(sound2, 10)
+
+        local purpleCC = Instance.new("ColorCorrectionEffect")
+        purpleCC.Name = "CeaseCurrentPurpleCC"
+        purpleCC.TintColor = Color3.fromRGB(128, 0, 128)
+        purpleCC.Saturation = 0.2
+        purpleCC.Contrast = 0.1
+        purpleCC.Parent = game:GetService("Lighting")
+
+        task.wait(2.8)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Cease Current",
+                Asset = "rbxassetid://12797515632",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 270, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Cease Current...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "Cease Current"
+            }
+        })
+
+        entity:SetCallback("OnDespawned", function()
+            -- Ilangin ColorCorrection pas despawn
+            if purpleCC then
+                purpleCC:Destroy()
+            end
+        end)
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Cease Current spawned!",
+            Duration = 3
+        })
+    end
+})
+
 Tabs.CustomItems:AddParagraph({
     Title = "📦 Custom Items",
     Content = "Spawn custom items into your backpack."
