@@ -6054,11 +6054,11 @@ Tabs.Main:AddButton({
                 HeightOffset = 0
             },
             Lights = { 
-                Flicker = { Enabled = true, Duration = 2 }, 
-                Shatter = true, 
+                Flicker = { Enabled = false, Duration = 2 }, 
+                Shatter = false, 
                 Repair = false 
             },
-            Earthquake = { Enabled = true },
+            Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
             Movement = { Speed = 270, Delay = 0, Reversed = false },
             Rebounding = { Enabled = false },
@@ -6147,8 +6147,8 @@ Tabs.Main:AddButton({
                 HeightOffset = 0
             },
             Lights = { 
-                Flicker = { Enabled = true, Duration = 2 }, 
-                Shatter = true, 
+                Flicker = { Enabled = false, Duration = 2 }, 
+                Shatter = false, 
                 Repair = false 
             },
             Earthquake = { Enabled = true },
@@ -6254,8 +6254,8 @@ Tabs.Main:AddButton({
                 HeightOffset = 0
             },
             Lights = { 
-                Flicker = { Enabled = true, Duration = 2 }, 
-                Shatter = true, 
+                Flicker = { Enabled = false, Duration = 2 }, 
+                Shatter = false, 
                 Repair = false 
             },
             Earthquake = { Enabled = true },
@@ -6334,8 +6334,8 @@ Tabs.Main:AddButton({
                 HeightOffset = 0
             },
             Lights = { 
-                Flicker = { Enabled = true, Duration = 2 }, 
-                Shatter = true, 
+                Flicker = { Enabled = false Duration = 2 }, 
+                Shatter = false, 
                 Repair = false 
             },
             Earthquake = { Enabled = true },
@@ -6355,7 +6355,6 @@ Tabs.Main:AddButton({
         })
 
         entity:SetCallback("OnDespawned", function()
-            -- Ilangin ColorCorrection pas despawn
             if purpleCC then
                 purpleCC:Destroy()
             end
@@ -6370,6 +6369,625 @@ Tabs.Main:AddButton({
         })
     end
 })
+
+-- Spawn Cease Remake
+Tabs.Main:AddButton({
+    Title = "Spawn Cease Remake",
+    Description = "Delay 2.8s + Efek Ungu",
+    Callback = function()
+        local sound1 = Instance.new("Sound")
+        sound1.Name = "CeaseSound1"
+        sound1.SoundId = "rbxassetid://9125632539"
+        sound1.PlaybackSpeed = 0.5
+        sound1.Pitch = 0.5
+        sound1.Volume = 10
+        sound1.Parent = game:GetService("SoundService")
+        sound1:Play()
+        game:GetService("Debris"):AddItem(sound1, 10)
+
+        local sound2 = Instance.new("Sound")
+        sound2.Name = "CeaseSound2"
+        sound2.SoundId = "rbxassetid://166047422"
+        sound2.PlaybackSpeed = 1
+        sound2.Pitch = 1
+        sound2.Volume = 10
+        sound2.Parent = game:GetService("SoundService")
+        sound2:Play()
+        game:GetService("Debris"):AddItem(sound2, 10)
+
+        local purpleCC = Instance.new("ColorCorrectionEffect")
+        purpleCC.Name = "CeaseRemakePurpleCC"
+        purpleCC.TintColor = Color3.fromRGB(128, 0, 128)
+        purpleCC.Saturation = 0.2
+        purpleCC.Contrast = 0.1
+        purpleCC.Parent = game:GetService("Lighting")
+   
+        task.wait(2.8)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Cease Remake",
+                Asset = "rbxassetid://16167836521",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 2 }, 
+                Shatter = false, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 270, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Cease Remake...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "Cease Remake"
+            }
+        })
+
+        entity:SetCallback("OnDespawned", function()
+            if purpleCC then
+                purpleCC:Destroy()
+            end
+        end)
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Cease Remake spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Baldkreek
+Tabs.Main:AddButton({
+    Title = "Spawn Baldkreek",
+    Description = "Spawn entitas Baldkreek",
+    Callback = function()
+        task.spawn(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/refs/heads/main/Script/DOORS/CUSTOM%20ENTITIES/BaldKreek.lua"))()
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Baldkreek spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn TrollFace
+Tabs.Main:AddButton({
+    Title = "Spawn TrollFace",
+    Description = "Spawn entitas TrollFace",
+    Callback = function()
+        task.spawn(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/arkanzulfadliputra-oss/ScriptGamingGamer/main/Script/DOORS/CUSTOM%20ENTITIES/Troll%20Face.lua"))()
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "TrollFace spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Silence Hardcore
+Tabs.Main:AddButton({
+    Title = "Spawn Silence Hardcore",
+    Description = "Spawn Silence Hardcore",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Silence Hardcore",
+                Asset = "rbxassetid://11535812658",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 3 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 15, 0.1, 1 } },
+            Movement = { Speed = 30, Delay = 2, Reversed = false }, -- Lambat banget
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Silence Hardcore...",
+                    "He moves very slowly, but don't let him catch you!"
+                },
+                Cause = "Silence Hardcore"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Silence Hardcore spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Silence Hardcore Remakes
+Tabs.Main:AddButton({
+    Title = "Spawn Silence Hardcore Remakes",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Silence Hardcore Remakes",
+                Asset = "rbxassetid://106570553068298",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 3 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 15, 0.1, 1 } },
+            Movement = { Speed = 30, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 }, -- Damage di-false
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Silence Hardcore Remakes...",
+                    "He moves very slowly, but don't let him catch you!"
+                },
+                Cause = "Silence Hardcore"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Silence Hardcore Remakes spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn LSPLASH
+Tabs.Main:AddButton({
+    Title = "Spawn LSPLASH",
+    Description = "Custom Entity LSPLASH",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "LSPLASH",
+                Asset = "rbxassetid://73670649770665",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = true, Break = false }, -- Kebal Crucifix
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to LSPLASH...",
+                    "You can't crucifix the LSPLASH!",
+                     "I've tried everything I could to get rid of him",
+                     "But He's Dev. Honestly I Can't Do It",
+                      "OK, happy doing it again, bro"
+                },
+                Cause = "LSPLASH"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "LSPLASH spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Smiler",
+    Description = "?",
+    Callback = function()
+        local latestRoomValue = game:GetService("ReplicatedStorage").GameData.LatestRoom.Value
+        local currentRoom = workspace.CurrentRooms:FindFirstChild(tostring(latestRoomValue))
+
+        if currentRoom then
+            pcall(function()
+                local Module_Events = require(game:GetService("ReplicatedStorage").ModulesClient.Module_Events)
+                Module_Events.flicker(currentRoom, 20)
+            end)
+        end
+
+        task.wait(25)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Smiler",
+                Asset = "rbxassetid://16618965725",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = False },
+            CameraShake = Enabled = false, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 600, Delay = 2, Reversed = false },
+            Rebounding = { 
+                Enabled = true,
+                Max = 10,        
+                Delay = 3      
+            },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Smiler...",
+                    "Hide when you hear or see it!"
+                },
+                Cause = "Smiler"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Smiler spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn WH1T3
+Tabs.Main:AddButton({
+    Title = "Spawn WH1T3",
+    Description = "EQ Sound + Delay 2.8s + Merah Tua",
+    Callback = function()
+        local sound = Instance.new("Sound")
+        sound.Name = "WH1T3Sound"
+        sound.SoundId = "rbxassetid://131489490"
+        sound.Volume = 1
+        sound.Parent = game:GetService("SoundService")
+
+        local eq = Instance.new("EqualizerSoundEffect")
+        eq.HighGain = 10
+        eq.Parent = sound
+
+        sound:Play()
+        game:GetService("Debris"):AddItem(sound, 10)
+
+        local redCC = Instance.new("ColorCorrectionEffect")
+        redCC.Name = "WH1T3RedCC"
+        redCC.TintColor = Color3.fromRGB(139, 0, 0) -- Merah Tua
+        redCC.Saturation = 0.3
+        redCC.Contrast = 0.2
+        redCC.Parent = game:GetService("Lighting")
+
+        task.wait(2.8)
+
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        
+        local entity = spawner.Create({
+            Entity = {
+                Name = "WH1T3",
+                Asset = "rbxassetid://17609670648",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = false, Duration = 2 }, 
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = true, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to WH1T3...",
+                    "Hide as soon as you hear the sound!"
+                },
+                Cause = "WH1T3"
+            }
+        })
+
+        entity:SetCallback("OnDespawned", function()
+            if redCC then
+                redCC:Destroy()
+            end
+        end)
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "WH1T3 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Blink",
+    Description = "?",
+    Callback = function()
+        task.spawn(function()
+            local success, err = pcall(function()
+                local player = game:GetService("Players").LocalPlayer
+                local char = player.Character
+                if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+
+                local objects = game:GetObjects("rbxassetid://12257435720")
+                if not objects or #objects == 0 then return end
+
+                local blink = objects[1]
+                blink.Name = "Blink"
+                blink.Parent = workspace
+
+                if blink:IsA("BasePart") then
+                    blink.Anchored = true
+                    blink.CanCollide = false
+                end
+
+                local hrp = char.HumanoidRootPart
+                blink.CFrame = hrp.CFrame * CFrame.new(0, 0, -15)
+
+                local latestRoom = game:GetService("ReplicatedStorage").GameData.LatestRoom
+                local startRoomVal = latestRoom.Value
+                local roomConnection
+                local touchConnection
+
+                local function cleanup()
+                    if roomConnection then roomConnection:Disconnect() end
+                    if touchConnection then touchConnection:Disconnect() end
+                    if blink and blink.Parent then blink:Destroy() end
+                end
+
+                roomConnection = latestRoom:GetPropertyChangedSignal("Value"):Connect(function()
+                    if latestRoom.Value > startRoomVal then
+                        cleanup()
+                    end
+                end)
+            end)
+
+            if not success then
+                warn("Failed spawn Blink:", err)
+            end
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Blink Spawned",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Whisper",
+    Description = "Aman Bergerak (Tidak Mati)",
+    Callback = function()
+        ---====== Services ======---
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+        local player = Players.LocalPlayer
+
+        ---====== Load spawner ======---
+        local spawner = loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"
+        ))()
+
+        ---====== Create entity ======---
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Whisper",
+                Asset = "rbxassetid://12789806614",
+                HeightOffset = 0
+            },
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 3
+                },
+                Shatter = true,
+                Repair = false
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {3, 3, 4, 4}
+            },
+            Movement = {
+                Speed = 50,
+                Delay = 0,
+                Reversed = false
+            },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Whisper..."
+                },
+                Cause = "Whisper"
+            }
+        })
+
+        ---====== OnSpawned ======---
+        entity:SetCallback("OnSpawned", function()
+            print("Entity has spawned")
+
+            function GitAud(soundgit, filename)
+                local url = soundgit
+                local FileName = filename
+                writefile(FileName..".mp3", game:HttpGet(url))
+                return (getcustomasset or getsynasset)(FileName..".mp3")
+            end
+
+            function CustomGitSound(soundlink, vol, filename)
+                local sound = Instance.new("Sound")
+                sound.SoundId = GitAud(soundlink, filename)
+                sound.Parent = workspace
+                sound.Volume = vol or 1
+                sound.PlaybackSpeed = 1
+                sound.Name = "Whispering"
+                sound:Play()
+            end
+
+            CustomGitSound("https://github.com/Guestly-V2-2/Music-Sound/raw/refs/heads/main/XRecorder_Edited_20260111_02.mp3?raw=true", 1, "Whispering")
+
+            local caption = player.PlayerGui.MainUI.MainFrame.Caption
+            caption.TextColor3 = Color3.fromRGB(255, 222, 189)
+
+            pcall(function()
+                require(player.PlayerGui.MainUI.Initiator.Main_Game).caption("Do Not Move(Safe)", true)
+            end)
+
+            pcall(function()
+                if workspace:FindFirstChild("Whisper") and workspace.Whisper:FindFirstChild("RushNew") then
+                    local rush = workspace.Whisper.RushNew
+                    if rush:FindFirstChild("Attachment") then
+                        rush.Attachment.PointLight.Color = Color3.fromRGB(255, 255, 255)
+                        rush.Attachment.PointLight.Brightness = 3
+                        rush.Attachment.PointLight.Range = 12
+                        rush.Attachment.PointLight.Enabled = true
+                        if rush.Attachment:FindFirstChild("BlackTrail") then
+                            rush.Attachment.BlackTrail:Destroy()
+                        end
+                        if rush.Attachment:FindFirstChild("ParticleEmitter") then
+                            rush.Attachment.ParticleEmitter.Texture = "rbxassetid://117047822744197"
+                        end
+                    end
+                    if rush:FindFirstChild("Footsteps") then rush.Footsteps.Playing = false end
+                    if rush:FindFirstChild("PlaySound") then rush.PlaySound.Playing = false end
+                end
+            end)
+
+            task.wait(11)
+            if workspace:FindFirstChild("Whispering") then
+                workspace.Whispering:Destroy()
+            end
+        end)
+
+        ---====== Run ======---
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Whisper spawned",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Admiration (Tanpa Damage)
+Tabs.Main:AddButton({
+    Title = "Spawn Admiration",
+    Description = "?",
+    Callback = function()
+        task.spawn(function()
+            local Players = game:GetService("Players")
+            local player = Players.LocalPlayer
+            local playerGui = player:WaitForChild("PlayerGui")
+
+            local function GitAud(soundgit, filename)
+                local url = soundgit
+                local FileName = filename
+                writefile(FileName..".mp3", game:HttpGet(url))
+                return (getcustomasset or getsynasset)(FileName..".mp3")
+            end
+
+            local function CustomGitSound(soundlink, vol, filename)
+                local sound = Instance.new("Sound")
+                sound.SoundId = GitAud(soundlink, filename)
+                sound.Parent = workspace
+                sound.Volume = vol or 2
+                sound.PlaybackSpeed = 1
+                sound.Name = "Spawn"
+                sound:Play()
+            end
+
+            pcall(function()
+                CustomGitSound("https://github.com/Guestly-V2-2/Music-Sound/raw/refs/heads/main/XRecorder_Edited_20260111_01.mp3?raw=true", 2, "Spawn")
+            end)
+
+            local screenGui = Instance.new("ScreenGui")
+            screenGui.Name = "Admiration"
+            screenGui.IgnoreGuiInset = true
+            screenGui.ResetOnSpawn = false
+            screenGui.Parent = playerGui
+
+            local red = Instance.new("ImageLabel")
+            red.Name = "AdmirationMove"
+            red.Size = UDim2.new(1, 0, 1, 0)
+            red.BackgroundTransparency = 1
+            red.Image = "rbxassetid://116436211275451"
+            red.ImageTransparency = 0
+            red.Parent = screenGui
+    
+            task.wait(3.5)
+
+            if playerGui:FindFirstChild("Admiration") then
+                playerGui.Admiration:Destroy()
+            end
+            if workspace:FindFirstChild("Spawn") then
+                workspace.Spawn:Destroy()
+            end
+        end)
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Admiration spawned!",
+            Duration = 3
+        })
+    end
+})
+
 
 Tabs.CustomItems:AddParagraph({
     Title = "📦 Custom Items",
