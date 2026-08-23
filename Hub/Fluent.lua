@@ -6028,42 +6028,90 @@ Tabs.Main:AddButton({
     Title = "Spawn Ripper Old",
     Description = "?",
     Callback = function()
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
+
         local spawnSound = Instance.new("Sound")
         spawnSound.Name = "RipperSpawnSound"
         spawnSound.SoundId = "rbxassetid://9125713501"
         spawnSound.PlaybackSpeed = 0.6
         spawnSound.Volume = 10
-        spawnSound.Parent = game:GetService("SoundService")
+        spawnSound.Parent = SoundService
         spawnSound:Play()
+        Debris:AddItem(spawnSound, 10)
 
         local redCC = Instance.new("ColorCorrectionEffect")
         redCC.Name = "RipperRedCC"
         redCC.TintColor = Color3.fromRGB(255, 0, 0)
         redCC.Saturation = 0
         redCC.Contrast = 0
-        redCC.Parent = game:GetService("Lighting")
+        redCC.Parent = Lighting
+
+        local fade = TweenService:Create(
+            redCC,
+            TweenInfo.new(5),
+            {
+                TintColor = Color3.new(1, 1, 1),
+                Saturation = 0,
+                Contrast = 0
+            }
+        )
+
+        fade:Play()
+
+        fade.Completed:Connect(function()
+            if redCC and redCC.Parent then
+                redCC:Destroy()
+            end
+        end)
 
         task.wait(2.8)
 
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+
         local entity = spawner.Create({
             Entity = {
                 Name = "Ripper Old",
                 Asset = "rbxassetid://123958522081318",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 }, 
-                Shatter = false, 
-                Repair = false 
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = false,
+                Repair = false
             },
-            Earthquake = { Enabled = false },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 270, Delay = 0, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Earthquake = {
+                Enabled = false
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+            Movement = {
+                Speed = 270,
+                Delay = 0,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = false
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 0
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6078,18 +6126,6 @@ Tabs.Main:AddButton({
             print("200 kiloMeter")
         end)
 
-        
-   entity:SetCallback("OnDespawned", function()       
-    if redCC then
-        redCC:Destroy()
-    end
-
-    local foundCC = game:GetService("Lighting"):FindFirstChild("RipperRedCC")
-    if foundCC then
-        foundCC:Destroy()
-    end
-end)   
-
         entity:Run()
 
         Fluent:Notify({
@@ -6100,63 +6136,112 @@ end)
     end
 })
 
-
 Tabs.Main:AddButton({
     Title = "Spawn Ripper Current",
     Description = "?",
     Callback = function()
-            local sound1 = Instance.new("Sound")
-            sound1.Name = "RipperCustomSound1"
-            sound1.SoundId = "rbxassetid://1318185544"
-            sound1.PlaybackSpeed = 1
-            sound1.Volume = 10
-            sound1.Parent = game:GetService("SoundService")
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
 
-            local pitchEffect = Instance.new("PitchShiftSoundEffect")
-            pitchEffect.Octave = 0.5
-            pitchEffect.Parent = sound1
+        local sound1 = Instance.new("Sound")
+        sound1.Name = "RipperCustomSound1"
+        sound1.SoundId = "rbxassetid://1318185544"
+        sound1.PlaybackSpeed = 1
+        sound1.Volume = 10
+        sound1.Parent = SoundService
 
-            local pitchEffect2 = Instance.new("PitchShiftSoundEffect")
-            pitchEffect2.Octave = 0.8
-            pitchEffect2.Parent = sound1
-      
-            sound1:Play()
+        local pitchEffect = Instance.new("PitchShiftSoundEffect")
+        pitchEffect.Octave = 0.5
+        pitchEffect.Parent = sound1
 
-            local sound2 = Instance.new("Sound")
-            sound2.Name = "RipperCustomSound2"
-            sound2.SoundId = "rbxassetid://9125713501"
-            sound2.PlaybackSpeed = 0.6
-            sound2.Volume = 10
-            sound2.Parent = game:GetService("SoundService")
-            sound2:Play()
+        local pitchEffect2 = Instance.new("PitchShiftSoundEffect")
+        pitchEffect2.Octave = 0.8
+        pitchEffect2.Parent = sound1
 
-            local redCC = Instance.new("ColorCorrectionEffect")
+        sound1:Play()
+        Debris:AddItem(sound1, 10)
+
+        local sound2 = Instance.new("Sound")
+        sound2.Name = "RipperCustomSound2"
+        sound2.SoundId = "rbxassetid://9125713501"
+        sound2.PlaybackSpeed = 0.6
+        sound2.Volume = 10
+        sound2.Parent = SoundService
+        sound2:Play()
+        Debris:AddItem(sound2, 10)
+
+        local redCC = Instance.new("ColorCorrectionEffect")
         redCC.Name = "RipperRedCC"
         redCC.TintColor = Color3.fromRGB(255, 0, 0)
         redCC.Saturation = 0
         redCC.Contrast = 0
-        redCC.Parent = game:GetService("Lighting")
-  
-            wait(2.8)
+        redCC.Parent = Lighting
+
+        local fade = TweenService:Create(
+            redCC,
+            TweenInfo.new(5),
+            {
+                TintColor = Color3.new(1, 1, 1),
+                Saturation = 0,
+                Contrast = 0
+            }
+        )
+
+        fade:Play()
+
+        fade.Completed:Connect(function()
+            if redCC and redCC.Parent then
+                redCC:Destroy()
+            end
+        end)
+
+        task.wait(2.8)
+
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+
         local entity = spawner.Create({
             Entity = {
                 Name = "Ripper",
                 Asset = "rbxassetid://123958522081318",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 }, 
-                Shatter = false, 
-                Repair = false 
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = false,
+                Repair = false
             },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 270, Delay = 0, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Earthquake = {
+                Enabled = true
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+            Movement = {
+                Speed = 270,
+                Delay = 0,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = false
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 0
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6170,16 +6255,20 @@ Tabs.Main:AddButton({
         entity:SetCallback("OnSpawned", function()
             task.spawn(function()
                 local ripper = workspace:WaitForChild("Ripper", 5)
+
                 if ripper then
                     local soundGroup = ripper:FindFirstChild("SoundGroup")
+
                     if soundGroup then
                         local amb = soundGroup:FindFirstChild("Ambience_Ripper")
+
                         if amb then
                             amb:Stop()
                             amb.Volume = 0
                         end
 
                         local scream = soundGroup:FindFirstChild("Nightmare Yelling Bursts Of Distorted Scream (SFX)")
+
                         if scream then
                             scream:Stop()
                             scream.Volume = 0
@@ -6188,18 +6277,6 @@ Tabs.Main:AddButton({
                 end
             end)
         end)
-
-   entity:SetCallback("OnDespawned", function()    
-    if redCC then
-        redCC:Destroy()
-    end
-
-    local foundCC = game:GetService("Lighting"):FindFirstChild("RipperRedCC")
-    if foundCC then
-        foundCC:Destroy()
-    end
-end)
-   
 
         entity:Run()
 
@@ -6210,21 +6287,25 @@ end)
         })
     end
 })
- 
--- Spawn Cease
+
 Tabs.Main:AddButton({
     Title = "Spawn Cease Old",
     Description = "Spawn Cease",
     Callback = function()
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
+
         local sound1 = Instance.new("Sound")
         sound1.Name = "CeaseSound1"
         sound1.SoundId = "rbxassetid://9125632539"
         sound1.PlaybackSpeed = 0.5
-        sound1.Pitch = 0.5 -- Setting pitch langsung
+        sound1.Pitch = 0.5
         sound1.Volume = 1
-        sound1.Parent = game:GetService("SoundService")
+        sound1.Parent = SoundService
         sound1:Play()
-        game:GetService("Debris"):AddItem(sound1, 10)
+        Debris:AddItem(sound1, 10)
 
         local sound2 = Instance.new("Sound")
         sound2.Name = "CeaseSound2"
@@ -6232,38 +6313,80 @@ Tabs.Main:AddButton({
         sound2.PlaybackSpeed = 1
         sound2.Pitch = 1
         sound2.Volume = 1
-        sound2.Parent = game:GetService("SoundService")
+        sound2.Parent = SoundService
         sound2:Play()
-        game:GetService("Debris"):AddItem(sound2, 10)
+        Debris:AddItem(sound2, 10)
 
         local purpleCC = Instance.new("ColorCorrectionEffect")
         purpleCC.Name = "CeasePurpleCC"
-        purpleCC.TintColor = Color3.fromRGB(128, 0, 128) -- Warna Ungu
+        purpleCC.TintColor = Color3.fromRGB(128, 0, 128)
         purpleCC.Saturation = 0.2
         purpleCC.Contrast = 0.1
-        purpleCC.Parent = game:GetService("Lighting")
+        purpleCC.Parent = Lighting
+
+        local fade = TweenService:Create(
+            purpleCC,
+            TweenInfo.new(5),
+            {
+                TintColor = Color3.new(1, 1, 1),
+                Saturation = 0,
+                Contrast = 0
+            }
+        )
+
+        fade:Play()
+
+        fade.Completed:Connect(function()
+            if purpleCC and purpleCC.Parent then
+                purpleCC:Destroy()
+            end
+        end)
 
         task.wait(2.8)
 
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+
         local entity = spawner.Create({
             Entity = {
                 Name = "Cease",
                 Asset = "rbxassetid://11547018893",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 }, 
-                Shatter = false, 
-                Repair = false 
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = false,
+                Repair = false
             },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 270, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Earthquake = {
+                Enabled = true
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+            Movement = {
+                Speed = 20,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = false
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 0
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6273,12 +6396,6 @@ Tabs.Main:AddButton({
                 Cause = "Cease"
             }
         })
-
-        entity:SetCallback("OnDespawned", function()
-            if purpleCC then
-                purpleCC:Destroy()
-            end
-        end)
 
         entity:Run()
 
@@ -6290,21 +6407,24 @@ Tabs.Main:AddButton({
     end
 })
 
--- Spawn Cease Current
 Tabs.Main:AddButton({
     Title = "Spawn Cease Current",
-    Description = "Delay 2.8s + Efek Ungu",
+    Description = "?",
     Callback = function()
-        -- Play Sound 1
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
+
         local sound1 = Instance.new("Sound")
         sound1.Name = "CeaseSound1"
         sound1.SoundId = "rbxassetid://9125632539"
         sound1.PlaybackSpeed = 0.5
         sound1.Pitch = 0.5
         sound1.Volume = 1
-        sound1.Parent = game:GetService("SoundService")
+        sound1.Parent = SoundService
         sound1:Play()
-        game:GetService("Debris"):AddItem(sound1, 10)
+        Debris:AddItem(sound1, 10)
 
         local sound2 = Instance.new("Sound")
         sound2.Name = "CeaseSound2"
@@ -6312,38 +6432,80 @@ Tabs.Main:AddButton({
         sound2.PlaybackSpeed = 1
         sound2.Pitch = 1
         sound2.Volume = 1
-        sound2.Parent = game:GetService("SoundService")
+        sound2.Parent = SoundService
         sound2:Play()
-        game:GetService("Debris"):AddItem(sound2, 10)
+        Debris:AddItem(sound2, 10)
 
         local purpleCC = Instance.new("ColorCorrectionEffect")
         purpleCC.Name = "CeaseCurrentPurpleCC"
         purpleCC.TintColor = Color3.fromRGB(128, 0, 128)
         purpleCC.Saturation = 0.2
         purpleCC.Contrast = 0.1
-        purpleCC.Parent = game:GetService("Lighting")
+        purpleCC.Parent = Lighting
+
+        local fade = TweenService:Create(
+            purpleCC,
+            TweenInfo.new(5),
+            {
+                TintColor = Color3.new(1, 1, 1),
+                Saturation = 0,
+                Contrast = 0
+            }
+        )
+
+        fade:Play()
+
+        fade.Completed:Connect(function()
+            if purpleCC and purpleCC.Parent then
+                purpleCC:Destroy()
+            end
+        end)
 
         task.wait(2.8)
 
         local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+
         local entity = spawner.Create({
             Entity = {
                 Name = "Cease Current",
                 Asset = "rbxassetid://12797515632",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false Duration = 2 }, 
-                Shatter = false, 
-                Repair = false 
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = false,
+                Repair = false
             },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 270, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Earthquake = {
+                Enabled = true
+            },
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+            Movement = {
+                Speed = 270,
+                Delay = 2,
+                Reversed = false
+            },
+            Rebounding = {
+                Enabled = false
+            },
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 0
+            },
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6353,12 +6515,6 @@ Tabs.Main:AddButton({
                 Cause = "Cease Current"
             }
         })
-
-        entity:SetCallback("OnDespawned", function()
-            if purpleCC then
-                purpleCC:Destroy()
-            end
-        end)
 
         entity:Run()
 
@@ -6373,17 +6529,22 @@ Tabs.Main:AddButton({
 -- Spawn Cease Remake
 Tabs.Main:AddButton({
     Title = "Spawn Cease Remake",
-    Description = "Delay 2.8s + Efek Ungu",
+    Description = "?",
     Callback = function()
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
+
         local sound1 = Instance.new("Sound")
         sound1.Name = "CeaseSound1"
         sound1.SoundId = "rbxassetid://9125632539"
         sound1.PlaybackSpeed = 0.5
         sound1.Pitch = 0.5
         sound1.Volume = 10
-        sound1.Parent = game:GetService("SoundService")
+        sound1.Parent = SoundService
         sound1:Play()
-        game:GetService("Debris"):AddItem(sound1, 10)
+        Debris:AddItem(sound1, 10)
 
         local sound2 = Instance.new("Sound")
         sound2.Name = "CeaseSound2"
@@ -6391,38 +6552,92 @@ Tabs.Main:AddButton({
         sound2.PlaybackSpeed = 1
         sound2.Pitch = 1
         sound2.Volume = 10
-        sound2.Parent = game:GetService("SoundService")
+        sound2.Parent = SoundService
         sound2:Play()
-        game:GetService("Debris"):AddItem(sound2, 10)
+        Debris:AddItem(sound2, 10)
 
         local purpleCC = Instance.new("ColorCorrectionEffect")
         purpleCC.Name = "CeaseRemakePurpleCC"
         purpleCC.TintColor = Color3.fromRGB(128, 0, 128)
         purpleCC.Saturation = 0.2
         purpleCC.Contrast = 0.1
-        purpleCC.Parent = game:GetService("Lighting")
-   
+        purpleCC.Parent = Lighting
+                 wait(2)
+                    if purpleCC and purpleCC.Parent then
+                local fade = TweenService:Create(
+                    purpleCC,
+                    TweenInfo.new(1.5),
+                    {
+                        TintColor = Color3.new(1, 1, 1),
+                        Saturation = 0,
+                        Contrast = 0
+                    }
+                )
+
+                fade:Play()
+
+                fade.Completed:Connect(function()
+                    if purpleCC and purpleCC.Parent then
+                        purpleCC:Destroy()
+                    end
+                end)
+            end
+            
         task.wait(2.8)
 
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+        local spawner = loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"
+        ))()
+
         local entity = spawner.Create({
             Entity = {
                 Name = "Cease Remake",
                 Asset = "rbxassetid://16167836521",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 }, 
-                Shatter = false, 
-                Repair = false 
+
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = false,
+                Repair = false
             },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 270, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+
+            Earthquake = {
+                Enabled = true
+            },
+
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+
+            Movement = {
+                Speed = 270,
+                Delay = 2,
+                Reversed = false
+            },
+
+            Rebounding = {
+                Enabled = false
+            },
+
+            Damage = {
+                Enabled = false,
+                Range = 40,
+                Amount = 0
+            },
+
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6434,9 +6649,7 @@ Tabs.Main:AddButton({
         })
 
         entity:SetCallback("OnDespawned", function()
-            if purpleCC then
-                purpleCC:Destroy()
-            end
+
         end)
 
         entity:Run()
@@ -6549,7 +6762,7 @@ Tabs.Main:AddButton({
             CameraShake = { Enabled = true, Range = 100, Values = { 1.5, 15, 0.1, 1 } },
             Movement = { Speed = 30, Delay = 2, Reversed = false },
             Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 }, -- Damage di-false
+            Damage = { Enabled = false, Range = 40, Amount = 0 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
             Death = {
                 Type = "Guiding",
@@ -6632,43 +6845,71 @@ Tabs.Main:AddButton({
             end)
         end
 
-        task.wait(25)
+        task.wait(20)
+local spawner = loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"
+        ))()        
 
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
         local entity = spawner.Create({
-            Entity = {
-                Name = "Smiler",
-                Asset = "rbxassetid://16618965725",
-                HeightOffset = 0
-            },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 },
-                Shatter = true, 
-                Repair = false 
-            },
-            Earthquake = { Enabled = False },
-            CameraShake = Enabled = false, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 600, Delay = 2, Reversed = false },
-            Rebounding = { 
-                Enabled = true,
-                Max = 10,        
-                Delay = 3      
-            },
-            Damage = { Enabled = false, Range = 40, Amount = 100 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
-            Death = {
-                Type = "Guiding",
-                Hints = {
-                    "You died to Smiler...",
-                    "Hide when you hear or see it!"
-                },
-                Cause = "Smiler"
-            }
-        })
+    Entity = {
+        Name = "Smiler",
+        Asset = "rbxassetid://16618965725",
+        HeightOffset = 0
+    },
 
-        entity:Run()
+    Lights = {
+        Flicker = {
+            Enabled = false,
+            Duration = 2
+        },
+        Shatter = true,
+        Repair = false
+    },
 
+    Earthquake = {
+        Enabled = false
+    },
+
+    CameraShake = {
+        Enabled = false,
+        Range = 100,
+        Values = { 2.5, 25, 0.1, 1 }
+    },
+
+    Movement = {
+        Speed = 600,
+        Delay = 2,
+        Reversed = false
+    },
+
+    Rebounding = {
+        Enabled = true,
+        Max = 10,
+        Delay = 3
+    },
+
+    Damage = {
+        Enabled = false,
+        Range = 40,
+        Amount = 100
+    },
+
+    Crucifixion = {
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+
+    Death = {
+        Type = "Guiding",
+        Hints = {
+            "You died to Smiler...",
+            "Hide when you hear or see it!"
+        },
+        Cause = "Smiler"
+    }
+})
         Fluent:Notify({
             Title = "Spawned",
             Content = "Smiler spawned!",
@@ -6677,52 +6918,112 @@ Tabs.Main:AddButton({
     end
 })
 
--- Spawn WH1T3
 Tabs.Main:AddButton({
     Title = "Spawn WH1T3",
-    Description = "EQ Sound + Delay 2.8s + Merah Tua",
+    Description = "?",
     Callback = function()
+        local SoundService = game:GetService("SoundService")
+        local Lighting = game:GetService("Lighting")
+        local TweenService = game:GetService("TweenService")
+        local Debris = game:GetService("Debris")
+
         local sound = Instance.new("Sound")
         sound.Name = "WH1T3Sound"
         sound.SoundId = "rbxassetid://131489490"
         sound.Volume = 1
-        sound.Parent = game:GetService("SoundService")
+        sound.Parent = SoundService
 
         local eq = Instance.new("EqualizerSoundEffect")
         eq.HighGain = 10
         eq.Parent = sound
 
         sound:Play()
-        game:GetService("Debris"):AddItem(sound, 10)
+        Debris:AddItem(sound, 10)
 
         local redCC = Instance.new("ColorCorrectionEffect")
         redCC.Name = "WH1T3RedCC"
-        redCC.TintColor = Color3.fromRGB(139, 0, 0) -- Merah Tua
+        redCC.TintColor = Color3.fromRGB(139, 0, 0)
         redCC.Saturation = 0.3
         redCC.Contrast = 0.2
-        redCC.Parent = game:GetService("Lighting")
+        redCC.Parent = Lighting
+
+        task.delay(10, function()
+            if redCC and redCC.Parent then
+                local fade = TweenService:Create(
+                    redCC,
+                    TweenInfo.new(2),
+                    {
+                        TintColor = Color3.new(1, 1, 1),
+                        Saturation = 0,
+                        Contrast = 0
+                    }
+                )
+
+                fade:Play()
+
+                fade.Completed:Connect(function()
+                    if redCC and redCC.Parent then
+                        redCC:Destroy()
+                    end
+                end)
+            end
+        end)
 
         task.wait(2.8)
 
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-        
+        local spawner = loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"
+        ))()
+
         local entity = spawner.Create({
             Entity = {
                 Name = "WH1T3",
                 Asset = "rbxassetid://17609670648",
                 HeightOffset = 0
             },
-            Lights = { 
-                Flicker = { Enabled = false, Duration = 2 }, 
-                Shatter = true, 
-                Repair = false 
+
+            Lights = {
+                Flicker = {
+                    Enabled = false,
+                    Duration = 2
+                },
+                Shatter = true,
+                Repair = false
             },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = true, Range = 40, Amount = 100 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+
+            Earthquake = {
+                Enabled = true
+            },
+
+            CameraShake = {
+                Enabled = true,
+                Range = 100,
+                Values = {2.5, 25, 0.1, 1}
+            },
+
+            Movement = {
+                Speed = 200,
+                Delay = 2,
+                Reversed = false
+            },
+
+            Rebounding = {
+                Enabled = false
+            },
+
+            Damage = {
+                Enabled = true,
+                Range = 40,
+                Amount = 100
+            },
+
+            Crucifixion = {
+                Enabled = true,
+                Range = 40,
+                Resist = false,
+                Break = true
+            },
+
             Death = {
                 Type = "Guiding",
                 Hints = {
@@ -6734,8 +7035,24 @@ Tabs.Main:AddButton({
         })
 
         entity:SetCallback("OnDespawned", function()
-            if redCC then
-                redCC:Destroy()
+            if redCC and redCC.Parent then
+                local fade = TweenService:Create(
+                    redCC,
+                    TweenInfo.new(1.5),
+                    {
+                        TintColor = Color3.new(1, 1, 1),
+                        Saturation = 0,
+                        Contrast = 0
+                    }
+                )
+
+                fade:Play()
+
+                fade.Completed:Connect(function()
+                    if redCC and redCC.Parent then
+                        redCC:Destroy()
+                    end
+                end)
             end
         end)
 
@@ -6747,7 +7064,8 @@ Tabs.Main:AddButton({
             Duration = 3
         })
     end
-})
+})       
+               
 
 Tabs.Main:AddButton({
     Title = "Spawn Blink",
@@ -6807,7 +7125,7 @@ Tabs.Main:AddButton({
 
 Tabs.Main:AddButton({
     Title = "Spawn Whisper",
-    Description = "Aman Bergerak (Tidak Mati)",
+    Description = "?",
     Callback = function()
         ---====== Services ======---
         local Players = game:GetService("Players")
@@ -6925,7 +7243,6 @@ Tabs.Main:AddButton({
     end
 })
 
--- Spawn Admiration (Tanpa Damage)
 Tabs.Main:AddButton({
     Title = "Spawn Admiration",
     Description = "?",
@@ -6987,7 +7304,6 @@ Tabs.Main:AddButton({
         })
     end
 })
-
 
 Tabs.CustomItems:AddParagraph({
     Title = "📦 Custom Items",
