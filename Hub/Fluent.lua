@@ -7549,6 +7549,7 @@ Tabs.Main:AddButton({
         blur.Parent = game:GetService("Lighting")
 
         local badgeAwarded = false
+
         local function cleanupAndBadge()
             if blur and blur.Parent then
                 blur:Destroy()
@@ -7556,7 +7557,7 @@ Tabs.Main:AddButton({
             if not badgeAwarded then
                 badgeAwarded = true
                 achievementGiver({
-                    Title = "Ilussion",
+                    Title = "Illusion",
                     Desc = "I Need Glasses",
                     Reason = "Encounter Fallacy",
                     Image = "rbxassetid://18195106126"
@@ -7564,18 +7565,18 @@ Tabs.Main:AddButton({
             end
         end
 
-       local Function CrucifixDespawn()
-               badgeAwarded = true
-              achievementGiver({
-                    Title = "Aaaah!!!",
-                    Desc = "How can you be blind but still be able to make me disappear?",
-                    Reason = "Use Crucifix Against Fallacy",
-                    Image = "rbxassetid://18195106126"
-                })
+        local function CrucifixDespawn()
+            badgeAwarded = true
+            achievementGiver({
+                Title = "Aaaah!!!",
+                Desc = "How can you be blind but still be able to make me disappear?",
+                Reason = "Use Crucifix Against Fallacy",
+                Image = "rbxassetid://18195106126"
+            })
             if blur and blur.Parent then
                 blur:Destroy()
-          end
-     end  
+            end
+        end
 
         local entity = spawner.Create({
             Entity = {
@@ -7583,21 +7584,21 @@ Tabs.Main:AddButton({
                 Asset = "rbxassetid://85256610261662",
                 HeightOffset = 0
             },
-            Lights = { 
+            Lights = {
                 Flicker = { Enabled = true, Duration = 2 },
-                Shatter = true, 
-                Repair = false 
+                Shatter = true,
+                Repair = false
             },
             Earthquake = { Enabled = true },
             CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
             Movement = { Speed = 10000, Delay = 5, Reversed = false },
             Rebounding = {
-		Enabled = true,
-		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 5,
-		Delay = 2
-	},
+                Enabled = true,
+                Type = "Ambush",
+                Min = 1,
+                Max = 5,
+                Delay = 2
+            },
             Damage = { Enabled = false, Range = 40, Amount = 100 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
             Death = {
@@ -7621,8 +7622,9 @@ Tabs.Main:AddButton({
             cleanupAndBadge()
         end)
 
-        entity:SetCallback("OnCrucified", function()
+        entity:SetCallback("CrucifixionOverwrite", function()
             CrucifixDespawn()
+            entity:Despawn()
         end)
 
         entity:Run()
@@ -8022,48 +8024,7 @@ Tabs.Main:AddButton({
         
         Fluent:Notify({
             Title = "Spawned",
-            Content = "Nightmare Hunger spawned 25 studs in front!",
-            Duration = 3
-        })
-    end
-})
-
--- Spawn Shriek
-Tabs.Main:AddButton({
-    Title = "Spawn Shriek",
-    Description = "?",
-    Callback = function()
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
-
-        local entity = spawner.Create({
-            Entity = {
-                Name = "Shriek",
-                Asset = "rbxassetid://86721794724388",
-                HeightOffset = 0
-            },
-            Lights = { 
-                Flicker = { Enabled = true, Duration = 2 },
-                Shatter = true, 
-                Repair = false 
-            },
-            Earthquake = { Enabled = false },
-            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 180, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false },
-            Crucifixion = { Enabled = false },
-            Death = {
-                Type = "Guiding",
-                Hints = { "You encountered Shriek..." },
-                Cause = "Shriek"
-            }
-        })
-
-        entity:Run()
-
-        Fluent:Notify({
-            Title = "Spawned",
-            Content = "Shriek spawned!",
+            Content = "Nightmare Hunger!",
             Duration = 3
         })
     end
@@ -8110,7 +8071,6 @@ Tabs.Main:AddButton({
     end
 })
 
--- Spawn ??
 Tabs.Main:AddButton({
     Title = "Spawn ??",
     Description = "?",
@@ -8131,7 +8091,7 @@ Tabs.Main:AddButton({
             Earthquake = { Enabled = false },
             CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
             Movement = { Speed = 100, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = true, Max = 15, Delay = 1.5 },
+            Rebounding = { Enabled = true, Type = "Ambush", Min = 3, Max = 15, Delay = 1.5 },
             Damage = { Enabled = false },
             Crucifixion = { Enabled = false },
             Death = {
@@ -8140,6 +8100,34 @@ Tabs.Main:AddButton({
                 Cause = "??"
             }
         })
+
+        entity:SetCallback("OnSpawned", function()
+            pcall(function()
+                local model = workspace:FindFirstChild("??")
+                if model then
+                    local newPart = model:FindFirstChild("???New")
+                    if newPart then
+                        local attach = newPart:FindFirstChild("Attachment")
+                        if attach then
+                            local emitter = attach:FindFirstChild("ParticleEmitter")
+                            if emitter then
+                                emitter.LockedToPart = true
+                            end
+                        end
+                        
+                        local playSound = newPart:FindFirstChild("PlaySound")
+                        if playSound then
+                            playSound.Playing = true
+                        end
+                        
+                        local footsteps = newPart:FindFirstChild("Footsteps")
+                        if footsteps then
+                            footsteps.Playing = true
+                        end
+                    end
+                end
+            end)
+        end)
 
         entity:Run()
 
