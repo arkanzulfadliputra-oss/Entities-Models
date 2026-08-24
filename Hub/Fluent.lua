@@ -5363,45 +5363,60 @@ Tabs.Main:AddButton({
     end
 })
 
--- Spawn Hunger Hardcore
 Tabs.Main:AddButton({
     Title = "Spawn Hunger Hardcore",
-    Description = "?",
+    Description = "Spawn Hunger Hardcore",
     Callback = function()
-        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
         
-        local entity = spawner.Create({
-            Entity = {
-                Name = "Hunger Hardcore",
-                Asset = "rbxassetid://136064945135625",
-                HeightOffset = 0
-            },
-            Lights = { 
-                Flicker = { Enabled = true, Duration = 2.5 }, 
-                Shatter = true, 
-                Repair = false 
-            },
-            Earthquake = { Enabled = true },
-            CameraShake = { Enabled = true, Range = 125, Values = { 3.5, 38, 0.1, 1 } },
-            Movement = { Speed = 305, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = false, Range = 40, Amount = 0 },
-            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
-            Death = {
-                Type = "Guiding",
-                Hints = {
-                    "You died to Hunger Hardcore...",
-                    "It moves extremely fast, stay hidden!"
-                },
-                Cause = "Hunger Hardcore"
-            }
-        })
-
-        entity:Run()
-
+        if not HumanoidRootPart then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "HumanoidRootPart not found!",
+                Duration = 3
+            })
+            return
+        end
+        
+        local model = game:GetObjects("rbxassetid://136064945135625")[1]
+        if not model then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Hunger Hardcore model!",
+                Duration = 3
+            })
+            return
+        end
+        
+        model.Name = "Hunger Hardcore"
+        model.Parent = workspace
+        
+        if model:IsA("Model") then
+            model:PivotTo(HumanoidRootPart.CFrame * CFrame.new(0, 0, -25))
+        elseif model:IsA("BasePart") then
+            model.CFrame = HumanoidRootPart.CFrame * CFrame.new(0, 0, -25)
+        end
+        
+        local function onRoomChanged()
+            if model and model.Parent then
+                model:Destroy()       
+            end
+        end
+        
+        local latestRoom = game:GetService("ReplicatedStorage"):FindFirstChild("GameData")
+        if latestRoom then
+            latestRoom = latestRoom:FindFirstChild("LatestRoom")
+            if latestRoom then
+                latestRoom.Changed:Connect(onRoomChanged)
+            end
+        end
+        
         Fluent:Notify({
             Title = "Spawned",
-            Content = "Hunger Hardcore spawned!",
+            Content = "Hunger Hardcore spawned",
             Duration = 3
         })
     end
@@ -7300,6 +7315,358 @@ Tabs.Main:AddButton({
         Fluent:Notify({
             Title = "Spawned",
             Content = "Admiration spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Shriek",
+    Description = "Spawn Shriek",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Shriek",
+                Asset = "rbxassetid://78154795147899",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You Died By Shriek"
+                },
+                Cause = "Shriek"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Shriek spawned",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Lurk
+Tabs.Main:AddButton({
+    Title = "Spawn Lurk",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Lurk",
+                Asset = "rbxassetid://90001362624778",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Lurk...",
+                    "Hide before it catches you!"
+                },
+                Cause = "Lurk"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Lurk spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Hurtle
+Tabs.Main:AddButton({
+    Title = "Spawn Hurtle",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Hurtle",
+                Asset = "rbxassetid://134532894980435",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 210, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You Died By Hurtle..."
+                },
+                Cause = "Hurtle"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Hurtle spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Cower
+Tabs.Main:AddButton({
+    Title = "Spawn Cower",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Cower",
+                Asset = "rbxassetid://80803855313590",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 2, Reversed = false }, -- Kecepatan diubah lebih tinggi (250)
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You Died By Cower..."
+                },
+                Cause = "Cower"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Cower spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Silence Remakes
+Tabs.Main:AddButton({
+    Title = "Spawn Silence Remakes",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Silence Remakes",
+                Asset = "rbxassetid://79086731147729",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Silence Remakes...",
+                    "Hide before it catches you!"
+                },
+                Cause = "Silence Remakes"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Silence Remakes spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Fallacy",
+    Description = "I Need Glasses",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+        local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+        local blur = Instance.new("BlurEffect")
+        blur.Name = "FallacyBlur"
+        blur.Size = 25
+        blur.Parent = game:GetService("Lighting")
+
+        local badgeAwarded = false
+        local function cleanupAndBadge()
+            if blur and blur.Parent then
+                blur:Destroy()
+            end
+            if not badgeAwarded then
+                badgeAwarded = true
+                achievementGiver({
+                    Title = "Ilussion",
+                    Desc = "I Need Glasses",
+                    Reason = "And Suddenly, I'm Nearsighted",
+                    Image = "rbxassetid://18195106126"
+                })
+            end
+        end
+
+       local Function CrucifixDespawn()
+               badgeAwarded = true
+              achievementGiver({
+                    Title = "Ilussion",
+                    Desc = "I Need Glasses",
+                    Reason = "And Suddenly, I'm Nearsighted",
+                    Image = "rbxassetid://18195106126"
+                })
+            if blur and blur.Parent then
+                blur:Destroy()
+          end
+     end  
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Fallacy",
+                Asset = "rbxassetid://85256610261662",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = true, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Fallacy...",
+                    "Your vision gets blurry when it approaches!"
+                },
+                Cause = "Fallacy"
+            }
+        })
+
+        entity:SetCallback("OnSpawned", function()
+            pcall(function()
+                local player = game:GetService("Players").LocalPlayer
+                require(player.PlayerGui.MainUI.Initiator.Main_Game).caption("I Need Glasses\nAnd Suddenly, I'm Nearsighted", true)
+            end)
+        end)
+
+        entity:SetCallback("OnDespawned", function()
+            cleanupAndBadge()
+        end)
+
+        entity:SetCallback("OnCrucified", function()
+            CrucifixDespawn()
+        end)
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Fallacy spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Greed Remakes",
+    Description = "Spawn Greed Remakes Entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Greed Remakes",
+                Asset = "rbxassetid://108804221290880",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = true },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = true, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Greed Remakes...",
+                    "Hide when you hear it approaching!"
+                },
+                Cause = "Greed Remakes"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Greed Remakes spawned!",
             Duration = 3
         })
     end
