@@ -7558,7 +7558,7 @@ Tabs.Main:AddButton({
                 achievementGiver({
                     Title = "Ilussion",
                     Desc = "I Need Glasses",
-                    Reason = "And Suddenly, I'm Nearsighted",
+                    Reason = "Encounter Fallacy",
                     Image = "rbxassetid://18195106126"
                 })
             end
@@ -7567,9 +7567,9 @@ Tabs.Main:AddButton({
        local Function CrucifixDespawn()
                badgeAwarded = true
               achievementGiver({
-                    Title = "Ilussion",
-                    Desc = "I Need Glasses",
-                    Reason = "And Suddenly, I'm Nearsighted",
+                    Title = "Aaaah!!!",
+                    Desc = "How can you be blind but still be able to make me disappear?",
+                    Reason = "Use Crucifix Against Fallacy",
                     Image = "rbxassetid://18195106126"
                 })
             if blur and blur.Parent then
@@ -7590,9 +7590,15 @@ Tabs.Main:AddButton({
             },
             Earthquake = { Enabled = true },
             CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
-            Movement = { Speed = 200, Delay = 2, Reversed = false },
-            Rebounding = { Enabled = false },
-            Damage = { Enabled = true, Range = 40, Amount = 100 },
+            Movement = { Speed = 10000, Delay = 5, Reversed = false },
+            Rebounding = {
+		Enabled = true,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 5,
+		Delay = 2
+	},
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
             Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
             Death = {
                 Type = "Guiding",
@@ -7669,6 +7675,785 @@ Tabs.Main:AddButton({
             Content = "Greed Remakes spawned!",
             Duration = 3
         })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn LSPLASH Devs",
+    Description = "Spawn LSPLASH Devs Entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "LSPLASH Devs",
+                Asset = "rbxassetid://98446655007430",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to LSPLASH Devs...",
+                    "Hide when you hear them coming!"
+                },
+                Cause = "LSPLASH Devs"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "LSPLASH Devs spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn C-60",
+    Description = "Spawn C-60 Entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "C-60",
+                Asset = "rbxassetid://85468307858784",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Max = 10, Delay = 3},
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to C-60...",
+                    "Hide as soon as you hear it coming!"
+                },
+                Cause = "C-60"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "C-60 spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Dream Eye",
+    Description = "Spawn Dream Eye",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+        
+        if not HumanoidRootPart then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "HumanoidRootPart not found!",
+                Duration = 3
+            })
+            return
+        end
+        
+        local model = game:GetObjects("rbxassetid://102934950711809")[1]
+        if not model then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Dream Eye model!",
+                Duration = 3
+            })
+            return
+        end
+        
+        model.Name = "Dream Eye"
+        model.Parent = workspace
+        
+        if model:IsA("Model") then
+            model:PivotTo(HumanoidRootPart.CFrame * CFrame.new(0, 0, -25))
+        elseif model:IsA("BasePart") then
+            model.CFrame = HumanoidRootPart.CFrame * CFrame.new(0, 0, -25)
+        end
+        
+        local function onRoomChanged()
+            if model and model.Parent then
+                model:Destroy()            
+            end
+        end
+        
+        local latestRoom = game:GetService("ReplicatedStorage"):FindFirstChild("GameData")
+        if latestRoom then
+            latestRoom = latestRoom:FindFirstChild("LatestRoom")
+            if latestRoom then
+                latestRoom.Changed:Connect(onRoomChanged)
+            end
+        end
+        
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Dream Eye spawned",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Error Sans",
+    Description = "Spawn Error Sans Entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Error Sans",
+                Asset = "rbxassetid://122141797171903",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 10, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to Error Sans...",
+                    "Hide before it catches you!"
+                },
+                Cause = "Error Sans"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Error Sans spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn A-60 Hard Mode
+Tabs.Main:AddButton({
+    Title = "Spawn A-60 Hard Mode",
+    Description = "Spawn A-60 Hard Mode Entity",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "A-60",
+                Asset = "rbxassetid://12309073114", -- Asset standard A-60 Hard Mode
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 1 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 3.5, 30, 0.1, 1 } },
+            Movement = { Speed = 320, Delay = 1, Reversed = false }, -- Kecepatan lebih tinggi untuk Hard Mode
+            Rebounding = { Enabled = true, Max = 2, Delay = 1 },
+            Damage = { Enabled = false, Range = 40, Amount = 100 },
+            Crucifixion = { Enabled = true, Range = 40, Resist = false, Break = true },
+            Death = {
+                Type = "Guiding",
+                Hints = {
+                    "You died to A-60 in Hard Mode...",
+                    "It moves much faster and rebounds! Hide immediately when lights flicker!"
+                },
+                Cause = "A-60 (Hard Mode)"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "A-60 Hard Mode spawned!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Insanity Hunger",
+    Description = "?",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+        
+        if not HumanoidRootPart then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "HumanoidRootPart not found!",
+                Duration = 3
+            })
+            return
+        end
+        
+        local model = game:GetObjects("rbxassetid://104467385063190")[1]
+        if not model then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Insanity Hunger model!",
+                Duration = 3
+            })
+            return
+        end
+        
+        model.Name = "Insanity Hunger"
+        model.Parent = workspace
+        
+        if model:IsA("Model") then
+            model:PivotTo(HumanoidRootPart.CFrame * CFrame.new(0, 0, -25))
+        elseif model:IsA("BasePart") then
+            model.CFrame = HumanoidRootPart.CFrame * CFrame.new(0, 0, -25)
+        end
+        
+        local function onRoomChanged()
+            if model and model.Parent then
+                model:Destroy()
+            end
+        end
+        
+        local latestRoom = game:GetService("ReplicatedStorage"):FindFirstChild("GameData")
+        if latestRoom then
+            latestRoom = latestRoom:FindFirstChild("LatestRoom")
+            if latestRoom then
+                latestRoom.Changed:Connect(onRoomChanged)
+            end
+        end
+        
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Insanity Hunger spawned 25 studs in front!",
+            Duration = 3
+        })
+    end
+})
+
+Tabs.Main:AddButton({
+    Title = "Spawn Nightmare Hunger",
+    Description = "?",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+        
+        if not HumanoidRootPart then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "HumanoidRootPart not found!",
+                Duration = 3
+            })
+            return
+        end
+        
+        local model = game:GetObjects("rbxassetid://130986111096013")[1]
+        if not model then
+            Fluent:Notify({
+                Title = "Error",
+                Content = "Failed to load Nightmare Hunger model!",
+                Duration = 3
+            })
+            return
+        end
+        
+        model.Name = "Nightmare Hunger"
+        model.Parent = workspace
+        
+        if model:IsA("Model") then
+            model:PivotTo(HumanoidRootPart.CFrame * CFrame.new(0, 0, -25))
+        elseif model:IsA("BasePart") then
+            model.CFrame = HumanoidRootPart.CFrame * CFrame.new(0, 0, -25)
+        end
+        
+        local function onRoomChanged()
+            if model and model.Parent then
+                model:Destroy()
+            end
+        end
+        
+        local latestRoom = game:GetService("ReplicatedStorage"):FindFirstChild("GameData")
+        if latestRoom then
+            latestRoom = latestRoom:FindFirstChild("LatestRoom")
+            if latestRoom then
+                latestRoom.Changed:Connect(onRoomChanged)
+            end
+        end
+        
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Nightmare Hunger spawned 25 studs in front!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Shriek
+Tabs.Main:AddButton({
+    Title = "Spawn Shriek",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Shriek",
+                Asset = "rbxassetid://86721794724388",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = { "You encountered Shriek..." },
+                Cause = "Shriek"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Shriek spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Rage Rush
+Tabs.Main:AddButton({
+    Title = "Spawn Rage Rush",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Rage Rush",
+                Asset = "rbxassetid://85468307858784",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 3.5, 30, 0.1, 1 } },
+            Movement = { Speed = 250, Delay = 1, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = { "You encountered Rage Rush..." },
+                Cause = "Rage Rush"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Rage Rush spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn ??
+Tabs.Main:AddButton({
+    Title = "Spawn ??",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "??",
+                Asset = "rbxassetid://107773407231319",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Max = 15, Delay = 1.5 },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = { "You encountered ??..." },
+                Cause = "??"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "?? spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Rush But Bad
+Tabs.Main:AddButton({
+    Title = "Spawn Rush But Bad",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Rush But Bad",
+                Asset = "rbxassetid://75586110430547",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 100, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = { "You encountered Rush But Bad..." },
+                Cause = "Rush But Bad"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Rush But Bad spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Ambush But Bad
+Tabs.Main:AddButton({
+    Title = "Spawn Ambush But Bad",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Ambush But Bad",
+                Asset = "rbxassetid://112024106978802",
+                HeightOffset = 0
+            },
+            Lights = { 
+                Flicker = { Enabled = true, Duration = 2 },
+                Shatter = true, 
+                Repair = false 
+            },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 260, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Max = 3, Delay = 1.5 },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = {
+                Type = "Guiding",
+                Hints = { "You encountered Ambush But Bad..." },
+                Cause = "Ambush But Bad"
+            }
+        })
+
+        entity:Run()
+
+        Fluent:Notify({
+            Title = "Spawned",
+            Content = "Ambush But Bad spawned!",
+            Duration = 3
+        })
+    end
+})
+
+-- Spawn Depth But Bad
+Tabs.Main:AddButton({
+    Title = "Spawn Depth But Bad",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Depth But Bad",
+                Asset = "rbxassetid://97710668773893",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Depth But Bad..." }, Cause = "Depth But Bad" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Depth But Bad spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Whiz
+Tabs.Main:AddButton({
+    Title = "Spawn Whiz",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Whiz",
+                Asset = "rbxassetid://114736238378171",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Whiz..." }, Cause = "Whiz" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Whiz spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Srash
+Tabs.Main:AddButton({
+    Title = "Spawn Srash",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Srash",
+                Asset = "rbxassetid://125000658321411",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Srash..." }, Cause = "Srash" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Srash spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Busher
+Tabs.Main:AddButton({
+    Title = "Spawn Busher",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Busher",
+                Asset = "rbxassetid://78086667983166",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Busher..." }, Cause = "Busher" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Busher spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Electricity Ambush
+Tabs.Main:AddButton({
+    Title = "Spawn Electricity Ambush",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Electricity Ambush",
+                Asset = "rbxassetid://70995511327702",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 260, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Max = 3, Delay = 1.5 },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Electricity Ambush..." }, Cause = "Electricity Ambush" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Electricity Ambush spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Insanity Ambush
+Tabs.Main:AddButton({
+    Title = "Spawn Insanity Ambush",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Insanity Ambush",
+                Asset = "rbxassetid://132246821566024",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 260, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = true, Max = 4, Delay = 1.2 },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Insanity Ambush..." }, Cause = "Insanity Ambush" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Insanity Ambush spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Electricity Rush
+Tabs.Main:AddButton({
+    Title = "Spawn Electricity Rush",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Electricity Rush",
+                Asset = "rbxassetid://92733061205483",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 180, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Electricity Rush..." }, Cause = "Electricity Rush" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Electricity Rush spawned!", Duration = 3 })
+    end
+})
+
+-- Spawn Insanity Rush
+Tabs.Main:AddButton({
+    Title = "Spawn Insanity Rush",
+    Description = "?",
+    Callback = function()
+        local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+        local entity = spawner.Create({
+            Entity = {
+                Name = "Insanity Rush",
+                Asset = "rbxassetid://140376947825663",
+                HeightOffset = 0
+            },
+            Lights = { Flicker = { Enabled = true, Duration = 2 }, Shatter = true, Repair = false },
+            Earthquake = { Enabled = false },
+            CameraShake = { Enabled = true, Range = 100, Values = { 2.5, 25, 0.1, 1 } },
+            Movement = { Speed = 200, Delay = 2, Reversed = false },
+            Rebounding = { Enabled = false },
+            Damage = { Enabled = false },
+            Crucifixion = { Enabled = false },
+            Death = { Type = "Guiding", Hints = { "You encountered Insanity Rush..." }, Cause = "Insanity Rush" }
+        })
+
+        entity:Run()
+        Fluent:Notify({ Title = "Spawned", Content = "Insanity Rush spawned!", Duration = 3 })
     end
 })
 
