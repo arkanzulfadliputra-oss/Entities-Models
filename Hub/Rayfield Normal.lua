@@ -761,7 +761,7 @@ local ToggleKeybind = TabKeybinds:CreateKeybind({
    CurrentKeybind = "K",
    HoldToInteract = false,
    Callback = function()
-      Rayfield:Toggle()
+      Rayfield:SetVisibility(false)
    end,
 })
 
@@ -779,7 +779,7 @@ local SectionCredit = TabCredit:CreateSection("Credit")
 
 local Label = TabCredit:CreateLabel("Scripter By @ScripterGaming_Short", 4483362458, Color3.fromRGB(255, 255, 255), false)
 
-local Label = TabCredit:CreateLabel("Entities Models By C87FM", 4483362458, Color3.fromRGB(255, 255, 255), false)
+local Label = TabCredit:CreateLabel("Entities Models By ScriptGaming", 4483362458, Color3.fromRGB(255, 255, 255), false)
 
 local Label = TabCredit:CreateLabel("Owner By ScriptGaming", 4483362458, Color3.fromRGB(255, 255, 255), false)
 
